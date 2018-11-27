@@ -6,7 +6,7 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
     get static_pages_home_url
     assert_response :success
 
-    assert_select "title", "Home | CommonfloorClone"
+    assert_select "title", "CommonfloorClone"
   end
 
   test "should get help" do
