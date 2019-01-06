@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'bcrypt',                  '3.1.12'
-gem 'bootstrap',               '~> 4.1.3'
+gem 'bootstrap',               '~> 4.2.1'
 gem 'bootstrap-will_paginate', '1.0.0'
 gem 'carrierwave',             '1.2.2'
 gem 'coffee-rails',            '4.2.2'
