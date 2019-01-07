@@ -1,0 +1,21 @@
+/* mixins, variables, etc. */
+
+@mixin box_sizing {
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing:         border-box;
+}
+
+/* miscellaneous */
+
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+  @include box_sizing;
+  padding: 10px;
+  background-color: $gray-100;
+  border: 1px solid $gray-400;
+  border-radius: 4px;
+}
