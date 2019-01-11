@@ -1,0 +1,11 @@
+<% provide(:title, 'All users') %>
+<% provide(:users_index_page_active_status, 'active') %>
+<h1 class="text-center">All users</h1>
+
+<%= will_paginate(@users, renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer) %>
+
+<ul class="users">
+  <%= render @users %>
+</ul>
+
+<%= will_paginate(@users, renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer) %>
