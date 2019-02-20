@@ -4,13 +4,13 @@ class Property < ApplicationRecord
   before_save :downcase_property_type
   validates :user_id,         presence: true
   validates :owner_name,      presence: true, length: { maximum: 50 }
-  validates :property_type,   presence: true, inclusion: { in: %w(apartment plot
-                                                                  house) }
+  validates :property_type,   presence: true, inclusion: { in: %w(apartment
+                                                                  house plot) }
   validates :property_status, presence: true, inclusion: { in: %w[sell rent
                                                                   sold] }
   validates :bed_rooms,       presence: true, inclusion: { in: %w[na 1bhk 2bhk
                                                                   3bhk 4bhk
-                                                                  4bhk+] }
+                                                                  4+bhk] }
   validates :area,            presence: true, numericality: { greater_than: 0 }
   validates :price,           presence: true, numericality: { greater_than: 0 }
   validates :street_address,  presence: true

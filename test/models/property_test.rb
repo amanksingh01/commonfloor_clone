@@ -3,8 +3,8 @@ require 'test_helper'
 class PropertyTest < ActiveSupport::TestCase
   def setup
     @user = users(:aman)
-    @property = @user.properties.build(property_type:   "apartment",
-                                       owner_name:      "ajay sharma",
+    @property = @user.properties.build(owner_name:      "ajay sharma",
+                                       property_type:   "apartment",
                                        property_status: "sell",
                                        bed_rooms:       "3bhk",
                                        area:            "1500.50",

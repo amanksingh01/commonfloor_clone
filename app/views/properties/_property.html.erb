@@ -1,0 +1,22 @@
+<div class="col-md-6 col-lg-4">
+  <div class="card mb-3" id="property-<%= property.id %>">
+    <%= image_tag("house_02.jpg", class: "card-img-top",
+                                  alt:   "Property image") %>
+    <div class="card-body">
+      <h5 class="card-title">
+        <%= property.bed_rooms == 'na' ? (property.area + " sq. ft.") :
+                                          property.bed_rooms.upcase %>
+        <%= property.property_type.titleize %> for
+        <%= property.property_status %> in <%= property.locality.titleize %>,
+        <%= property.city.titleize %>
+      </h5>
+      <p class="card-text">&#x20b9 <%= property.price %></p>
+      <p class="card-text">
+        <small class="text-muted">
+          Added <%= time_ago_in_words(property.created_at) %> ago.
+        </small>
+      </p>
+      <%= link_to "View details", '#', class: "btn btn-primary" %>
+    </div>
+  </div>
+</div>
