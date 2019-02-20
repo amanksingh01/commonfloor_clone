@@ -1,0 +1,59 @@
+dum_dum:
+  owner_name: "person from dum dum"
+  property_type: "apartment"
+  property_status: "sell"
+  bed_rooms: "2bhk"
+  area: "600"
+  price: "2500000"
+  street_address: "11, dum dum road"
+  locality: "dum dum"
+  city: "kolkata"
+  state: "west bengal"
+  pincode: "700074"
+  country: "india"
+  created_at: <%= 10.minutes.ago %>
+
+salt_lake:
+  owner_name: "person from salt lake"
+  property_type: "apartment"
+  property_status: "rent"
+  bed_rooms: "2bhk"
+  area: "500"
+  price: "15000"
+  street_address: "21, salt lake road"
+  locality: "salt lake"
+  city: "kolkata"
+  state: "west bengal"
+  pincode: "700064"
+  country: "india"
+  created_at: <%= 2.months.ago %>
+
+lake_town:
+  owner_name: "person from lake town"
+  property_type: "apartment"
+  property_status: "rent"
+  bed_rooms: "3bhk"
+  area: "1200"
+  price: "20000"
+  street_address: "31, lake town road"
+  locality: "lake town"
+  city: "kolkata"
+  state: "west bengal"
+  pincode: "700089"
+  country: "india"
+  created_at: <%= 6.months.ago %>
+
+most_recent:
+  owner_name: "someone from somewhere"
+  property_type: "apartment"
+  property_status: "sell"
+  bed_rooms: "3bhk"
+  area: "1000"
+  price: "4000000"
+  street_address: "41, ultadanga road"
+  locality: "ultadanga"
+  city: "kolkata"
+  state: "west bengal"
+  pincode: "700067"
+  country: "india"
+  created_at: <%= Time.zone.now %>

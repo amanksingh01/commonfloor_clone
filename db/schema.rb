@@ -10,7 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190114070644) do
+ActiveRecord::Schema.define(version: 20190219035401) do
+
+  create_table "properties", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "owner_name"
+    t.string "property_type"
+    t.string "property_status"
+    t.string "bed_rooms"
+    t.string "area"
+    t.string "price"
+    t.string "street_address"
+    t.string "locality"
+    t.string "city"
+    t.string "state"
+    t.string "pincode"
+    t.string "country"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["area"], name: "index_properties_on_area"
+    t.index ["bed_rooms"], name: "index_properties_on_bed_rooms"
+    t.index ["city"], name: "index_properties_on_city"
+    t.index ["created_at"], name: "index_properties_on_created_at"
+    t.index ["locality"], name: "index_properties_on_locality"
+    t.index ["price"], name: "index_properties_on_price"
+    t.index ["property_status"], name: "index_properties_on_property_status"
+    t.index ["property_type"], name: "index_properties_on_property_type"
+    t.index ["user_id"], name: "index_properties_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name"

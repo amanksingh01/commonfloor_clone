@@ -99,4 +99,23 @@ class UserTest < ActiveSupport::TestCase
   test "authenticated? should return false for a user with nil digest" do
     assert_not @user.authenticated?(:remember, '')
   end
+
+  test "associated properties should be destroyed" do
+    @user.save
+    @user.properties.create!(property_type:   "apartment",
+                             owner_name:      "ajay sharma",
+                             property_status: "sell",
+                             bed_rooms:       "3bhk",
+                             area:            "1500.50",
+                             price:           "5000000",
+                             street_address:  "121, dum dum road",
+                             locality:        "dum dum",
+                             city:            "kolkata",
+                             state:           "west bengal",
+                             pincode:         "700074",
+                             country:         "india")
+    assert_difference 'Property.count', -1 do
+      @user.destroy
+    end
+  end
 end
