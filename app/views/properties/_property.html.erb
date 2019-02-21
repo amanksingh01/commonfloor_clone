@@ -1,5 +1,5 @@
 <div class="col-md-6 col-lg-4">
-  <div class="card mb-3" id="property-<%= property.id %>">
+  <div class="card border-success mb-3" id="property-<%= property.id %>">
     <%= image_tag("house_02.jpg", class: "card-img-top",
                                   alt:   "Property image") %>
     <div class="card-body">
@@ -16,7 +16,8 @@
           Added <%= time_ago_in_words(property.created_at) %> ago.
         </small>
       </p>
-      <%= link_to "View details", '#', class: "btn btn-primary" %>
+      <%= link_to "View details", property_path(property),
+                                  class: "btn btn-success" %>
     </div>
   </div>
 </div>

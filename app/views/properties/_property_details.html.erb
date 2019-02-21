@@ -1,0 +1,72 @@
+<div class="card border-success mb-3">
+  <%= image_tag("house_02.jpg", class: "card-img-top",
+                                alt:   "Property image") %>
+  <div class="card-body">
+    <p class="card-text">
+      Owner:
+      <span class="float-right"><%= @property.owner_name %></span>
+    </p>
+    <p class="card-text">
+      Type:
+      <span class="float-right"><%= @property.property_type.capitalize %></span>
+    </p>
+    <p class="card-text">
+      Status:
+      <span class="float-right">
+        <%= @property.property_status.capitalize %>
+      </span>
+    </p>
+    <p class="card-text">
+      Bed rooms:
+      <span class="float-right"><%= @property.bed_rooms.upcase %></span>
+    </p>
+    <p class="card-text">
+      Area:
+      <span class="float-right"><%= @property.area %> sq. ft.</span>
+    </p>
+    <p class="card-text">
+      Price:
+      <span class="float-right">&#x20b9 <%= @property.price %></span>
+    </p>
+    <p class="card-text">
+      Street address:
+      <span class="float-right"><%= @property.street_address.titleize %></span>
+    </p>
+    <p class="card-text">
+      Locality:
+      <span class="float-right"><%= @property.locality.titleize %></span>
+    </p>
+    <p class="card-text">
+      City:
+      <span class="float-right"><%= @property.city.titleize %></span>
+    </p>
+    <p class="card-text">
+      State:
+      <span class="float-right"><%= @property.state.titleize %></span>
+    </p>
+    <p class="card-text">
+      Pincode:
+      <span class="float-right"><%= @property.pincode %></span>
+    </p>
+    <p class="card-text">
+      Country:
+      <span class="float-right"><%= @property.country.titleize %></span>
+    </p>
+  </div>
+  <div class="card-footer bg-transparent border-success">
+    <p class="card-text">
+      Contact person:
+      <span class="float-right">
+        <%= link_to "#{@property.user.name}", user_path(@property.user) %>
+      </span>
+    </p>
+    <p class="card-text">
+      Contact number:
+      <span class="float-right"><%= @property.user.mobile_number %></span>
+    </p>
+    <% if logged_in? && current_user?(@property.user) %>
+      <%= link_to "Modify property details", "#", class: "btn btn-success" %>
+      <%= link_to "Delete property", "#", class: "btn btn-danger" %>
+    <% end %>
+  </div>
+</div>

@@ -1,4 +1,5 @@
 <% provide(:title, "Log in") %>
+<% provide(:login_page_active_status, "active") %>
 <h1 class="text-center">Log in</h1>
 
 <div class="row">
@@ -21,7 +22,7 @@
                                   class: "form-check-label" %>
       </div>
 
-      <%= f.submit "Log in", class: "btn btn-primary btn-block" %>
+      <%= f.submit "Log in", class: "btn btn-success btn-block" %>
     <% end %>
 
     <p class="my-3">New user? <%= link_to "Sign up now!", signup_path %></p>

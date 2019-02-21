@@ -17,6 +17,9 @@
         <li class="nav-item <%= yield(:help_page_active_status) %>">
           <%= link_to "Help", help_path, class: "nav-link"%>
         </li>
+        <li class="nav-item <%= yield(:properties_page_active_status) %>">
+          <%= link_to "Properties", properties_path, class: "nav-link"%>
+        </li>
         <% if logged_in? %>
           <li class="nav-item <%= yield(:users_index_page_active_status) %>">
             <%= link_to "Users", users_path, class: "nav-link" %>
@@ -37,7 +40,7 @@
             </div>
           </li>
         <% else %>
-          <li class="nav-item">
+          <li class="nav-item <%= yield(:login_page_active_status) %>">
             <%= link_to "Log in", login_path, class: "nav-link"%>
           </li>
         <% end %>
