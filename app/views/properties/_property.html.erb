@@ -6,7 +6,7 @@
       <h5 class="card-title">
         <%= property.bed_rooms == 'na' ? (property.area + " sq. ft.") :
                                           property.bed_rooms.upcase %>
-        <%= property.property_type.titleize %> for
+        <%= property.property_type.capitalize %> for
         <%= property.property_status %> in <%= property.locality.titleize %>,
         <%= property.city.titleize %>
       </h5>
@@ -16,8 +16,7 @@
           Added <%= time_ago_in_words(property.created_at) %> ago.
         </small>
       </p>
-      <%= link_to "View details", property_path(property),
-                                  class: "btn btn-success" %>
+      <%= link_to "View details", property, class: "btn btn-success" %>
     </div>
   </div>
 </div>
