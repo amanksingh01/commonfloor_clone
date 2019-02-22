@@ -17,11 +17,11 @@ gem 'will_paginate',           '3.1.6'
 
 group :development, :test do
   gem 'byebug',  '9.0.6', platform: :mri
+  gem 'faker',   '1.7.3'
   gem 'sqlite3', '1.3.13'
 end
 
 group :development do
-  gem 'faker',                 '1.7.3'
   gem 'listen',                '3.1.5'
   gem 'spring',                '2.0.2'
   gem 'spring-watcher-listen', '2.0.1'
