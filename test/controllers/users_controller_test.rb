@@ -11,6 +11,17 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     get users_path
     assert_redirected_to login_url
   end
+
+  test "should redirect index when logged in as a non-admin" do
+    log_in_as(@other_user)
+    get users_path
+    assert_redirected_to root_url
+  end
+
+  test "should redirect show when not logged in" do
+    get user_path(@user)
+    assert_redirected_to login_url
+  end
   
   test "should get new" do
     get signup_path
