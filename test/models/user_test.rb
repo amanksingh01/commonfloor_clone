@@ -4,7 +4,7 @@ class UserTest < ActiveSupport::TestCase
 
   def setup
     @user = User.new(name: "Example User", email: "user@example.com",
-                     mobile_number: "1234567890", password: "foobar",
+                     mobile_number: "9876543210", password: "foobar",
                      password_confirmation: "foobar")
   end
 
@@ -74,7 +74,6 @@ class UserTest < ActiveSupport::TestCase
 
   test "mobile number should be unique" do
     duplicate_user = @user.dup
-    duplicate_user.email = "duplicate@example.com"
     @user.save
     assert_not duplicate_user.valid?
   end

@@ -26,7 +26,7 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     assert_redirected_to edit_user_path(@user)
     name = "Foo Bar"
     email = "foo@bar.com"
-    mobile_number = "1234567890"
+    mobile_number = "9876543210"
     patch user_path(@user), params: { user: { name:  name,
                                               email: email,
                                               mobile_number: mobile_number,

@@ -8,10 +8,9 @@ class User < ApplicationRecord
   validates :email,         presence: true, length: { maximum: 255 },
                             format: { with: VALID_EMAIL_REGEX },
                             uniqueness: { case_sensitive: false }
-  VALID_MOBILE_NUMBER_REGEX = /\A\d+\z/
-  validates :mobile_number, presence: true, length: { is: 10 },
-                            format: { with: VALID_MOBILE_NUMBER_REGEX,
-                                      message: "is not a number" },
+  VALID_MOBILE_NUMBER_REGEX = /\A[6789][0-9]{9}\z/
+  validates :mobile_number, presence: true,
+                            format: { with: VALID_MOBILE_NUMBER_REGEX },
                             uniqueness: true
   has_secure_password
   validates :password,      presence: true, length: { minimum: 6 },

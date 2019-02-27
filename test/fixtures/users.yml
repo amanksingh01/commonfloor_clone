@@ -18,7 +18,7 @@ inactive:
 barry:
   name: Barry Allen
   email: theflash@example.gov
-  mobile_number: 9876543210
+  mobile_number: 9876543211
   password_digest: <%= User.digest('password') %>
   activated: true
   activated_at: <%= Time.zone.now %>
@@ -26,7 +26,7 @@ barry:
 oliver:
   name: Oliver Queen
   email: greenarrow@example.gov
-  mobile_number: 9876543211
+  mobile_number: 9876543212
   password_digest: <%= User.digest('password') %>
   activated: true
   activated_at: <%= Time.zone.now %>
@@ -34,7 +34,7 @@ oliver:
 kara:
   name: Kara Zor-El
   email: supergirl@example.gov
-  mobile_number: 9876543212
+  mobile_number: 9876543213
   password_digest: <%= User.digest('password') %>
   activated: true
   activated_at: <%= Time.zone.now %>
