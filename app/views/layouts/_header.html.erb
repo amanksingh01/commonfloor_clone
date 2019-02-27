@@ -21,6 +21,9 @@
           <%= link_to "Properties", properties_path, class: "nav-link"%>
         </li>
         <% if logged_in? %>
+          <li class="nav-item <%= yield(:new_property_page_active_status) %>">
+            <%= link_to "Post property", new_property_path, class: "nav-link"%>
+          </li>
           <% if current_user.admin? %>
             <li class="nav-item <%= yield(:users_index_page_active_status) %>">
               <%= link_to "Users", users_path, class: "nav-link" %>
