@@ -146,4 +146,47 @@ class PropertyTest < ActiveSupport::TestCase
   test "order should be most recent first" do
     assert_equal properties(:most_recent), Property.first
   end
+
+  test "owner name should be saved as lower-case" do
+    mixed_case_owner_name = "A pErSon"
+    @property.owner_name = mixed_case_owner_name
+    @property.save
+    assert_equal mixed_case_owner_name.downcase, @property.reload.owner_name
+  end
+
+  test "street address should be saved as lower-case" do
+    mixed_case_street_address = "sOMe sTrEEt"
+    @property.street_address = mixed_case_street_address
+    @property.save
+    assert_equal mixed_case_street_address.downcase, 
+                 @property.reload.street_address
+  end
+
+  test "locality should be saved as lower-case" do
+    mixed_case_locality = "sOMe loCaLiTy"
+    @property.locality = mixed_case_locality
+    @property.save
+    assert_equal mixed_case_locality.downcase, @property.reload.locality
+  end
+
+  test "city should be saved as lower-case" do
+    mixed_case_city = "sOMe cITy"
+    @property.city = mixed_case_city
+    @property.save
+    assert_equal mixed_case_city.downcase, @property.reload.city
+  end
+
+  test "state should be saved as lower-case" do
+    mixed_case_state = "sOMe stAtE"
+    @property.state = mixed_case_state
+    @property.save
+    assert_equal mixed_case_state.downcase, @property.reload.state
+  end
+
+  test "country should be saved as lower-case" do
+    mixed_case_country = "sOMe COunTRy"
+    @property.country = mixed_case_country
+    @property.save
+    assert_equal mixed_case_country.downcase, @property.reload.country
+  end
 end

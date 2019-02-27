@@ -1,7 +1,7 @@
 class Property < ApplicationRecord
   belongs_to :user
   default_scope -> { order(created_at: :desc) }
-  before_save :downcase_property_type
+  before_save :downcase_attributes
   validates :user_id,         presence: true
   validates :owner_name,      presence: true, length: { maximum: 50 }
   validates :property_type,   presence: true, inclusion: { in: %w(apartment
@@ -25,7 +25,12 @@ class Property < ApplicationRecord
   private
 
     # Converts property_type to all lower-case.
-    def downcase_property_type
-      property_type.downcase!
+    def downcase_attributes
+      owner_name.downcase!
+      street_address.downcase!
+      locality.downcase!
+      city.downcase!
+      state.downcase!
+      country.downcase!
     end
 end
