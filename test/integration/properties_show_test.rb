@@ -13,7 +13,7 @@ class PropertiesShowTest < ActionDispatch::IntegrationTest
     get property_path(@property)
     assert_template 'properties/show'
     # Property details
-    assert_match @property.owner_name,                 response.body
+    assert_match @property.owner_name.titleize,        response.body
     assert_match @property.property_type.capitalize,   response.body
     assert_match @property.property_status.capitalize, response.body
     assert_match @property.bed_rooms.upcase,           response.body
