@@ -8,9 +8,9 @@ class Property < ApplicationRecord
                                                                   house plot) }
   validates :property_status, presence: true, inclusion: { in: %w[sell rent
                                                                   sold] }
-  validates :bed_rooms,       presence: true, inclusion: { in: %w[na 1bhk 2bhk
+  validates :bed_rooms,       presence: true, inclusion: { in: %w[1bhk 2bhk
                                                                   3bhk 4bhk
-                                                                  4+bhk] }
+                                                                  4+bhk na] }
   validates :area,            presence: true, numericality: { greater_than: 0 }
   validates :price,           presence: true, numericality: { greater_than: 0 }
   validates :street_address,  presence: true
