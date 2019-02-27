@@ -10,9 +10,17 @@ class PropertiesController < ApplicationController
   end
 
   def new
+    @property = current_user.properties.build
   end
 
   def create
+    @property = current_user.properties.build(property_params)
+    if @property.save
+      flash[:success] = "Property posted!"
+      redirect_to @property
+    else
+      render 'new'
+    end
   end
 
   def edit
@@ -23,4 +31,13 @@ class PropertiesController < ApplicationController
 
   def destroy
   end
+
+  private
+
+    def property_params
+      params.require(:property).permit(:owner_name, :property_type,
+                                       :property_status, :bed_rooms, :area,
+                                       :price, :street_address, :locality,
+                                       :city, :state, :pincode, :country)
+    end
 end

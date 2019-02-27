@@ -1,0 +1,81 @@
+<%= form_for(@property) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :owner_name %>
+    <%= f.text_field :owner_name, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :property_type %>
+    <%= f.select :property_type, [['Apartment', 'apartment'],
+                                 ['House', 'house'], ['Plot', 'plot']], {},
+                                 class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :property_status, "List my property for" %>
+    <%= f.select :property_status, [['Sell', 'sell'], ['Rent', 'rent']], {},
+                                   class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :bed_rooms %>
+    <%= f.select :bed_rooms, [['1BHK', '1bhk'], ['2BHK', '2bhk'],
+                             ['3BHK', '3bhk'], ['4BHK', '4bhk'],
+                             ['4+BHK', '4+bhk'], ['NA', 'na']], {},
+                             class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :area %>
+    <div class="input-group">
+      <%= f.number_field :area, class: "form-control" %>
+      <div class="input-group-append">
+        <div class="input-group-text">sq. ft.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :price %>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text">&#x20b9</div>
+      </div>
+      <%= f.number_field :price, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :street_address %>
+    <%= f.text_field :street_address, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :locality %>
+    <%= f.text_field :locality, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :city %>
+    <%= f.text_field :city, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :state %>
+    <%= f.text_field :state, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :pincode %>
+    <%= f.number_field :pincode, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :country %>
+    <%= f.text_field :country, class: "form-control", value: "India", readonly: true %>
+  </div>
+
+  <%= f.submit "Submit", class: "btn btn-success btn-block" %>
+<% end %>
