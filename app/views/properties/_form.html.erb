@@ -77,5 +77,5 @@
     <%= f.text_field :country, class: "form-control", value: "India", readonly: true %>
   </div>
 
-  <%= f.submit "Submit", class: "btn btn-success btn-block" %>
+  <%= f.submit yield(:button_text), class: "btn btn-success btn-block" %>
 <% end %>

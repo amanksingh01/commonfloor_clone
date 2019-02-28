@@ -1,6 +1,6 @@
 class PropertiesController < ApplicationController
   before_action :logged_in_user, except: :index
-  before_action :correct_user,   only:   :destroy
+  before_action :correct_user,   only:   [:edit, :update, :destroy]
 
   def index
     @properties = Property.paginate(page: params[:page], per_page: 12)
@@ -28,6 +28,12 @@ class PropertiesController < ApplicationController
   end
 
   def update
+    if @property.update_attributes(property_params)
+      flash[:success] = "Property details updated"
+      redirect_to @property
+    else
+      render 'edit'
+    end
   end
 
   def destroy
