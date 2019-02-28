@@ -50,11 +50,8 @@
   <div class="card-footer bg-transparent border-success">
     <% user = @property.user %>
     <p class="card-text">
-      Contact person:
+      Posted by:
       <span class="float-right"><%= link_to "#{user.name}", user %></span>
-    </p>
-    <p class="card-text">
-      Contact number: <span class="float-right"><%= user.mobile_number %></span>
     </p>
     <% if logged_in? && current_user?(user) %>
       <%= link_to "Modify property details", edit_property_path(@property),

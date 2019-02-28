@@ -25,12 +25,11 @@ class PropertiesShowTest < ActionDispatch::IntegrationTest
     assert_match @property.state.titleize,             response.body
     assert_match @property.pincode,                    response.body
     assert_match @property.country.titleize,           response.body
-    # Users contact deails
+    # Property posted by
     assert_select 'a[href=?]', user_path(user), text: user.name
-    assert_match  user.mobile_number, response.body
     # Links to modify/delete property
     assert_select 'a[href=?]', edit_property_path(@property),
                                text: 'Modify property details'
     assert_select 'a[href=?]', property_path(@property), text: 'Delete property'
-  end 
+  end
 end
