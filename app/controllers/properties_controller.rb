@@ -1,5 +1,6 @@
 class PropertiesController < ApplicationController
   before_action :logged_in_user, except: :index
+  before_action :get_property,   only:   [:edit, :update, :destroy]
   before_action :correct_user,   only:   [:edit, :update, :destroy]
 
   def index
@@ -39,7 +40,7 @@ class PropertiesController < ApplicationController
   def destroy
     @property.destroy
     flash[:success] = "Property deleted"
-    redirect_to current_user
+    redirect_to @property.user
   end
 
   private
@@ -51,8 +52,14 @@ class PropertiesController < ApplicationController
                                        :city, :state, :pincode, :country)
     end
 
-    def correct_user
+    def get_property
       @property = current_user.properties.find_by(id: params[:id])
+      if @property.nil? && current_user.admin?
+        @property = Property.find(params[:id])
+      end
+    end
+
+    def correct_user
       redirect_to root_url if @property.nil?
     end
 end

@@ -53,7 +53,7 @@
       Posted by:
       <span class="float-right"><%= link_to "#{user.name}", user %></span>
     </p>
-    <% if logged_in? && current_user?(user) %>
+    <% if current_user?(user) || current_user.admin? %>
       <%= link_to "Modify property details", edit_property_path(@property),
                                              class: "btn btn-success" %>
       <%= link_to "Delete property", @property, method: :delete,
