@@ -3,8 +3,9 @@ require 'test_helper'
 class PropertiesControllerTest < ActionDispatch::IntegrationTest
   
   def setup
-    @user     = users(:aman)
-    @property = properties(:dum_dum)
+    @user       = users(:aman)
+    @other_user = users(:barry)
+    @property   = properties(:dum_dum)
   end
 
   test "should redirect show when not logged in" do
@@ -78,5 +79,30 @@ class PropertiesControllerTest < ActionDispatch::IntegrationTest
     end
     assert_not flash.empty?
     assert_redirected_to login_url
+  end
+
+  test "should redirect edit for wrong property" do
+    log_in_as(@other_user)
+    get edit_property_path(@property)
+    assert_redirected_to root_url
+  end
+
+  test "should redirect update for wrong property" do
+    log_in_as(@other_user)
+    patch property_path(@property), params: {
+                                        property: {
+                                          owner_name:      "ajay sharma",
+                                          property_type:   "apartment",
+                                          property_status: "sell",
+                                          bed_rooms:       "3bhk",
+                                          area:            "1500",
+                                          price:           "5000000",
+                                          street_address:  "121, dum dum road",
+                                          locality:        "dum dum",
+                                          city:            "kolkata",
+                                          state:           "west bengal",
+                                          pincode:         "700074",
+                                          country:         "india" } }
+    assert_redirected_to root_url
   end
 end
