@@ -105,4 +105,12 @@ class PropertiesControllerTest < ActionDispatch::IntegrationTest
                                           country:         "india" } }
     assert_redirected_to root_url
   end
+
+  test "should redirect destroy for wrong property" do
+    log_in_as(@other_user)
+    assert_no_difference 'Property.count' do
+      delete property_path(@property)
+    end
+    assert_redirected_to root_url
+  end
 end
