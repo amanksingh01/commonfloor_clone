@@ -1,6 +1,6 @@
 <div class="card border-success mb-3">
-  <%= image_tag("house_02.jpg", class: "card-img-top",
-                                alt:   "Property image") %>
+  <%= image_tag(@property.picture.url, class: "card-img-top",
+                                       alt:   "Property image") %>
   <div class="card-body">
     <p class="card-text">
       Owner: <span class="float-right"><%= @property.owner_name.titleize %></span>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190219035401) do
+ActiveRecord::Schema.define(version: 20190305033140) do
 
   create_table "properties", force: :cascade do |t|
     t.integer "user_id"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20190219035401) do
     t.string "country"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "picture"
     t.index ["area"], name: "index_properties_on_area"
     t.index ["bed_rooms"], name: "index_properties_on_bed_rooms"
     t.index ["city"], name: "index_properties_on_city"

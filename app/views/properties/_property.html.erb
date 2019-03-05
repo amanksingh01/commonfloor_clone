@@ -1,7 +1,7 @@
 <div class="col-md-6 col-lg-4">
   <div class="card border-success mb-3" id="property-<%= property.id %>">
-    <%= image_tag("house_02.jpg", class: "card-img-top",
-                                  alt:   "Property image") %>
+    <%= image_tag(property.picture.url, class: "card-img-top",
+                                        alt:   "Property image") %>
     <div class="card-body">
       <h5 class="card-title">
         <%= property.bed_rooms == 'na' ? (property.area + " sq. ft.") :

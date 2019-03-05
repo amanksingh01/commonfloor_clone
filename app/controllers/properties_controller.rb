@@ -49,7 +49,8 @@ class PropertiesController < ApplicationController
       params.require(:property).permit(:owner_name, :property_type,
                                        :property_status, :bed_rooms, :area,
                                        :price, :street_address, :locality,
-                                       :city, :state, :pincode, :country)
+                                       :city, :state, :pincode, :country,
+                                       :picture)
     end
 
     def get_property

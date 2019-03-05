@@ -1,7 +1,8 @@
 class Property < ApplicationRecord
   belongs_to :user
-  default_scope -> { order(created_at: :desc) }
   before_save :downcase_attributes
+  default_scope -> { order(created_at: :desc) }
+  mount_uploader :picture, PictureUploader
   validates :user_id,         presence: true
   validates :owner_name,      presence: true, length: { maximum: 50 }
   validates :property_type,   presence: true, inclusion: { in: %w(apartment
