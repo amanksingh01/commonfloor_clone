@@ -10,6 +10,7 @@ class PropertiesCreateTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     get new_property_path
     assert_template 'properties/new'
+    assert_select 'input[type=file]'
     assert_no_difference 'Property.count' do
       post properties_path, params: { property: {
                                         owner_name:      "",
@@ -36,6 +37,7 @@ class PropertiesCreateTest < ActionDispatch::IntegrationTest
     assert_not_nil session[:forwarding_url]
     log_in_as(@user)
     assert_redirected_to new_property_path
+    picture = fixture_file_upload('house-sample.jpg', 'image/jpg')
     assert_difference 'Property.count', 1 do
       post properties_path, params: { property: {
                                         owner_name:      "ajay sharma",
@@ -49,11 +51,13 @@ class PropertiesCreateTest < ActionDispatch::IntegrationTest
                                         city:            "kolkata",
                                         state:           "west bengal",
                                         pincode:         "700074",
-                                        country:         "india" } }
+                                        country:         "india",
+                                        picture:         picture } }
     end
     assert_not flash.empty?
     property = assigns(:property)
     assert_equal @user, property.user
+    assert property.picture?
     assert_redirected_to property_path(property)
     follow_redirect!
     assert_template 'properties/show'
