@@ -4,10 +4,10 @@ class PropertiesCreateTest < ActionDispatch::IntegrationTest
 
   def setup
     @user = users(:aman)
-    log_in_as(@user)
   end
   
   test "invalid properties information" do
+    log_in_as(@user)
     get new_property_path
     assert_template 'properties/new'
     assert_no_difference 'Property.count' do
@@ -31,9 +31,11 @@ class PropertiesCreateTest < ActionDispatch::IntegrationTest
     assert_select "div.alert", text: "The form contains 18 errors."
   end
 
-  test "valid properties information" do
+  test "valid properties information with friendly forwarding" do
     get new_property_path
-    assert_template 'properties/new'
+    assert_not_nil session[:forwarding_url]
+    log_in_as(@user)
+    assert_redirected_to new_property_path
     assert_difference 'Property.count', 1 do
       post properties_path, params: { property: {
                                         owner_name:      "ajay sharma",

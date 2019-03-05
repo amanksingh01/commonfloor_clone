@@ -9,9 +9,12 @@ class PropertiesShowTest < ActionDispatch::IntegrationTest
     @non_admin = users(:oliver)
   end
 
-  test "property display with correct links for it's seller" do
-    log_in_as(@seller)
+  test "property display with correct links and friendly forwarding for it's seller" do
     get property_path(@property)
+    assert_not_nil session[:forwarding_url]
+    log_in_as(@seller)
+    assert_redirected_to property_path(@property)
+    follow_redirect!
     assert_template 'properties/show'
     # Property details
     assert_match @property.owner_name.titleize,        response.body
