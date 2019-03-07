@@ -22,6 +22,7 @@ class Property < ApplicationRecord
   validates :pincode,         presence: true, 
                               format: { with: VALID_PINCODE_REGEX }
   validates :country,         presence: true
+  validate  :picture_size
   
   private
 
@@ -33,5 +34,12 @@ class Property < ApplicationRecord
       city.downcase!
       state.downcase!
       country.downcase!
+    end
+
+    # Validates the size of an uploaded picture.
+    def picture_size
+      if picture.size > 5.megabytes
+        errors.add(:picture, "should be less than 5MB.")
+      end
     end
 end

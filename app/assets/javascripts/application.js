@@ -19,3 +19,11 @@
 //= require jquery3
 //= require popper
 //= require bootstrap
+
+function validateSize(file) {
+  var sizeInMegabytes = file.files[0].size / 1024 / 1024;
+  if (sizeInMegabytes > 5) {
+    alert('Maximum file size is 5MB. Please choose a smaller file.');
+    $(file).val('');
+  }
+}
