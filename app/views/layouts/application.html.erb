@@ -5,9 +5,9 @@
     <%= render 'layouts/rails_default' %>
   </head>
 
-  <body>
+  <body class="py-5">
     <%= render 'layouts/header' %>
-    <div class="container my-3">
+    <div class="container my-4">
       <% flash.each do |message_type, message| %>
         <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
       <% end %>

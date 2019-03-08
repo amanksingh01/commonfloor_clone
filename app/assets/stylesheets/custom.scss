@@ -9,11 +9,8 @@
 /* miscellaneous */
 
 .debug_dump {
-  clear: both;
-  float: left;
   width: 100%;
-  margin-top: 45px;
-  margin-bottom: 80px;
+  margin-top: 20px;
   @include box_sizing;
   padding: 10px;
   background-color: $gray-100;
@@ -79,7 +76,6 @@ aside {
 
 .users{
   list-style: none;
-  margin: 0;
   li {
     overflow: auto;
     padding: 10px 0;
