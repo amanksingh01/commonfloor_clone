@@ -1,11 +1,13 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :show, :edit, :update, :destroy]
-  before_action :get_user,       only: [:show, :edit, :update, :destroy]
-  before_action :correct_user,   only: [:edit, :update]
-  before_action :admin_user,     only: [:index, :destroy]
+  before_action :logged_in_user, except: [:new, :create]
+  before_action :get_user,       only:   [:show, :edit, :update, :destroy,
+                                          :favorites]
+  before_action :correct_user,   only:   [:edit, :update, :favorites]
+  before_action :admin_user,     only:   [:index, :destroy]
   
   def index
-    @users = User.where(activated: true).paginate(page: params[:page])
+    @users = User.where(activated: true).paginate(page: params[:page],
+                                                  per_page: 24)
   end
   
   def show
@@ -47,6 +49,10 @@ class UsersController < ApplicationController
     @user.destroy
     flash[:success] = "User deleted"
     redirect_to users_url
+  end
+
+  def favorites
+    @properties = @user.favorites.paginate(page: params[:page], per_page: 12)
   end
 
   private

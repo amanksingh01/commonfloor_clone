@@ -8,8 +8,13 @@ Rails.application.routes.draw do
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
-  resources :users
+  resources :users do
+    get :favorites, on: :member
+  end
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
-  resources :properties
+  resources :properties do
+    get :interested_users, on: :member
+  end
+  resources :wishlists,           only: [:create, :destroy]
 end

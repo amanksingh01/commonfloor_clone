@@ -14,6 +14,22 @@ dum_dum:
   created_at: <%= 10.days.ago %>
   user: aman
 
+new_town:
+  owner_name: <%= Faker::Name.name %>
+  property_type: "apartment"
+  property_status: "sell"
+  bed_rooms: "2bhk"
+  area: "1200"
+  price: "3000000"
+  street_address: "21, new town road"
+  locality: "new town"
+  city: "kolkata"
+  state: "west bengal"
+  pincode: "700059"
+  country: "india"
+  created_at: <%= 2.months.ago %>
+  user: barry
+
 salt_lake:
   owner_name: <%= Faker::Name.name %>
   property_type: "apartment"
@@ -21,7 +37,7 @@ salt_lake:
   bed_rooms: "2bhk"
   area: "1200"
   price: "8000"
-  street_address: "21, salt lake road"
+  street_address: "31, salt lake road"
   locality: "salt lake"
   city: "kolkata"
   state: "west bengal"
@@ -37,7 +53,7 @@ lake_town:
   bed_rooms: "3bhk"
   area: "1800"
   price: "16000"
-  street_address: "31, lake town road"
+  street_address: "41, lake town road"
   locality: "lake town"
   city: "kolkata"
   state: "west bengal"
@@ -53,7 +69,7 @@ most_recent:
   bed_rooms: "4bhk"
   area: "2400"
   price: "6000000"
-  street_address: "41, ultadanga road"
+  street_address: "51, ultadanga road"
   locality: "ultadanga"
   city: "kolkata"
   state: "west bengal"
@@ -69,7 +85,7 @@ oldest:
   bed_rooms: "4+bhk"
   area: "3000"
   price: "7500000"
-  street_address: "51, esplanade road"
+  street_address: "61, esplanade road"
   locality: "esplanade"
   city: "kolkata"
   state: "west bengal"

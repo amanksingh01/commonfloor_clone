@@ -1,5 +1,7 @@
 class Property < ApplicationRecord
   belongs_to :user
+  has_many   :wishlists, dependent: :destroy
+  has_many   :interested_users, through: :wishlists, source: :user
   before_save :downcase_attributes
   default_scope -> { order(created_at: :desc) }
   mount_uploader :picture, PictureUploader
@@ -23,6 +25,11 @@ class Property < ApplicationRecord
                               format: { with: VALID_PINCODE_REGEX }
   validates :country,         presence: true
   validate  :picture_size
+
+  # Returns true if the user is interested in the property.
+  def interested_user?(user)
+    interested_users.include?(user)
+  end
   
   private
 

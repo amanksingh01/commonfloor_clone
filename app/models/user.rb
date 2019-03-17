@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   has_many :properties, dependent: :destroy
+  has_many :wishlists,  dependent: :destroy
+  has_many :favorites, through: :wishlists, source: :property
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save   :downcase_email
   before_create :create_activation_digest
@@ -73,6 +75,21 @@ class User < ApplicationRecord
   # Returns true if a password reset has expired.
   def password_reset_expired?
     reset_sent_at < 2.hours.ago
+  end
+
+  # Add a property to favorites.
+  def add_to_favorites(property)
+    favorites << property
+  end
+
+  # Remove a property from favorites.
+  def remove_from_favorites(property)
+    favorites.delete(property)
+  end
+
+  # Returns true if the property is in the favorite list of the user.
+  def favorite?(property)
+    favorites.include?(property)
   end
 
   private

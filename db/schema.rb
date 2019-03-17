@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190305033140) do
+ActiveRecord::Schema.define(version: 20190314093114) do
 
   create_table "properties", force: :cascade do |t|
     t.integer "user_id"
@@ -56,6 +56,16 @@ ActiveRecord::Schema.define(version: 20190305033140) do
     t.datetime "reset_sent_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["mobile_number"], name: "index_users_on_mobile_number", unique: true
+  end
+
+  create_table "wishlists", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "property_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["property_id"], name: "index_wishlists_on_property_id"
+    t.index ["user_id", "property_id"], name: "index_wishlists_on_user_id_and_property_id", unique: true
+    t.index ["user_id"], name: "index_wishlists_on_user_id"
   end
 
 end

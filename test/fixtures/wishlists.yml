@@ -1,0 +1,19 @@
+one:
+  user:     aman
+  property: salt_lake
+  created_at: <%= 10.days.ago %>
+
+two:
+  user:     aman
+  property: lake_town
+  created_at: <%= 1.month.ago %>
+
+three:
+  user:     barry
+  property: dum_dum
+  created_at: <%= 5.days.ago %>
+
+most_recent:
+  user:     oliver
+  property: dum_dum
+  created_at: <%= Time.zone.now %>

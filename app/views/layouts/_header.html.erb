@@ -17,13 +17,21 @@
         <li class="nav-item <%= yield(:help_page_active_status) %>">
           <%= link_to "Help", help_path, class: "nav-link"%>
         </li>
-        <li class="nav-item <%= yield(:properties_page_active_status) %>">
-          <%= link_to "Properties", properties_path, class: "nav-link"%>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+             role="button" data-toggle="dropdown" aria-haspopup="true"
+             aria-expanded="false">
+            Properties
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <%= link_to "Browse all properties", properties_path,
+                                                 class: "dropdown-item" %>
+            <div class="dropdown-divider"></div>
+            <%= link_to "List your property", new_property_path,
+                                              class: "dropdown-item" %>
+          </div>
         </li>
         <% if logged_in? %>
-          <li class="nav-item <%= yield(:new_property_page_active_status) %>">
-            <%= link_to "Post property", new_property_path, class: "nav-link"%>
-          </li>
           <% if current_user.admin? %>
             <li class="nav-item <%= yield(:users_index_page_active_status) %>">
               <%= link_to "Users", users_path, class: "nav-link" %>
@@ -33,9 +41,11 @@
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
                role="button" data-toggle="dropdown" aria-haspopup="true"
                aria-expanded="false">
-              Account
+              Account &amp; List
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <%= link_to "Wishlist", favorites_user_path(current_user),
+                                      class: "dropdown-item" %>
               <%= link_to "Profile", current_user, class: "dropdown-item" %>
               <%= link_to "Settings", edit_user_path(current_user),
                                       class: "dropdown-item" %>
@@ -47,6 +57,9 @@
         <% else %>
           <li class="nav-item <%= yield(:login_page_active_status) %>">
             <%= link_to "Log in", login_path, class: "nav-link"%>
+          </li>
+          <li class="nav-item <%= yield(:signup_page_active_status) %>">
+            <%= link_to "Sign up", signup_path, class: "nav-link"%>
           </li>
         <% end %>
       </ul>

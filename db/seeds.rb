@@ -406,3 +406,13 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    country:         "india")
 property.picture = Rails.root.join("app/assets/images/plot-05.jpg").open
 property.save!
+
+# Property wishlists
+users      = User.all
+properties = Property.all
+interested_users    = users[1..40]
+favorite_properties = properties[1..20]
+
+favorite_properties.each do |property|
+  interested_users.each { |user| user.add_to_favorites(property) }
+end

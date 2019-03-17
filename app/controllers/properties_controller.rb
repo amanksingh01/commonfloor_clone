@@ -43,6 +43,13 @@ class PropertiesController < ApplicationController
     redirect_to @property.user
   end
 
+  def interested_users
+    @property = Property.find(params[:id])
+    redirect_to root_url and return unless current_user?(@property.user)
+    @users = @property.interested_users.paginate(page: params[:page],
+                                                 per_page: 24)
+  end
+
   private
 
     def property_params

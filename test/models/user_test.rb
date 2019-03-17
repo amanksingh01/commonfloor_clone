@@ -117,4 +117,15 @@ class UserTest < ActiveSupport::TestCase
       @user.destroy
     end
   end
+
+  test "should add to wishlist and remove from wishlist a property" do
+    user = users(:barry)
+    property = properties(:lake_town)
+    assert_not user.favorite?(property)
+    user.add_to_favorites(property)
+    assert user.favorite?(property)
+    assert property.interested_user?(user)
+    user.remove_from_favorites(property)
+    assert_not user.favorite?(property)
+  end
 end

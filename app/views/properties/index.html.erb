@@ -1,8 +1,3 @@
 <% provide(:title, "Browse properties") %>
-<% provide(:properties_page_active_status, "active") %>
 <h1>Browse properties</h1>
-<div class="row">
-  <%= render @properties %>
-</div>
-<%= will_paginate(@properties,
-                  renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer) %>
+<%= render 'shared/properties' %>
