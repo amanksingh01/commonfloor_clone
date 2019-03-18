@@ -4,7 +4,10 @@ class WishlistsController < ApplicationController
   def create
     property = Property.find(params[:property_id])
     current_user.add_to_favorites(property)
-    flash[:success] = "Added to wishlist!"
+    property.send_interested_user_email(current_user)
+    message = "Added to wishlist! We have also notified the seller regarding " +
+              "your interest in the property."
+    flash[:success] = message
     redirect_to property
   end
 

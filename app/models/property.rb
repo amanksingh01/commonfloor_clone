@@ -30,6 +30,11 @@ class Property < ApplicationRecord
   def interested_user?(user)
     interested_users.include?(user)
   end
+
+  # Sends interested user email.
+  def send_interested_user_email(user)
+    PropertyMailer.interested_user(self, user).deliver_now
+  end
   
   private
 

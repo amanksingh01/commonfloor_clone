@@ -6,6 +6,7 @@ class FavoritesTest < ActionDispatch::IntegrationTest
     @user     = users(:aman)
     @property = properties(:new_town)
     log_in_as(@user)
+    ActionMailer::Base.deliveries.clear
   end
 
   test "favorites page" do
@@ -33,6 +34,7 @@ class FavoritesTest < ActionDispatch::IntegrationTest
     assert_difference '@user.favorites.count', 1 do
       post wishlists_path, params: { property_id: @property.id }
     end
+    assert_equal 1, ActionMailer::Base.deliveries.size
     assert_not flash.empty?
     assert_redirected_to @property
   end
