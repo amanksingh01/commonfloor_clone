@@ -1,4 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'noreply@commonfloorclone.herokuapp.com'
+  email_with_name = %("CommonfloorClone" <noreply@commonfloorclone.herokuapp.com>)
+  default from: email_with_name
   layout 'mailer'
 end

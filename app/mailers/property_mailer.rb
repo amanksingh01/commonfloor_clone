@@ -4,6 +4,8 @@ class PropertyMailer < ApplicationMailer
     @property = property
     @seller   = property.user
     @user     = user
-    mail to: @seller.email, subject: "#{user.name} is interested in your property"
+    email_with_name = %("#{@seller.name}" <#{@seller.email}>)
+    mail to:      email_with_name,
+         subject: "#{user.name} is interested in your property"
   end
 end
