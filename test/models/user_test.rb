@@ -118,6 +118,14 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
+  test "associated wishlists should be destroyed" do
+    @user.save
+    @user.add_to_favorites(properties(:new_town))
+    assert_difference 'Wishlist.count', -1 do
+      @user.destroy
+    end
+  end
+
   test "should add to wishlist and remove from wishlist a property" do
     user = users(:barry)
     property = properties(:lake_town)

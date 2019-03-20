@@ -189,4 +189,12 @@ class PropertyTest < ActiveSupport::TestCase
     @property.save
     assert_equal mixed_case_country.downcase, @property.reload.country
   end
+
+  test "associated wishlists should be destroyed" do
+    @property.save
+    @user.add_to_favorites(@property)
+    assert_difference 'Wishlist.count', -1 do
+      @property.destroy
+    end
+  end
 end
