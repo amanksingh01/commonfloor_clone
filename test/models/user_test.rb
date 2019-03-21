@@ -136,4 +136,13 @@ class UserTest < ActiveSupport::TestCase
     user.remove_from_favorites(property)
     assert_not user.favorite?(property)
   end
+
+  test "associated comments should be destroyed" do
+    @user.save
+    @user.comments.create!(property: properties(:new_town),
+                           comment: "Lorem ipsum")
+    assert_difference 'Comment.count', -1 do
+      @user.destroy
+    end
+  end
 end

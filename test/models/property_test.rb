@@ -197,4 +197,12 @@ class PropertyTest < ActiveSupport::TestCase
       @property.destroy
     end
   end
+
+  test "associated comments should be destroyed" do
+    @property.save
+    @user.comments.create!(property: @property, comment: "Lorem ipsum")
+    assert_difference 'Comment.count', -1 do
+      @property.destroy
+    end
+  end
 end

@@ -1,0 +1,9 @@
+<div class="card border-success mb-3" id="new_comment">
+  <h5 class="card-header border-success">
+    <%= gravatar_for current_user, size: 30 %>
+    <%= current_user.name %>
+  </h5>
+  <div class="card-body">
+    <%= render 'shared/comment_form' %>
+  </div>
+</div>

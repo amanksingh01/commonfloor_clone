@@ -58,7 +58,7 @@
                   interested_users_property_path(@property),
                   class: "btn btn-block btn-success mb-3" %>
     <% else %>
-      <%= render 'wishlist_form' %>
+      <%= render 'shared/wishlist_form' %>
     <% end %>
     <% if current_user?(user) || current_user.admin? %>
       <%= link_to "Modify property details", edit_property_path(@property),

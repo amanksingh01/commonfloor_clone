@@ -17,4 +17,5 @@ Rails.application.routes.draw do
     get :interested_users, on: :member
   end
   resources :wishlists,           only: [:create, :destroy]
+  resources :comments,            only: [:create, :destroy]
 end

@@ -2,6 +2,18 @@
 <div class="row">
   <div class="col-md-8 col-lg-6 offset-md-2 offset-lg-3">
     <h1>Properties details</h1>
-    <%= render 'property_details' %>
+    <%= render 'shared/property_details' %>
+  </div>
+</div>
+<div class="row comments">
+  <div class="col-md-8 col-lg-6 offset-md-2 offset-lg-3">
+    <h3>Comments (<%= @property.comments.count %>)</h3>
+    <%= render 'shared/new_comment' %>
+    <% if @comments.any? %>
+      <%= render @comments %>
+      <%= will_paginate(
+            @comments,
+            renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer) %>
+    <% end %>
   </div>
 </div>

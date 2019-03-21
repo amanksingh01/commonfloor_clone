@@ -1,7 +1,8 @@
 class Property < ApplicationRecord
   belongs_to :user
-  has_many   :wishlists, dependent: :destroy
-  has_many   :interested_users, through: :wishlists, source: :user
+  has_many   :wishlists,        dependent: :destroy
+  has_many   :interested_users, through:   :wishlists, source: :user
+  has_many   :comments,         dependent: :destroy
   before_save :downcase_attributes
   default_scope -> { order(created_at: :desc) }
   mount_uploader :picture, PictureUploader

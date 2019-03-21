@@ -9,6 +9,8 @@ class PropertiesController < ApplicationController
 
   def show
     @property = Property.find(params[:id])
+    @comments = @property.comments.paginate(page: params[:page], per_page: 12)
+    @comment  = current_user.comments.build
   end
 
   def new

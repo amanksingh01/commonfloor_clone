@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class PropertiesShowTest < ActionDispatch::IntegrationTest
+  include ActionView::Helpers::DateHelper
   
   def setup
     @property  = properties(:salt_lake)
@@ -35,6 +36,18 @@ class PropertiesShowTest < ActionDispatch::IntegrationTest
     assert_select 'a[href=?]', edit_property_path(@property),
                                text: 'Modify property details'
     assert_select 'a[href=?]', property_path(@property), text: 'Delete property'
+    # Property comments
+    assert_template 'shared/_new_comment'
+    assert_template 'shared/_comment_form'
+    assert_template 'comments/_comment'
+    assert_match @property.comments.count.to_s, response.body
+    assigns(:comments).each do |comment|
+      assert_select 'h5>img.gravatar'
+      assert_match comment.user.name, response.body
+      assert_match comment.comment,   response.body
+      assert_match time_ago_in_words(comment.created_at), response.body
+    end
+    assert_select 'nav.pagination'
   end
 
   test "property display with correct links for admins" do
@@ -43,10 +56,13 @@ class PropertiesShowTest < ActionDispatch::IntegrationTest
     assert_select 'a[href=?]', user_path(@seller), text: @seller.name
     assert_select 'a[href=?]', interested_users_property_path(@property),
                                count: 0
-    assert_template 'properties/_wishlist_form'
+    assert_template 'shared/_wishlist_form'
     assert_select 'a[href=?]', edit_property_path(@property),
                                text: 'Modify property details'
     assert_select 'a[href=?]', property_path(@property), text: 'Delete property'
+    assigns(:comments).each do |comment|
+      assert_select 'a[href=?]', comment_path(comment), text: 'Delete'
+    end
   end
 
   test "property display with correct links for other non-admin users" do
@@ -55,7 +71,7 @@ class PropertiesShowTest < ActionDispatch::IntegrationTest
     assert_select 'a[href=?]', user_path(@seller), text: @seller.name
     assert_select 'a[href=?]', interested_users_property_path(@property),
                                count: 0
-    assert_template 'properties/_wishlist_form'
+    assert_template 'shared/_wishlist_form'
     assert_select 'a[href=?]', edit_property_path(@property),
                                text: 'Modify property details',
                                count: 0

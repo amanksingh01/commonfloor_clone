@@ -416,3 +416,14 @@ favorite_properties = properties[1..20]
 favorite_properties.each do |property|
   interested_users.each { |user| user.add_to_favorites(property) }
 end
+
+# Property comments
+users      = User.order(:created_at).take(20)
+properties = Property.all
+
+users.each do |user|
+  properties.each do |property|
+    comment = Faker::Lorem.paragraph(2)
+    user.comments.create!(property: property, comment: comment)
+  end
+end
