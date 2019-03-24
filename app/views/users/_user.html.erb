@@ -2,8 +2,8 @@
   <div class="card border-success mb-3">
     <div class="card-body">
       <h5 class="card-title"><%= user.name %></h5>
-      <p class="card-text"><%= user.email %></p>
-      <p class="card-text">&plus;91 <%= user.mobile_number %></p>
+      <p class="card-text"><%= mail_to user.email %></p>
+      <p class="card-text"><%= tel_to user.mobile_number %></p>
       <%= link_to "View profile", user, class: "btn btn-outline-success" %>
       <% if current_user.admin? && !current_user?(user) %>
         <%= link_to "Delete user", user, method: :delete,

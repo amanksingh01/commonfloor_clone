@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class UsersIndexTest < ActionDispatch::IntegrationTest
+  include ActionView::Helpers::NumberHelper
 
   def setup
     @admin     = users(:aman)
@@ -16,9 +17,15 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
     assert_select 'nav.pagination', count: 1
     assigns(:users).each do |user|
       assert user.activated?
-      assert_match user.name,          response.body
-      assert_match user.email,         response.body
-      assert_match user.mobile_number, response.body
+      assert_match user.name,  response.body
+      assert_match user.email, response.body
+      assert_select "a[href=?]", "mailto:#{user.email}"
+      mobile_number = number_to_phone(user.mobile_number,
+                                      delimiter: " ",
+                                      country_code: 91,
+                                      pattern: /(\d{5})(\d{5})$/)
+      assert_match mobile_number, response.body
+      assert_select "a[href=?]", "tel:#{mobile_number}"
       assert_select 'a[href=?]', user_path(user), text: 'View profile'
       unless user == @admin
         assert_select 'a[href=?]', user_path(user), text: 'Delete user'

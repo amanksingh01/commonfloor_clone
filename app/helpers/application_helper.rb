@@ -9,4 +9,11 @@ module ApplicationHelper
       page_title + " | " + base_title
     end
   end
+
+  # Returns a link tag for mobile numbers.
+  def tel_to(number)
+    mobile_number = number_to_phone(number, delimiter: " ", country_code: 91,
+                                            pattern: /(\d{5})(\d{5})$/)
+    link_to mobile_number, "tel:#{mobile_number}"
+  end
 end

@@ -17,8 +17,8 @@
 <p>The contact details of <%= @user.name %> are as follows:</p>
 
 <ul>
-  <li><strong>Email:</strong> <%= @user.email %></li>
-  <li><strong>Mobile number:</strong> &plus;91 <%= @user.mobile_number %></li>
+  <li><strong>Email:</strong> <%= mail_to @user.email %></li>
+  <li><strong>Mobile number:</strong> <%= tel_to @user.mobile_number %></li>
 </ul>
 
 <p>
