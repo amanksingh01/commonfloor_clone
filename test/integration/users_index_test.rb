@@ -12,7 +12,7 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
     first_page_of_users = User.paginate(page: 1)
     first_page_of_users.first.toggle!(:activated)
     get users_path
-    assert_template 'users/index'
+    assert_template 'shared/users'
     assert_select 'nav.pagination', count: 1
     assigns(:users).each do |user|
       assert user.activated?
@@ -35,7 +35,7 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_url
     property = properties(:salt_lake)
     get interested_users_property_path(property)
-    assert_template 'properties/interested_users'
+    assert_template 'shared/users'
     property.interested_users.each do |user|
       assert_select 'a[href=?]', user_path(user), text: 'View profile'
       assert_select 'a[href=?]', user_path(user), text: 'Delete user', count: 0

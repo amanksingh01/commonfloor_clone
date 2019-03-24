@@ -8,6 +8,8 @@ class UsersController < ApplicationController
   def index
     @users = User.where(activated: true).paginate(page: params[:page],
                                                   per_page: 24)
+    @title = "Users"
+    render 'shared/users'
   end
   
   def show

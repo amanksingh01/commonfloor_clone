@@ -1,0 +1,11 @@
+<% provide(:title, @title) %>
+<h2 class="text-center mb-3"><%= @title %></h2>
+<% if @users.any? %>
+  <div class="row">
+    <%= render @users %>
+  </div>
+  <%= will_paginate(@users,
+                    renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer) %>
+<% else %>
+  <p>No users found!</p>
+<% end %>

@@ -24,9 +24,8 @@ class FavoritesTest < ActionDispatch::IntegrationTest
   test "interested_users page" do
     property = properties(:dum_dum)
     get interested_users_property_path(property)
-    assert_template 'properties/interested_users'
+    assert_template 'shared/users'
     assert_not property.interested_users.empty?
-    assert_match property.interested_users.count.to_s, response.body
     property.interested_users.each do |user|
       assert_select "a[href=?]", user_path(user), text: "View profile"
     end

@@ -55,6 +55,8 @@ class PropertiesController < ApplicationController
     redirect_to root_url and return unless current_user?(@property.user)
     @users = @property.interested_users.paginate(page: params[:page],
                                                  per_page: 24)
+    @title = "Interested users"
+    render 'shared/users'
   end
 
   private
