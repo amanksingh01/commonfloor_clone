@@ -8,6 +8,9 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
 
   test "invalid signup information" do
     get signup_path
+    assert_template 'users/new'
+    assert_select 'a[href=?]', login_path,  count: 2
+    assert_select 'a[href=?]', signup_path, count: 1
     assert_no_difference 'User.count' do
       post signup_path, params: { user: { name:  "",
                                           email: "user@invalid",
