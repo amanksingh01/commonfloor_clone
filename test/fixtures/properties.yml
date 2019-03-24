@@ -3,8 +3,8 @@ dum_dum:
   property_type: "apartment"
   property_status: "sell"
   bed_rooms: "1bhk"
-  area: "600"
-  price: "1500000"
+  area: 600
+  price: 1500000
   street_address: "11, dum dum road"
   locality: "dum dum"
   city: "kolkata"
@@ -19,8 +19,8 @@ new_town:
   property_type: "apartment"
   property_status: "sell"
   bed_rooms: "2bhk"
-  area: "1200"
-  price: "3000000"
+  area: 1200
+  price: 3000000
   street_address: "21, new town road"
   locality: "new town"
   city: "kolkata"
@@ -35,8 +35,8 @@ salt_lake:
   property_type: "apartment"
   property_status: "rent"
   bed_rooms: "2bhk"
-  area: "1200"
-  price: "8000"
+  area: 1200
+  price: 8000
   street_address: "31, salt lake road"
   locality: "salt lake"
   city: "kolkata"
@@ -51,8 +51,8 @@ lake_town:
   property_type: "apartment"
   property_status: "rent"
   bed_rooms: "3bhk"
-  area: "1800"
-  price: "16000"
+  area: 1800
+  price: 16000
   street_address: "41, lake town road"
   locality: "lake town"
   city: "kolkata"
@@ -67,8 +67,8 @@ most_recent:
   property_type: "apartment"
   property_status: "sell"
   bed_rooms: "4bhk"
-  area: "2400"
-  price: "6000000"
+  area: 2400
+  price: 6000000
   street_address: "51, ultadanga road"
   locality: "ultadanga"
   city: "kolkata"
@@ -83,8 +83,8 @@ oldest:
   property_type: "apartment"
   property_status: "sell"
   bed_rooms: "4+bhk"
-  area: "3000"
-  price: "7500000"
+  area: 3000
+  price: 7500000
   street_address: "61, esplanade road"
   locality: "esplanade"
   city: "kolkata"
@@ -99,9 +99,9 @@ apartment_<%= n %>:
   owner_name: <%= Faker::Name.name %>
   property_type: "apartment"
   property_status: "sell"
-  bed_rooms: "3bhk"
-  area: "1500"
-  price: "4500000"
+  bed_rooms: "4bhk"
+  area: 2000
+  price: 5500000
   street_address: "123, kolkata road"
   locality: "kolkata"
   city: "kolkata"
@@ -118,8 +118,8 @@ house_<%= n %>:
   property_type: "house"
   property_status: "sell"
   bed_rooms: "4bhk"
-  area: "2000"
-  price: "6000000"
+  area: 2000
+  price: 6000000
   street_address: "121, kolkata road"
   locality: "kolkata"
   city: "kolkata"
@@ -136,8 +136,8 @@ plot_<%= n %>:
   property_type: "plot"
   property_status: "sell"
   bed_rooms: "na"
-  area: "2000"
-  price: "1000000"
+  area: 2000
+  price: 1000000
   street_address: "131, kolkata road"
   locality: "kolkata"
   city: "kolkata"

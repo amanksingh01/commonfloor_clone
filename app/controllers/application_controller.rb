@@ -4,6 +4,11 @@ class ApplicationController < ActionController::Base
 
   private
 
+    def filtering_params
+      params.permit(:property_type, :property_status, :bed_rooms, :area,
+                    :price, :order_by)
+    end
+
     # Confirms a logged-in user.
     def logged_in_user
       unless logged_in?

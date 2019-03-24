@@ -20,8 +20,4 @@ class WishlistTest < ActiveSupport::TestCase
     @wishlist.property_id = nil
     assert_not @wishlist.valid?
   end
-
-  test "order should be most recent first" do
-    assert_equal wishlists(:most_recent), Wishlist.first
-  end
 end

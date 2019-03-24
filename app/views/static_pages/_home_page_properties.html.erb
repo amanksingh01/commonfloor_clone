@@ -1,0 +1,10 @@
+<section>
+  <h2 class="border-bottom border-success py-2 mb-3">
+    <%= property_type.pluralize.capitalize %>
+    <%= link_to "View all", properties_path(property_type: property_type),
+                            class: "btn btn-success float-right" %>
+  </h2>
+  <div class="row">
+    <%= render properties %>
+  </div>
+</section>

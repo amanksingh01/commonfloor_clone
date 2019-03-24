@@ -16,6 +16,11 @@ class UsersController < ApplicationController
       redirect_to root_url and return
     end
     @properties = @user.properties.paginate(page: params[:page], per_page: 12)
+    filtering_params.each do |key, value|
+      @properties = @properties.send(key, value) if value.present?
+    end
+    @title = "Your listed properties"
+    @properties_grid_col = "col-md-6 col-lg-4"
   end
   
   def new
@@ -53,6 +58,11 @@ class UsersController < ApplicationController
 
   def favorites
     @properties = @user.favorites.paginate(page: params[:page], per_page: 12)
+    filtering_params.each do |key, value|
+      @properties = @properties.send(key, value) if value.present?
+    end
+    @title = "Wishlist"
+    @properties_grid_col = "col-md-6 col-lg-4"
   end
 
   private

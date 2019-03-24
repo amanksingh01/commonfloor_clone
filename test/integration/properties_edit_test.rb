@@ -36,7 +36,7 @@ class PropertiesEditTest < ActionDispatch::IntegrationTest
     assert_not_nil session[:forwarding_url]
     log_in_as(@user)
     assert_redirected_to edit_property_path(@property)
-    price = "4000000"
+    price = 4000000
     patch property_path(@property), 
           params: { property: { owner_name:      @property.owner_name,
                                 property_type:   @property.property_type,
@@ -62,7 +62,7 @@ class PropertiesEditTest < ActionDispatch::IntegrationTest
     assert_not_nil session[:forwarding_url]
     log_in_as(@admin)
     assert_redirected_to edit_property_path(@property)
-    price = "4000000"
+    price = 4000000
     patch property_path(@property), 
           params: { property: { owner_name:      @property.owner_name,
                                 property_type:   @property.property_type,

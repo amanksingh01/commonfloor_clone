@@ -1,0 +1,60 @@
+<%= form_tag(yield(:filters_form_url), method: :get) do %>
+  <div class="form-row">
+    <div class="form-group col-6 col-md-12">
+      <%= label_tag  :property_type, "I am looking for" %>
+      <%= select_tag :property_type,  
+                      options_for_select([['--Select--', ''],
+                                          ['Apartment', 'apartment'],
+                                          ['House', 'house'], ['Plot', 'plot']],
+                        params[:property_type]),
+                      class: "form-control" %>
+    </div>
+    <div class="form-group col-6 col-md-12">
+      <%= label_tag  :property_status, "I want to" %>
+      <%= select_tag :property_status, 
+                      options_for_select([['--Select--', ''], ['Buy', 'sell'],
+                                          ['Rent', 'rent']], 
+                        params[:property_status]),
+                      class: "form-control" %>
+    </div>
+    <div class="form-group col-6 col-md-12">
+      <%= label_tag  :bed_rooms, "Bed rooms" %>
+      <%= select_tag :bed_rooms,
+                      options_for_select([['--Select--', ''], ['1BHK', '1bhk'],
+                                          ['2BHK', '2bhk'], ['3BHK', '3bhk'],
+                                          ['4BHK', '4bhk'], ['4+BHK', '4+bhk'],
+                                          ['NA', 'na']],
+                        params[:bed_rooms]),
+                      class: "form-control" %>
+    </div>
+    <div class="form-group col-6 col-md-12">
+      <%= label_tag  :area, "Area" %>
+      <%= select_tag :area,
+                      options_for_select([['--Select--', ''],
+                                          ['< 1000 sq.ft.', '1'],
+                                          ['1000 - 2500 sq.ft.', '2'],
+                                          ['> 2500 sq.ft.', '3']],
+                        params[:area]),
+                      class: "form-control" %>
+    </div>
+    <div class="form-group col-6 col-md-12">
+      <%= label_tag  :price, "Price" %>
+      <%= select_tag :price,
+                      options_for_select([['--Select--', ''], ['< ₹10K', '1'],
+                                          ['₹10K - ₹1L', '2'],
+                                          ['₹1L - ₹50L', '3'], ['> ₹50L', '4']],
+                        params[:price]),
+                      class: "form-control" %>
+    </div>
+    <div class="form-group col-6 col-md-12">
+      <%= label_tag  :order_by, "Order by" %>
+      <%= select_tag :order_by,
+                      options_for_select([['--Select--', ''],
+                                          ['Newest - Oldest', 'desc'],
+                                          ['Oldest - Newest', 'asc']],
+                        params[:order_by]),
+                      class: "form-control" %>
+    </div>
+    <%= submit_tag("Apply", class: "btn btn-block btn-success") %>
+  </div>
+<% end %>

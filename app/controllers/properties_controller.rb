@@ -5,6 +5,11 @@ class PropertiesController < ApplicationController
 
   def index
     @properties = Property.paginate(page: params[:page], per_page: 12)
+    filtering_params.each do |key, value|
+      @properties = @properties.send(key, value) if value.present?
+    end
+    @title = "Browse properties"
+    @properties_grid_col = "col-md-6 col-lg-4"
   end
 
   def show

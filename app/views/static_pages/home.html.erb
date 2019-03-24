@@ -1,9 +1,21 @@
 <% provide(:home_page_active_status, "active") %>
 <div class="jumbotron text-center">
-  <h1>CommonfloorClone</h1>
-  <h2>
+  <h3>
     Welcome to CommonfloorClone. Here you can buy/sale/rent properties in India.
-  </h2>
-
-  <%= link_to "Sign up now!", signup_path, class: "btn btn-success" %>
+  </h3>
 </div>
+
+<% if @apartments.any? %>
+  <%= render 'home_page_properties', properties:    @apartments,
+                                     property_type: "apartment" %>
+<% end %>
+
+<% if @houses.any? %>
+  <%= render 'home_page_properties', properties:    @houses,
+                                     property_type: "house" %>
+<% end %>
+
+<% if @plots.any? %>
+  <%= render 'home_page_properties', properties:    @plots,
+                                     property_type: "plot" %>
+<% end %>

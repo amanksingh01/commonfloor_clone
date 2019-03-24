@@ -12,8 +12,10 @@ class FavoritesTest < ActionDispatch::IntegrationTest
   test "favorites page" do
     get favorites_user_path(@user)
     assert_template 'users/favorites'
+    assert_template 'shared/_properties'
+    assert_template 'shared/_filters'
+    assert_select 'aside.filters form[action=?]', favorites_user_path(@user)
     assert_not @user.favorites.empty?
-    assert_match @user.favorites.count.to_s, response.body
     @user.favorites.each do |property|
       assert_select "a[href=?]", property_path(property), text: "View details"
     end

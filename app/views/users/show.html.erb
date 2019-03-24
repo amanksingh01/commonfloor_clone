@@ -1,22 +1,11 @@
 <% provide(:title, @user.name) %>
-<div class="row">
-  <aside class="col-md-4">
-    <section class="user_info">
-      <h1>
-        <%= gravatar_for @user %>
-        <%= @user.name %>
-      </h1>
-    </section>
-  </aside>
-</div>
+<% provide(:filters_form_url, user_path(@user)) %>
+<aside class="user_info">
+  <h4 class="text-secondary border-bottom border-success py-2 mb-3">
+    <%= gravatar_for @user %>
+    Welcome to CommonfloorClone, <%= @user.name %>
+  </h4>
+</aside>
 <% if @user.properties.any? %>
-  <section class="properties py-3">
-    <h3>Properties (<%= @user.properties.count %>)</h3>
-    <div class="row">
-      <%= render @properties %>
-    </div>
-    <%= will_paginate(
-          @properties,
-          renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer) %>
-  </section>
+  <%= render 'shared/properties' %>
 <% end %>

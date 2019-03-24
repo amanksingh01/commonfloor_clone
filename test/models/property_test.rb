@@ -7,8 +7,8 @@ class PropertyTest < ActiveSupport::TestCase
                                        property_type:   "apartment",
                                        property_status: "sell",
                                        bed_rooms:       "3bhk",
-                                       area:            "1500.50",
-                                       price:           "5000000",
+                                       area:            1500,
+                                       price:           5000000,
                                        street_address:  "121, dum dum road",
                                        locality:        "dum dum",
                                        city:            "kolkata",
@@ -124,12 +124,22 @@ class PropertyTest < ActiveSupport::TestCase
   end
 
   test "area should be greater than 0" do
-    @property.area = 0.0
+    @property.area = 0
     assert_not @property.valid?
   end
 
   test "price should be greater than 0" do
-    @property.price = 0.0
+    @property.price = 0
+    assert_not @property.valid?
+  end
+
+  test "area should be less than 10000" do
+    @property.area = 10000
+    assert_not @property.valid?
+  end
+
+  test "price should be less than 1000000000" do
+    @property.price = 1000000000
     assert_not @property.valid?
   end
 
@@ -141,10 +151,6 @@ class PropertyTest < ActiveSupport::TestCase
   test "pincode should be valid" do
     @property.pincode = "012345"
     assert_not @property.valid?
-  end
-
-  test "order should be most recent first" do
-    assert_equal properties(:most_recent), Property.first
   end
 
   test "owner name should be saved as lower-case" do
