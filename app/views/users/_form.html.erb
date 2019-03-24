@@ -31,5 +31,6 @@
     <%= f.password_field :password_confirmation, class: "form-control" %>
   </div>
 
-  <%= f.submit yield(:button_text), class: "btn btn-success btn-block" %>
+  <%= f.submit yield(:button_text), 
+               class: "btn btn-block btn-outline-success" %>
 <% end %>

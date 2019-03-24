@@ -1,4 +1,5 @@
 <%= form_for(current_user.wishlists.find_by(property_id: @property.id),
              html: { method: :delete }) do |f| %>
-  <%= f.submit "Remove from wishlist", class: "btn btn-block btn-secondary" %>
+  <%= f.submit "Remove from wishlist",
+               class: "btn btn-block btn-outline-secondary" %>
 <% end %>
