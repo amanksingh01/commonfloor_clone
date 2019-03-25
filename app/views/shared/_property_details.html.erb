@@ -2,71 +2,71 @@
   <%= image_tag(@property.picture.url, class: "card-img-top",
                                        alt:   "Property image") %>
   <div class="card-body">
-    <p class="card-text">
-      Owner: <span class="float-right"><%= @property.owner_name.titleize %></span>
+    <p class="card-text d-flex justify-content-between">
+      Owner: <span><%= @property.owner_name.titleize %></span>
     </p>
-    <p class="card-text">
+    <p class="card-text d-flex justify-content-between">
       Type:
-      <span class="float-right"><%= @property.property_type.capitalize %></span>
+      <span><%= @property.property_type.capitalize %></span>
     </p>
-    <p class="card-text">
+    <p class="card-text d-flex justify-content-between">
       Status:
-      <span class="float-right">
+      <span>
         <%= @property.property_status.capitalize %>
       </span>
     </p>
-    <p class="card-text">
+    <p class="card-text d-flex justify-content-between">
       Bed rooms:
-      <span class="float-right"><%= @property.bed_rooms.upcase %></span>
+      <span><%= @property.bed_rooms.upcase %></span>
     </p>
-    <p class="card-text">
-      Area: <span class="float-right"><%= @property.area %> sq. ft.</span>
+    <p class="card-text d-flex justify-content-between">
+      Area: <span><%= @property.area %> sq. ft.</span>
     </p>
-    <p class="card-text">
-      Price: <span class="float-right">&#x20b9 <%= @property.price %></span>
+    <p class="card-text d-flex justify-content-between">
+      Price: <span>&#x20b9 <%= @property.price %></span>
     </p>
-    <p class="card-text">
+    <p class="card-text d-flex justify-content-between">
       Street address:
-      <span class="float-right"><%= @property.street_address.titleize %></span>
+      <span><%= @property.street_address.titleize %></span>
     </p>
-    <p class="card-text">
+    <p class="card-text d-flex justify-content-between">
       Locality:
-      <span class="float-right"><%= @property.locality.titleize %></span>
+      <span><%= @property.locality.titleize %></span>
     </p>
-    <p class="card-text">
-      City: <span class="float-right"><%= @property.city.titleize %></span>
+    <p class="card-text d-flex justify-content-between">
+      City: <span><%= @property.city.titleize %></span>
     </p>
-    <p class="card-text">
-      State: <span class="float-right"><%= @property.state.titleize %></span>
+    <p class="card-text d-flex justify-content-between">
+      State: <span><%= @property.state.titleize %></span>
     </p>
-    <p class="card-text">
-      Pincode: <span class="float-right"><%= @property.pincode %></span>
+    <p class="card-text d-flex justify-content-between">
+      Pincode: <span><%= @property.pincode %></span>
     </p>
-    <p class="card-text">
+    <p class="card-text d-flex justify-content-between">
       Country:
-      <span class="float-right"><%= @property.country.titleize %></span>
+      <span><%= @property.country.titleize %></span>
     </p>
   </div>
   <div class="card-footer bg-transparent border-success">
     <% user = @property.user %>
-    <p class="card-text">
+    <p class="card-text d-flex justify-content-between">
       Posted by:
-      <span class="float-right"><%= link_to "#{user.name}", user %></span>
+      <span><%= link_to "#{user.name}", user %></span>
     </p>
     <% if current_user?(user) %>
       <%= link_to "Interested users (#{@property.interested_users.count})",
                   interested_users_property_path(@property),
-                  class: "btn btn-block btn-outline-success mb-3" %>
+                  class: "btn btn-block btn-outline-success" %>
     <% else %>
       <%= render 'shared/wishlist_form' %>
     <% end %>
     <% if current_user?(user) || current_user.admin? %>
       <%= link_to "Modify property details", edit_property_path(@property),
-                                             class: "btn btn-outline-warning" %>
+                                             class: "btn btn-block btn-outline-warning" %>
       <%= link_to "Delete property", @property,
                   method: :delete,
                   data: { confirm: "You sure?" },
-                  class:  "btn btn-outline-danger float-right" %>
+                  class:  "btn btn-block btn-outline-danger" %>
     <% end %>
   </div>
 </div>
