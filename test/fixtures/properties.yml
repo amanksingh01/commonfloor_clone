@@ -46,6 +46,22 @@ salt_lake:
   created_at: <%= 20.days.ago %>
   user: barry
 
+karol_bagh:
+  owner_name: <%= Faker::Name.name %>
+  property_type: "apartment"
+  property_status: "sell"
+  bed_rooms: "2bhk"
+  area: 1000
+  price: 12000
+  street_address: "123, karol bagh road"
+  locality: "karol bagh"
+  city: "new delhi"
+  state: "delhi"
+  pincode: "110005"
+  country: "india"
+  created_at: <%= 20.days.ago %>
+  user: aman
+
 lake_town:
   owner_name: <%= Faker::Name.name %>
   property_type: "apartment"
@@ -61,6 +77,22 @@ lake_town:
   country: "india"
   created_at: <%= 1.month.ago %>
   user: oliver
+
+dwarka:
+  owner_name: <%= Faker::Name.name %>
+  property_type: "apartment"
+  property_status: "sell"
+  bed_rooms: "3bhk"
+  area: 1600
+  price: 5000000
+  street_address: "121, dwarka road"
+  locality: "dwarka"
+  city: "new delhi"
+  state: "delhi"
+  pincode: "110075"
+  country: "india"
+  created_at: <%= 15.days.ago %>
+  user: aman
 
 most_recent:
   owner_name: <%= Faker::Name.name %>
@@ -112,7 +144,7 @@ apartment_<%= n %>:
   user: aman
 <% end %>
 
-<% 10.times do |n| %>
+<% 5.times do |n| %>
 house_<%= n %>:
   owner_name: <%= Faker::Name.name %>
   property_type: "house"

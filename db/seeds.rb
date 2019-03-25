@@ -64,11 +64,11 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    bed_rooms:       "2bhk",
                                    area:            1200,
                                    price:           3000000,
-                                   street_address:  "123, lake town road",
-                                   locality:        "lake town",
-                                   city:            "kolkata",
-                                   state:           "west bengal",
-                                   pincode:         "700089",
+                                   street_address:  "123, karol bagh road",
+                                   locality:        "karol bagh",
+                                   city:            "new delhi",
+                                   state:           "delhi",
+                                   pincode:         "110005",
                                    country:         "india")
 property.picture = Rails.root.join("app/assets/images/apartment-03.jpg").open
 property.save!
@@ -94,11 +94,11 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    bed_rooms:       "3bhk",
                                    area:            1800,
                                    price:           4500000,
-                                   street_address:  "125, esplanade road",
-                                   locality:        "esplanade",
-                                   city:            "kolkata",
-                                   state:           "west bengal",
-                                   pincode:         "700013",
+                                   street_address:  "125, dwarka road",
+                                   locality:        "dwarka",
+                                   city:            "new delhi",
+                                   state:           "delhi",
+                                   pincode:         "110075",
                                    country:         "india")
 property.picture = Rails.root.join("app/assets/images/apartment-05.jpg").open
 property.save!

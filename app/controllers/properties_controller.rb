@@ -1,5 +1,5 @@
 class PropertiesController < ApplicationController
-  before_action :logged_in_user, except: :index
+  before_action :logged_in_user, except: [:index, :search]
   before_action :get_property,   only:   [:edit, :update, :destroy]
   before_action :correct_user,   only:   [:edit, :update, :destroy]
 
@@ -57,6 +57,16 @@ class PropertiesController < ApplicationController
                                                  per_page: 24)
     @title = "Interested users"
     render 'shared/users'
+  end
+
+  def search
+    @properties = Property.paginate(page: params[:page], per_page: 12)
+    @properties = @properties.search(params[:q]) if params[:q].present?
+    filtering_params.each do |key, value|
+      @properties = @properties.send(key, value) if value.present?
+    end
+    @title = "Search results"
+    @properties_grid_col = "col-md-6 col-lg-4"
   end
 
   private

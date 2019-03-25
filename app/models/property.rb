@@ -59,6 +59,10 @@ class Property < ApplicationRecord
   end
   scope :property_status, -> (status) { where(property_status: status) }
   scope :property_type,   -> (type)   { where(property_type:   type) }
+  scope :search,          -> (keywords) do
+    where("locality LIKE :pattern OR city LIKE :pattern",
+          pattern: "%#{keywords.downcase}%")
+  end
 
   # Returns true if the user is interested in the property.
   def interested_user?(user)
