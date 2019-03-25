@@ -2,16 +2,9 @@
 
 <p>Hi <%= @seller.name %>,</p>
 
-<% property_title = @property.bed_rooms == 'na' ? (@property.area + " sq. ft.") :
-                                                   @property.bed_rooms.upcase + " " +
-                    @property.property_type.capitalize + " for " +
-                    @property.property_status + " in " +
-                    @property.locality.titleize + ", " +
-                    @property.city.titleize %>
-
 <p>
   <%= @user.name %> is interested in your property,
-  <%= link_to "#{property_title}", property_url(@property) %>.
+  <%= link_to "#{property_title(@property)}", property_url(@property) %>.
 </p>
 
 <p>The contact details of <%= @user.name %> are as follows:</p>

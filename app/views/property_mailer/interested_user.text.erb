@@ -1,13 +1,6 @@
 Hi <%= @seller.name %>,
 
-<% property_title = @property.bed_rooms == 'na' ? (@property.area + " sq. ft.") :
-                                                   @property.bed_rooms.upcase + " " +
-                    @property.property_type.capitalize + " for " +
-                    @property.property_status + " in " +
-                    @property.locality.titleize + ", " +
-                    @property.city.titleize %>
-
-<%= @user.name %> is interested in your property, "<%= property_title %>", <%= property_url(@property) %>.
+<%= @user.name %> is interested in your property, "<%= property_title(@property) %>", <%= property_url(@property) %>.
 
 The contact details of <%= @user.name %> are as follows:
 

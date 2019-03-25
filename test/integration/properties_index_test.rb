@@ -10,12 +10,13 @@ class PropertiesIndexTest < ActionDispatch::IntegrationTest
     assert_select 'aside.filters form[action=?]', properties_path
     assert_select 'nav.pagination', count: 1
     first_page_of_properties = Property.paginate(page: 1, per_page: 12)
+    assert_not first_page_of_properties.empty?
     first_page_of_properties.each do |property|
       assert_match  (property.bed_rooms == 'na' ? property.area.to_s :
                                                   property.bed_rooms.upcase),
                     response.body
       assert_match  property.property_type.capitalize,      response.body
-      assert_match  property.property_status,               response.body
+      assert_match  property.property_status.capitalize,    response.body
       assert_match  property.locality.titleize,             response.body
       assert_match  property.city.titleize,                 response.body
       assert_match  property.price.to_s,                    response.body

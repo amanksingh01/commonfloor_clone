@@ -1,5 +1,6 @@
 class PropertyMailer < ApplicationMailer
   helper :application
+  helper :properties
 
   def interested_user(property, user)
     @property = property
