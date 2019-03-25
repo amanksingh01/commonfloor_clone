@@ -12,8 +12,8 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
     get user_path(@user)
     assert_template 'users/show'
     assert_select 'title', full_title(@user.name)
-    assert_select 'h4', text: "Welcome to CommonfloorClone, #{@user.name}"
-    assert_select 'h4>img.gravatar'
+    assert_select 'h5', text: @user.name
+    assert_select 'h5>img.gravatar'
     assert_match assigns(:title), response.body
     assert_template 'shared/_properties'
     assert_template 'shared/_filters'

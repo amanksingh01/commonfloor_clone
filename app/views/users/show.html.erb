@@ -1,10 +1,10 @@
 <% provide(:title, @user.name) %>
 <% provide(:filters_form_url, user_path(@user)) %>
-<aside class="user_info">
-  <h4 class="text-secondary border-bottom border-success py-2 mb-3">
+<aside class="user-info card border-success mb-3">
+  <h5 class="card-header">
     <%= gravatar_for @user %>
-    Welcome to CommonfloorClone, <%= @user.name %>
-  </h4>
+    <%= @user.name %>
+  </h5>
 </aside>
 <% if @user.properties.any? %>
   <%= render 'shared/properties' %>
