@@ -7,9 +7,12 @@ class HomePageTest < ActionDispatch::IntegrationTest
     assert_template 'static_pages/home'
     assert_template 'static_pages/_home_page_properties'
     assert_template 'properties/_property'
-    assert_select 'a[href=?]', properties_path(property_type: "apartment")
-    assert_select 'a[href=?]', properties_path(property_type: "house")
-    assert_select 'a[href=?]', properties_path(property_type: "plot")
+    assert_select 'a[href=?]', properties_path(property_type: "apartment",
+                                               order_by:      "desc")
+    assert_select 'a[href=?]', properties_path(property_type: "house",
+                                               order_by:      "desc")
+    assert_select 'a[href=?]', properties_path(property_type: "plot",
+                                               order_by:      "desc")
     apartments = Property.where(sold: false)
                          .property_type("apartment")
                          .order_by("desc")

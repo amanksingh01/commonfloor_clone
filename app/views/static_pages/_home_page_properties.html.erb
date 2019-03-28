@@ -1,9 +1,12 @@
-<section>
-  <h2 class="border-bottom border-success py-2 mb-3">
-    <%= property_type.pluralize.capitalize %>
-    <%= link_to "View all", properties_path(property_type: property_type),
-                class: "btn btn-outline-success rounded-pill float-right" %>
+<section class="py-3">
+  <h2 class="text-center">
+    Recently Added <%= property_type.pluralize.capitalize %>
   </h2>
+  <p class="text-center">
+    <%= link_to "View all",
+                properties_path(property_type: property_type, order_by: "desc"),
+                class: "btn btn-outline-success rounded-pill" %>
+  </p>
   <div class="row">
     <%= render properties %>
   </div>
