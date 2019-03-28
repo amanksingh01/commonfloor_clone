@@ -59,7 +59,7 @@ karol_bagh:
   state: "delhi"
   pincode: "110005"
   country: "india"
-  created_at: <%= 20.days.ago %>
+  created_at: <%= 25.days.ago %>
   user: aman
 
 lake_town:
@@ -126,8 +126,7 @@ oldest:
   created_at: <%= 1.year.ago %>
   user: aman
 
-<% 5.times do |n| %>
-apartment_<%= n %>:
+sold:
   owner_name: <%= Faker::Name.name %>
   property_type: "apartment"
   property_status: "sell"
@@ -140,9 +139,10 @@ apartment_<%= n %>:
   state: "west bengal"
   pincode: "700123"
   country: "india"
-  created_at: <%= 40.days.ago %>
+  created_at: <%= 5.days.ago %>
+  sold: true
+  sold_at: <%= Time.zone.now %>
   user: aman
-<% end %>
 
 <% 5.times do |n| %>
 house_<%= n %>:

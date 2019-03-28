@@ -13,8 +13,7 @@ class Property < ApplicationRecord
   validates :owner_name,      presence: true, length: { maximum: 50 }
   validates :property_type,   presence: true, inclusion: { in: %w(apartment
                                                                   house plot) }
-  validates :property_status, presence: true, inclusion: { in: %w[sell rent
-                                                                  sold] }
+  validates :property_status, presence: true, inclusion: { in: %w[sell rent] }
   validates :bed_rooms,       presence: true, inclusion: { in: %w[1bhk 2bhk
                                                                   3bhk 4bhk
                                                                   4+bhk na] }
@@ -43,9 +42,16 @@ class Property < ApplicationRecord
       where("area > ?", 2500)
     end
   end
-  scope :bed_rooms, -> (bed_rooms) { where(bed_rooms:  bed_rooms) }
-  scope :order_by,  -> (order_by)  { order(created_at: order_by) }
-  scope :price,     -> (flag) do
+  scope :bed_rooms,    -> (bed_rooms) { where(bed_rooms:  bed_rooms) }
+  scope :include_sold, -> (value) do
+    if value == 'yes'
+      where(sold: [false, true])
+    else
+      where(sold: false)
+    end
+  end
+  scope :order_by, -> (order_by)  { order(created_at: order_by) }
+  scope :price,    -> (flag) do
     case flag
     when "1"
       where("price < ?", 10000)
@@ -72,6 +78,11 @@ class Property < ApplicationRecord
   # Sends interested user email.
   def send_interested_user_email(user)
     PropertyMailer.interested_user(self, user).deliver_now
+  end
+
+  # Marks a property as sold.
+  def mark_as_sold
+    update_columns(sold: true, sold_at: Time.zone.now)
   end
   
   private

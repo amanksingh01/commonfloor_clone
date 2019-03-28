@@ -15,7 +15,8 @@ Rails.application.routes.draw do
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :properties do
-    get :interested_users, on: :member
+    get  :interested_users, on: :member
+    post :mark_as_sold,     on: :member
   end
   resources :wishlists,           only: [:create, :destroy]
   resources :comments,            only: [:create, :destroy]

@@ -1,15 +1,23 @@
 class PropertiesController < ApplicationController
-  before_action :logged_in_user, except: [:index, :search]
-  before_action :get_property,   only:   [:edit, :update, :destroy]
-  before_action :correct_user,   only:   [:edit, :update, :destroy]
+  before_action :logged_in_user,         except: [:index, :search]
+  before_action :get_property,           only:   [:edit, :update, :destroy,
+                                                  :interested_users,
+                                                  :mark_as_sold]
+  before_action :get_property_for_admin, only:   [:edit, :update, :destroy]
+  before_action :correct_user,           only:   [:edit, :update, :destroy,
+                                                  :interested_users,
+                                                  :mark_as_sold]
+  before_action :sold_property,          only:   [:edit, :update, :destroy,
+                                                  :interested_users,
+                                                  :mark_as_sold]
 
   def index
-    @properties = Property.paginate(page: params[:page], per_page: 12)
+    @properties = Property.include_sold(params[:include_sold])
+                          .paginate(page: params[:page], per_page: 12)
     filtering_params.each do |key, value|
       @properties = @properties.send(key, value) if value.present?
     end
     @title = "Browse properties"
-    @properties_grid_col = "col-md-6 col-lg-4"
   end
 
   def show
@@ -51,8 +59,6 @@ class PropertiesController < ApplicationController
   end
 
   def interested_users
-    @property = Property.find(params[:id])
-    redirect_to root_url and return unless current_user?(@property.user)
     @users = @property.interested_users.paginate(page: params[:page],
                                                  per_page: 24)
     @title = "Interested users"
@@ -60,13 +66,19 @@ class PropertiesController < ApplicationController
   end
 
   def search
-    @properties = Property.paginate(page: params[:page], per_page: 12)
+    @properties = Property.include_sold(params[:include_sold])
+                          .paginate(page: params[:page], per_page: 12)
     @properties = @properties.search(params[:q]) if params[:q].present?
     filtering_params.each do |key, value|
       @properties = @properties.send(key, value) if value.present?
     end
     @title = "Search results"
-    @properties_grid_col = "col-md-6 col-lg-4"
+  end
+
+  def mark_as_sold
+    @property.mark_as_sold
+    flash[:success] = "Property marked as sold!"
+    redirect_to @property
   end
 
   private
@@ -79,14 +91,27 @@ class PropertiesController < ApplicationController
                                        :picture)
     end
 
+    # Before filters
+
+    # Retrieves the property from the database.
     def get_property
       @property = current_user.properties.find_by(id: params[:id])
+    end
+
+    # Retrieves the property for admin users.
+    def get_property_for_admin
       if @property.nil? && current_user.admin?
         @property = Property.find(params[:id])
       end
     end
 
+    # Checks whether the user has permission to modify property details.
     def correct_user
       redirect_to root_url if @property.nil?
+    end
+
+    # Prevents user from modifying property details for sold property.
+    def sold_property
+      redirect_to root_url if @property.sold?
     end
 end

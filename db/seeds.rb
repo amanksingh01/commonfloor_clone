@@ -8,7 +8,7 @@ User.create!(name:  "Aman Kumar Singh",
              activated: true,
              activated_at: Time.zone.now)
 
-49.times do |n|
+29.times do |n|
   name = Faker::Name.unique.name
   email = "example-#{n+1}@example.com"
   mobile_number = "9876543#{n+101}"
@@ -159,7 +159,9 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    city:            "kolkata",
                                    state:           "west bengal",
                                    pincode:         "700067",
-                                   country:         "india")
+                                   country:         "india",
+                                   sold:            true,
+                                   sold_at:         Time.zone.now)
 property.picture = Rails.root.join("app/assets/images/apartment-09.jpg").open
 property.save!
 
@@ -174,7 +176,9 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    city:            "kolkata",
                                    state:           "west bengal",
                                    pincode:         "700013",
-                                   country:         "india")
+                                   country:         "india",
+                                   sold:            true,
+                                   sold_at:         Time.zone.now)
 property.picture = Rails.root.join("app/assets/images/apartment-10.jpg").open
 property.save!
 
@@ -311,7 +315,9 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    city:            "kolkata",
                                    state:           "west bengal",
                                    pincode:         "700067",
-                                   country:         "india")
+                                   country:         "india",
+                                   sold:            true,
+                                   sold_at:         Time.zone.now)
 property.picture = Rails.root.join("app/assets/images/house-09.jpg").open
 property.save!
 
@@ -326,7 +332,9 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    city:            "kolkata",
                                    state:           "west bengal",
                                    pincode:         "700013",
-                                   country:         "india")
+                                   country:         "india",
+                                   sold:            true,
+                                   sold_at:         Time.zone.now)
 property.picture = Rails.root.join("app/assets/images/house-10.jpg").open
 property.save!
 
@@ -403,23 +411,23 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    city:            "kolkata",
                                    state:           "west bengal",
                                    pincode:         "700013",
-                                   country:         "india")
+                                   country:         "india",
+                                   sold:            true,
+                                   sold_at:         Time.zone.now)
 property.picture = Rails.root.join("app/assets/images/plot-05.jpg").open
 property.save!
 
 # Property wishlists
-users      = User.all
-properties = Property.all
-interested_users    = users[1..40]
-favorite_properties = properties[1..20]
+interested_users    = User.all[1..25]
+favorite_properties = Property.first(15)
 
 favorite_properties.each do |property|
   interested_users.each { |user| user.add_to_favorites(property) }
 end
 
 # Property comments
-users      = User.order(:created_at).take(20)
-properties = Property.all
+users      = User.first(15)
+properties = Property.first(15)
 
 users.each do |user|
   properties.each do |property|

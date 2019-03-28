@@ -1,5 +1,13 @@
-<div class="<%= @properties_grid_col %>">
+<div class="<%= @properties_grid_col.nil? ? "col-md-6 col-lg-4" :
+                                            @properties_grid_col %>">
   <div class="card border-success mb-3" id="property-<%= property.id %>">
+    <% if property.sold? %>
+      <div class="position-absolute w-100">
+        <h2 class="sold-tag text-center text-uppercase text-light bg-secondary">
+          Sold
+        </h2>
+      </div>
+    <% end %>
     <%= image_tag(property.picture.url, class: "card-img-top",
                                         alt:   "Property image") %>
     <div class="card-body">

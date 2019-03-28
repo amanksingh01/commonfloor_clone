@@ -15,10 +15,21 @@ class FavoritesTest < ActionDispatch::IntegrationTest
     assert_template 'shared/_properties'
     assert_template 'shared/_filters'
     assert_select 'aside.filters form[action=?]', favorites_user_path(@user)
-    assert_not @user.favorites.empty?
-    @user.favorites.each do |property|
+    favorites = assigns(:properties)
+    assert_not favorites.empty?
+    favorites.each do |property|
+      assert_not property.sold?
       assert_select "a[href=?]", property_path(property), text: "View details"
     end
+    # Apply filters
+    get favorites_user_path(@user, property_type: "apartment",
+                                   include_sold:  "yes")
+    favorites = assigns(:properties)
+    assert_not favorites.empty?
+    favorites.each do |property|
+      assert_equal "apartment", property.property_type
+    end
+    assert_select 'h2.sold-tag', text: 'Sold'
   end
 
   test "interested_users page" do
@@ -42,7 +53,7 @@ class FavoritesTest < ActionDispatch::IntegrationTest
 
   test "should remove from favorites a property" do
     @user.add_to_favorites(@property)
-    wishlist = @user.wishlists.find_by(property_id: @property.id)
+    wishlist = @user.wishlists.find_by(property: @property)
     assert_difference '@user.favorites.count', -1 do
       delete wishlist_path(wishlist)
     end

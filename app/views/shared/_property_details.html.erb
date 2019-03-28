@@ -1,23 +1,25 @@
 <div class="card border-success mb-3">
   <%= image_tag(@property.picture.url, class: "card-img-top",
                                        alt:   "Property image") %>
+  <% if @property.sold? %>
+    <div class="position-absolute w-100">
+      <h2 class="sold-tag text-center text-uppercase text-light bg-secondary">
+        Sold
+      </h2>
+    </div>
+  <% end %>
   <div class="card-body">
     <p class="card-text d-flex justify-content-between">
       Owner: <span><%= @property.owner_name.titleize %></span>
     </p>
     <p class="card-text d-flex justify-content-between">
-      Type:
-      <span><%= @property.property_type.capitalize %></span>
+      Type: <span><%= @property.property_type.capitalize %></span>
     </p>
     <p class="card-text d-flex justify-content-between">
-      Status:
-      <span>
-        <%= @property.property_status.capitalize %>
-      </span>
+      Status: <span><%= @property.property_status.capitalize %></span>
     </p>
     <p class="card-text d-flex justify-content-between">
-      Bed rooms:
-      <span><%= @property.bed_rooms.upcase %></span>
+      Bed rooms: <span><%= @property.bed_rooms.upcase %></span>
     </p>
     <p class="card-text d-flex justify-content-between">
       Area: <span><%= @property.area %> sq. ft.</span>
@@ -26,12 +28,10 @@
       Price: <span>&#x20b9 <%= @property.price %></span>
     </p>
     <p class="card-text d-flex justify-content-between">
-      Street address:
-      <span><%= @property.street_address.titleize %></span>
+      Street address: <span><%= @property.street_address.titleize %></span>
     </p>
     <p class="card-text d-flex justify-content-between">
-      Locality:
-      <span><%= @property.locality.titleize %></span>
+      Locality: <span><%= @property.locality.titleize %></span>
     </p>
     <p class="card-text d-flex justify-content-between">
       City: <span><%= @property.city.titleize %></span>
@@ -43,26 +43,28 @@
       Pincode: <span><%= @property.pincode %></span>
     </p>
     <p class="card-text d-flex justify-content-between">
-      Country:
-      <span><%= @property.country.titleize %></span>
+      Country: <span><%= @property.country.titleize %></span>
     </p>
   </div>
   <div class="card-footer bg-transparent border-success">
     <% user = @property.user %>
     <p class="card-text d-flex justify-content-between">
-      Posted by:
-      <span><%= link_to "#{user.name}", user %></span>
+      Posted by: <span><%= link_to "#{user.name}", user %></span>
     </p>
-    <% if current_user?(user) %>
+    <% if current_user?(user) && !@property.sold? %>
       <%= link_to "Interested users (#{@property.interested_users.count})",
                   interested_users_property_path(@property),
+                  class: "btn btn-block btn-outline-success" %>
+      <%= link_to "Mark as sold", mark_as_sold_property_path(@property),
+                  method: :post,
+                  data: { confirm: "You sure? You won't be able to undo this" },
                   class: "btn btn-block btn-outline-success" %>
     <% else %>
       <%= render 'shared/wishlist_form' %>
     <% end %>
-    <% if current_user?(user) || current_user.admin? %>
+    <% if (current_user?(user) || current_user.admin?) && !@property.sold? %>
       <%= link_to "Modify property details", edit_property_path(@property),
-                                             class: "btn btn-block btn-outline-warning" %>
+                  class: "btn btn-block btn-outline-success" %>
       <%= link_to "Delete property", @property,
                   method: :delete,
                   data: { confirm: "You sure?" },

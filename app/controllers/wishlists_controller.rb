@@ -3,6 +3,7 @@ class WishlistsController < ApplicationController
 
   def create
     property = Property.find(params[:property_id])
+    redirect_to root_url and return if property.sold?
     current_user.add_to_favorites(property)
     property.send_interested_user_email(current_user)
     message = "Added to wishlist! We have also notified the seller regarding " +
