@@ -2,6 +2,6 @@
   <%= form_for(current_user.wishlists.find_by(property: @property),
                html: { method: :delete, class: "card-text" }) do |f| %>
     <%= f.submit "Remove from wishlist",
-                 class: "btn btn-block btn-outline-secondary text-wrap" %>
+          class: "btn btn-block btn-outline-secondary rounded-pill text-wrap" %>
   <% end %>
 </div>

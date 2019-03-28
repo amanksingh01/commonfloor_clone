@@ -4,11 +4,13 @@
       <h5 class="card-title"><%= user.name %></h5>
       <p class="card-text"><%= mail_to user.email %></p>
       <p class="card-text"><%= tel_to user.mobile_number %></p>
-      <%= link_to "View profile", user, class: "btn btn-outline-success" %>
+      <%= link_to "View profile", user,
+                  class: "btn btn-outline-success rounded-pill" %>
       <% if current_user.admin? && !current_user?(user) %>
-        <%= link_to "Delete user", user, method: :delete,
-                                         data: { confirm: "You sure?" },
-                                         class: "btn btn-outline-danger" %>
+        <%= link_to "Delete user", user,
+                    method: :delete,
+                    data: { confirm: "You sure?" },
+                    class: "btn btn-outline-danger rounded-pill" %>
       <% end %>
     </div>
   </div>

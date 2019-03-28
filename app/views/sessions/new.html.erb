@@ -21,7 +21,8 @@
         <%= f.label :remember_me, "Remember me", class: "form-check-label" %>
       </div>
 
-      <%= f.submit "Log in", class: "btn btn-block btn-outline-success" %>
+      <%= f.submit "Log in",
+                   class: "btn btn-block btn-outline-success rounded-pill" %>
     <% end %>
 
     <p class="my-3">New user? <%= link_to "Sign up now!", signup_path %></p>

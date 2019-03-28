@@ -54,21 +54,21 @@
     <% if current_user?(user) && !@property.sold? %>
       <%= link_to "Interested users (#{@property.interested_users.count})",
                   interested_users_property_path(@property),
-                  class: "btn btn-block btn-outline-success" %>
+                  class: "btn btn-block btn-outline-success rounded-pill" %>
       <%= link_to "Mark as sold", mark_as_sold_property_path(@property),
                   method: :post,
                   data: { confirm: "You sure? You won't be able to undo this" },
-                  class: "btn btn-block btn-outline-success" %>
+                  class: "btn btn-block btn-outline-success rounded-pill" %>
     <% else %>
       <%= render 'shared/wishlist_form' %>
     <% end %>
     <% if (current_user?(user) || current_user.admin?) && !@property.sold? %>
       <%= link_to "Modify property details", edit_property_path(@property),
-                  class: "btn btn-block btn-outline-success" %>
+                  class: "btn btn-block btn-outline-success rounded-pill" %>
       <%= link_to "Delete property", @property,
                   method: :delete,
                   data: { confirm: "You sure?" },
-                  class:  "btn btn-block btn-outline-danger" %>
+                  class:  "btn btn-block btn-outline-danger rounded-pill" %>
     <% end %>
   </div>
 </div>

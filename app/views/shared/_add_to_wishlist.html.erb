@@ -2,6 +2,6 @@
   <%= form_for(current_user.wishlists.build) do |f| %>
     <div><%= hidden_field_tag :property_id, @property.id %></div>
     <%= f.submit "Interested? Add to wishlist to notify seller",
-                 class: "btn btn-block btn-outline-success text-wrap" %>
+          class: "btn btn-block btn-outline-success rounded-pill text-wrap" %>
   <% end %>
 </div>
