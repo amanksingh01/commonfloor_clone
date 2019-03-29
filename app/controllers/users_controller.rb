@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, except: [:new, :create]
-  before_action :get_user,       except: [:index, :new, :create]
+  before_action :get_user,       except: [:index, :new, :create, :admin]
   before_action :correct_user,   only:   [:edit, :update, :favorites]
-  before_action :admin_user,     only:   [:index, :destroy]
+  before_action :admin_user,     only:   [:index, :destroy, :admin]
   
   def index
     @users = User.where(activated: true).paginate(page: params[:page],
@@ -64,6 +64,9 @@ class UsersController < ApplicationController
       @properties = @properties.send(key, value) if value.present?
     end
     @title = "Wishlist"
+  end
+
+  def admin
   end
 
   private

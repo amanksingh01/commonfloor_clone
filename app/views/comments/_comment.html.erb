@@ -1,9 +1,9 @@
 <div class="card border-success mb-3" id="comment-<%= comment.id %>">
-    <h5 class="card-header border-success">
-      <% user = comment.user %>
-      <%= gravatar_for user, size: 30 %>
-      <%= user.name %>
-    </h5>
+  <h5 class="card-header border-success">
+    <% user = comment.user %>
+    <%= gravatar_for user, size: 30 %>
+    <%= user.name %>
+  </h5>
   <div class="card-body">
     <p class="card-text"><%= comment.comment %><p>
     <p class="card-text">

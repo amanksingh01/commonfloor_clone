@@ -92,12 +92,27 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test "should redirect favorites when not logged in" do
     get favorites_user_path(@user)
+    assert_not flash.empty?
     assert_redirected_to login_url
   end
 
   test "should redirect favorites when logged in as wrong user" do
     log_in_as(@other_user)
     get favorites_user_path(@user)
+    assert flash.empty?
+    assert_redirected_to root_url
+  end
+
+  test "should redirect admin when not logged in" do
+    get admin_path
+    assert_not flash.empty?
+    assert_redirected_to login_url
+  end
+
+  test "should redirect admin when logged in as a non-admin" do
+    log_in_as(@other_user)
+    get admin_path
+    assert flash.empty?
     assert_redirected_to root_url
   end
 end

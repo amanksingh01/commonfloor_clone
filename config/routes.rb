@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
   get    '/search',  to: 'properties#search'
+  get    '/admin',   to: 'users#admin'
   resources :users do
     get :favorites, on: :member
   end

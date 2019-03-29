@@ -1,0 +1,42 @@
+<% provide(:title, 'Admin') %>
+<% provide(:admin_page_active_status, 'active') %>
+<h2 class="text-center mb-4">Admin panel</h2>
+<div class="row">
+  <div class="col-md-8 col-lg-6 offset-md-2 offset-lg-3 mb-4">
+    <div class="card border-success">
+      <h5 class="card-header border-success text-center">Users actions</h5>
+      <div class="card-body">
+        <%= link_to "List all users (#{User.count})", users_path,
+                    class: "btn btn-block btn-outline-success rounded-pill" %>
+        <%= link_to "List all sellers", "#",
+              class: "btn btn-block btn-outline-success rounded-pill mt-3" %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-8 col-lg-6 offset-md-2 offset-lg-3 mb-4">
+    <div class="card border-success">
+      <h5 class="card-header border-success text-center">Properties actions</h5>
+      <div class="card-body">
+        <%= link_to "List all properties (#{Property.count})", properties_path,
+                    class: "btn btn-block btn-outline-success rounded-pill" %>
+        <%= link_to "List all sold properties", "#",
+              class: "btn btn-block btn-outline-success rounded-pill mt-3" %>
+        <%= link_to "List all unapproved properties", "#",
+              class: "btn btn-block btn-outline-success rounded-pill mt-3" %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-8 col-lg-6 offset-md-2 offset-lg-3 mb-4">
+    <div class="card border-success">
+      <h5 class="card-header border-success text-center">Comments actions</h5>
+      <div class="card-body">
+        <%= link_to "List all unapproved comments", "#",
+                    class: "btn btn-block btn-outline-success rounded-pill" %>
+      </div>
+    </div>
+  </div>
+</div>
