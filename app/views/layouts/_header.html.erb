@@ -13,9 +13,11 @@
       <ul class="navbar-nav mr-auto">
         <li class="nav-item <%= yield(:home_page_active_status) %>">
           <%= link_to "Home", root_path, class: "nav-link"%>
-        </li><li class="nav-item">
+        </li>
+        <li class="nav-item <%= yield(:properties_index_page_active_status) %>">
           <%= link_to "Properties", properties_path, class: "nav-link"%>
-        </li><li class="nav-item">
+        </li>
+        <li class="nav-item <%= yield(:new_property_page_active_status) %>">
           <%= link_to "Post property", new_property_path, class: "nav-link"%>
         </li>
         <% if logged_in? %>
