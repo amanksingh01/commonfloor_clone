@@ -1,12 +1,12 @@
 one:
   user:     aman
   property: salt_lake
-  created_at: <%= 10.days.ago %>
+  created_at: <%= 4.days.ago %>
 
 two:
   user:     aman
   property: lake_town
-  created_at: <%= 20.days.ago %>
+  created_at: <%= 6.days.ago %>
 
 three:
   user:     barry
@@ -18,7 +18,7 @@ four:
   property: sold
   created_at: <%= 3.days.ago %>
 
-most_recent:
+oldest:
   user:     oliver
   property: dum_dum
-  created_at: <%= Time.zone.now %>
+  created_at: <%= 10.days.ago %>

@@ -3,8 +3,7 @@ require 'test_helper'
 class FavoritesTest < ActionDispatch::IntegrationTest
 
   def setup
-    @user     = users(:aman)
-    @property = properties(:new_town)
+    @user = users(:aman)
     log_in_as(@user)
     ActionMailer::Base.deliveries.clear
   end
@@ -42,22 +41,29 @@ class FavoritesTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test "interested_users order should be oldest first" do
+    get interested_users_property_path(properties(:dum_dum))
+    assert_equal wishlists(:oldest).user, assigns(:users).first
+  end
+
   test "should add to favorites a property" do
+    property = properties(:new_town)
     assert_difference '@user.favorites.count', 1 do
-      post wishlists_path, params: { property_id: @property.id }
+      post wishlists_path, params: { property_id: property.id }
     end
     assert_equal 1, ActionMailer::Base.deliveries.size
     assert_not flash.empty?
-    assert_redirected_to @property
+    assert_redirected_to property
   end
 
   test "should remove from favorites a property" do
-    @user.add_to_favorites(@property)
-    wishlist = @user.wishlists.find_by(property: @property)
+    property = properties(:new_town)
+    @user.add_to_favorites(property)
+    wishlist = @user.wishlists.find_by(property: property)
     assert_difference '@user.favorites.count', -1 do
       delete wishlist_path(wishlist)
     end
     assert_not flash.empty?
-    assert_redirected_to @property
+    assert_redirected_to property
   end
 end

@@ -59,8 +59,9 @@ class PropertiesController < ApplicationController
   end
 
   def interested_users
-    @users = @property.interested_users.paginate(page: params[:page],
-                                                 per_page: 24)
+    @users = @property.interested_users
+                      .order('wishlists.created_at ASC')
+                      .paginate(page: params[:page], per_page: 24)
     @title = "Interested users"
     render 'shared/users'
   end
