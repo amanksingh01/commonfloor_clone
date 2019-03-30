@@ -39,10 +39,19 @@ kara:
   activated: true
   activated_at: <%= Time.zone.now %>
 
-<% 30.times do |n| %>
+oldest:
+  name: Wally West
+  email: kidflash@example.gov
+  mobile_number: 9876543214
+  password_digest: <%= User.digest('password') %>
+  created_at: <%= 6.months.ago %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
+
+<% 25.times do |n| %>
 user_<%= n+1 %>:
-  name: <%= "User #{n+1}" %>
-  email: <%= "user-#{n+1}@example.com" %>
+  name: <%= "Example User #{n+1}" %>
+  email: <%= "example-#{n+1}@example.com" %>
   mobile_number: <%= "98765432#{n+21}" %>
   password_digest: <%= User.digest('password') %>
   activated: true

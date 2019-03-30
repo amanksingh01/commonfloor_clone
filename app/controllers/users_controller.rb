@@ -5,8 +5,9 @@ class UsersController < ApplicationController
   before_action :admin_user,     only:   [:index, :destroy, :admin]
   
   def index
-    @users = User.where(activated: true).paginate(page: params[:page],
-                                                  per_page: 24)
+    @users = User.where(activated: true)
+                 .order(:created_at)
+                 .paginate(page: params[:page], per_page: 24)
     @title = "Users"
     render 'shared/users'
   end
