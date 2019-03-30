@@ -2,29 +2,29 @@
   <%= render 'shared/error_messages', object: f.object %>
 
   <div class="form-group">
-    <%= f.label :owner_name %>
-    <%= f.text_field :owner_name, class: "form-control" %>
+    <%= f.label      :owner_name %>
+    <%= f.text_field :owner_name, class: "form-control text-capitalize" %>
   </div>
 
   <div class="form-group">
-    <%= f.label :property_type %>
+    <%= f.label  :property_type %>
     <%= f.select :property_type, [['Apartment', 'apartment'],
-                                 ['House', 'house'], ['Plot', 'plot']], {},
-                                 class: "form-control" %>
+                                  ['House', 'house'], ['Plot', 'plot']],
+                 {}, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= f.label :property_status, "List my property for" %>
-    <%= f.select :property_status, [['Sell', 'sell'], ['Rent', 'rent']], {},
-                                   class: "form-control" %>
+    <%= f.label  :property_status, "List my property for" %>
+    <%= f.select :property_status, [['Sell', 'sell'], ['Rent', 'rent']],
+                 {}, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= f.label :bed_rooms %>
+    <%= f.label  :bed_rooms %>
     <%= f.select :bed_rooms, [['1BHK', '1bhk'], ['2BHK', '2bhk'],
-                             ['3BHK', '3bhk'], ['4BHK', '4bhk'],
-                             ['4+BHK', '4+bhk'], ['NA', 'na']], {},
-                             class: "form-control" %>
+                              ['3BHK', '3bhk'], ['4BHK', '4bhk'],
+                              ['4+BHK', '4+bhk'], ['NA', 'na']],
+                 {}, class: "form-control" %>
   </div>
 
   <div class="form-group">
@@ -48,37 +48,39 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :street_address %>
-    <%= f.text_field :street_address, class: "form-control" %>
+    <%= f.label      :street_address %>
+    <%= f.text_field :street_address, class: "form-control text-capitalize" %>
   </div>
 
   <div class="form-group">
-    <%= f.label :locality %>
-    <%= f.text_field :locality, class: "form-control" %>
+    <%= f.label      :locality %>
+    <%= f.text_field :locality, class: "form-control text-capitalize" %>
   </div>
 
   <div class="form-group">
-    <%= f.label :city %>
-    <%= f.text_field :city, class: "form-control" %>
+    <%= f.label      :city %>
+    <%= f.text_field :city, class: "form-control text-capitalize" %>
   </div>
 
   <div class="form-group">
-    <%= f.label :state %>
-    <%= f.text_field :state, class: "form-control" %>
+    <%= f.label      :state %>
+    <%= f.text_field :state, class: "form-control text-capitalize" %>
   </div>
 
   <div class="form-group">
-    <%= f.label :pincode %>
+    <%= f.label        :pincode %>
     <%= f.number_field :pincode, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= f.label :country %>
-    <%= f.text_field :country, class: "form-control", value: "India", readonly: true %>
+    <%= f.label      :country %>
+    <%= f.text_field :country, class: "form-control",
+                               value: "India",
+                               readonly: true %>
   </div>
 
   <div class="form-group">
-    <%= f.label :picture, "Upload property image" %>
+    <%= f.label      :picture, "Upload property image" %>
     <%= f.file_field :picture, accept:   'image/jpeg,image/gif,image/png',
                                onchange: "validateSize(this)",
                                class:    "form-control-file" %>
