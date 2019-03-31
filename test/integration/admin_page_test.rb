@@ -14,9 +14,9 @@ class AdminPageTest < ActionDispatch::IntegrationTest
 
     assert_select 'h5.card-header', text: 'Users actions'
     assert_select 'a[href=?]', users_path,
-                  text: "List all users (#{User.count})"
-    assert_select 'a[href=?]', '#',
-                  text: 'List all sellers'
+                  text: "List all users (#{User.where(activated: true).count})"
+    assert_select 'a[href=?]', sellers_path,
+                  text: "List all sellers (#{User.where(seller: true).count})"
 
     assert_select 'h5.card-header', text: 'Properties actions'
     assert_select 'a[href=?]', properties_path,

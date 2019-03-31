@@ -15,6 +15,9 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
     assert_select 'h5', text: @user.name
     assert_select 'h5>img.gravatar'
     assert_match assigns(:title), response.body
+
+    assert @user.seller?
+    assert_select 'h2', text: 'Properties'
     assert_template 'shared/_properties'
     assert_template 'shared/_filters'
     assert_select 'aside.filters form[action=?]', user_path(@user)
@@ -25,6 +28,7 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
       assert_not property.sold?
       assert_equal @user, property.user
     end
+    
     # Apply filters
     get user_path(@user, property_type: "apartment", include_sold:  "yes")
     properties = assigns(:properties)

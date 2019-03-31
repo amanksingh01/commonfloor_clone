@@ -6,6 +6,6 @@
     <%= @user.name %>
   </h5>
 </aside>
-<% if @user.properties.any? %>
+<% if @user.seller? %>
   <%= render 'shared/properties' %>
 <% end %>

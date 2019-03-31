@@ -33,6 +33,7 @@ class PropertiesController < ApplicationController
   def create
     @property = current_user.properties.build(property_params)
     if @property.save
+      current_user.update_attribute(:seller, true) unless current_user.seller?
       flash[:success] = "Property posted!"
       redirect_to @property
     else

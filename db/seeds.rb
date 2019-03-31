@@ -6,7 +6,8 @@ User.create!(name:  "Aman Kumar Singh",
              password_confirmation: "foobar",
              admin:     true,
              activated: true,
-             activated_at: Time.zone.now)
+             activated_at: Time.zone.now,
+             seller: true)
 
 29.times do |n|
   name = Faker::Name.unique.name

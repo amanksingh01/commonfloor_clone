@@ -4,8 +4,10 @@ aman:
   mobile_number: 9876512345
   password_digest: <%= User.digest('password') %>
   admin: true
+  created_at: <%= 4.months.ago %>
   activated: true
-  activated_at: <%= Time.zone.now %>
+  activated_at: <%= 4.months.ago %>
+  seller: true
 
 inactive:
   name: Inactive User
@@ -22,6 +24,7 @@ barry:
   password_digest: <%= User.digest('password') %>
   activated: true
   activated_at: <%= Time.zone.now %>
+  seller: true
 
 oliver:
   name: Oliver Queen
@@ -30,6 +33,7 @@ oliver:
   password_digest: <%= User.digest('password') %>
   activated: true
   activated_at: <%= Time.zone.now %>
+  seller: true
 
 kara:
   name: Kara Zor-El
@@ -46,7 +50,7 @@ oldest:
   password_digest: <%= User.digest('password') %>
   created_at: <%= 6.months.ago %>
   activated: true
-  activated_at: <%= Time.zone.now %>
+  activated_at: <%= 6.months.ago %>
 
 <% 25.times do |n| %>
 user_<%= n+1 %>:

@@ -6,9 +6,11 @@
     <div class="card border-success">
       <h5 class="card-header border-success text-center">Users actions</h5>
       <div class="card-body">
-        <%= link_to "List all users (#{User.count})", users_path,
+        <%= link_to "List all users (#{User.where(activated: true).count})",
+                    users_path,
                     class: "btn btn-block btn-outline-success rounded-pill" %>
-        <%= link_to "List all sellers", "#",
+        <%= link_to "List all sellers (#{User.where(seller: true).count})",
+              sellers_path,
               class: "btn btn-block btn-outline-success rounded-pill mt-3" %>
       </div>
     </div>

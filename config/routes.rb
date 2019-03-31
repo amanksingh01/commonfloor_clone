@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy'
   get    '/search',  to: 'properties#search'
   get    '/admin',   to: 'users#admin'
+  get    '/sellers', to: 'users#sellers'
   resources :users do
     get :favorites, on: :member
   end

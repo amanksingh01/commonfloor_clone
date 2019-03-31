@@ -3,7 +3,7 @@ require 'test_helper'
 class PropertiesCreateTest < ActionDispatch::IntegrationTest
 
   def setup
-    @user = users(:aman)
+    @user = users(:kara)
   end
   
   test "invalid properties information" do
@@ -37,6 +37,7 @@ class PropertiesCreateTest < ActionDispatch::IntegrationTest
     assert_not_nil session[:forwarding_url]
     log_in_as(@user)
     assert_redirected_to new_property_path
+    assert_not @user.seller?
     picture = fixture_file_upload('house-sample.jpg', 'image/jpg')
     assert_difference 'Property.count', 1 do
       post properties_path, params: { property: {
@@ -55,6 +56,7 @@ class PropertiesCreateTest < ActionDispatch::IntegrationTest
                                         picture:         picture } }
     end
     assert_not flash.empty?
+    assert @user.reload.seller?
     property = assigns(:property)
     assert_equal @user, property.user
     assert property.picture?

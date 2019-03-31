@@ -29,12 +29,14 @@ class UserShowTest < ActionDispatch::IntegrationTest
 
   test "should redirect non-admin user when visiting non-seller profile" do
     log_in_as(@non_admin)
+    assert_not @other_user.seller?
     get user_path(@other_user)
     assert_redirected_to root_url
   end
 
   test "should display seller's profile" do
     log_in_as(@other_user)
+    assert @admin.seller?
     get user_path(@admin)
     assert_template 'users/show'
     assert_response :success
