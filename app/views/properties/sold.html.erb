@@ -1,0 +1,13 @@
+<% provide(:title, @title) %>
+<section>
+  <h2 class="text-center mb-3"><%= @title %></h2>
+  <% if @properties.any? %>
+    <div class="row">
+      <%= render @properties %>
+    </div>
+    <%= will_paginate(@properties,
+                      renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer) %>
+  <% else %>
+    <p>No properties found!</p>
+  <% end %>
+</section>

@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PropertiesSoldTest < ActionDispatch::IntegrationTest
   
-  test "properties sold" do
+  test "mark properties as sold" do
     log_in_as(users(:aman))
     property = properties(:dum_dum)
     get property_path(property)

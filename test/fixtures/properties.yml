@@ -142,6 +142,24 @@ sold:
   created_at: <%= 5.days.ago %>
   sold: true
   sold_at: <%= Time.zone.now %>
+  user: barry
+
+sold_oldest:
+  owner_name: <%= Faker::Name.name %>
+  property_type: "apartment"
+  property_status: "rent"
+  bed_rooms: "3bhk"
+  area: 1500
+  price: 15000
+  street_address: "123, kolkata road"
+  locality: "kolkata"
+  city: "kolkata"
+  state: "west bengal"
+  pincode: "700123"
+  country: "india"
+  created_at: <%= 5.days.ago %>
+  sold: true
+  sold_at: <%= 4.days.ago %>
   user: aman
 
 <% 5.times do |n| %>

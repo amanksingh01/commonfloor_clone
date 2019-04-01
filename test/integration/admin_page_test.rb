@@ -21,8 +21,8 @@ class AdminPageTest < ActionDispatch::IntegrationTest
     assert_select 'h5.card-header', text: 'Properties actions'
     assert_select 'a[href=?]', properties_path,
                   text: "List all properties (#{Property.count})"
-    assert_select 'a[href=?]', '#',
-                  text: 'List all sold properties'
+    assert_select 'a[href=?]', sold_properties_path,
+      text: "List all sold properties (#{Property.where(sold: true).count})"
     assert_select 'a[href=?]', '#',
                   text: 'List all unapproved properties'
 

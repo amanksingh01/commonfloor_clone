@@ -23,7 +23,8 @@
       <div class="card-body">
         <%= link_to "List all properties (#{Property.count})", properties_path,
                     class: "btn btn-block btn-outline-success rounded-pill" %>
-        <%= link_to "List all sold properties", "#",
+        <%= link_to "List all sold properties (#{Property.where(sold: true).count})",
+              sold_properties_path,
               class: "btn btn-block btn-outline-success rounded-pill mt-3" %>
         <%= link_to "List all unapproved properties", "#",
               class: "btn btn-block btn-outline-success rounded-pill mt-3" %>

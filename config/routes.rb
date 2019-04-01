@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   resources :properties do
     get  :interested_users, on: :member
     post :mark_as_sold,     on: :member
+    get  :sold,             on: :collection
   end
   resources :wishlists,           only: [:create, :destroy]
   resources :comments,            only: [:create, :destroy]

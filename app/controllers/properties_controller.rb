@@ -10,6 +10,7 @@ class PropertiesController < ApplicationController
   before_action :sold_property,          only:   [:edit, :update, :destroy,
                                                   :interested_users,
                                                   :mark_as_sold]
+  before_action :admin_user,             only:   :sold
 
   def index
     @properties = Property.include_sold(params[:include_sold])
@@ -81,6 +82,14 @@ class PropertiesController < ApplicationController
     @property.mark_as_sold
     flash[:success] = "Property marked as sold!"
     redirect_to @property
+  end
+
+  def sold
+    @properties = Property.where(sold: true)
+                          .order(:sold_at)
+                          .paginate(page: params[:page], per_page: 12)
+    @title = "Sold properties"
+    @properties_grid_col = "col-md-6 col-lg-3"
   end
 
   private

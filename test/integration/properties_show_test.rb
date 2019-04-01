@@ -33,6 +33,8 @@ class PropertiesShowTest < ActionDispatch::IntegrationTest
     assert_match @property.country.titleize,           response.body
 
     assert_select 'a[href=?]', user_path(@seller), text: @seller.name
+    assert_match  "Posted #{time_ago_in_words(@property.created_at)} ago",
+                  response.body
     assert_select 'a[href=?]', interested_users_property_path(@property),
                   text: "Interested users (#{@property.interested_users.count})"
     assert_select 'a[href=?]', mark_as_sold_property_path(@property),
@@ -57,6 +59,8 @@ class PropertiesShowTest < ActionDispatch::IntegrationTest
     # Correct links for sold property
     get property_path(@sold_property)
     assert_select 'h2.sold-tag', text: 'Sold'
+    assert_match  "Sold #{time_ago_in_words(@sold_property.sold_at)} ago",
+                  response.body
     assert_select 'a[href=?]', interested_users_property_path(@property),
                   count: 0
     assert_select 'a[href=?]', mark_as_sold_property_path(@property), count: 0
@@ -86,8 +90,10 @@ class PropertiesShowTest < ActionDispatch::IntegrationTest
 
     # Correct links for sold property
     get property_path(@sold_property)
+    assert_match "Sold #{time_ago_in_words(@sold_property.sold_at)} ago",
+                 response.body
     assert_select 'form[action=?]',
-                  wishlist_path(@admin.wishlists.find_by(property: @sold_property))
+      wishlist_path(@admin.wishlists.find_by(property: @sold_property))
     assert_select 'a[href=?]', edit_property_path(@property), count: 0
     assert_select 'a[href=?]', property_path(@property), count: 0
   end
@@ -108,6 +114,8 @@ class PropertiesShowTest < ActionDispatch::IntegrationTest
 
     # Correct links for sold property
     get property_path(@sold_property)
+    assert_no_match "Sold #{time_ago_in_words(@sold_property.sold_at)} ago",
+                    response.body
     assert_select 'form[action=?]', wishlists_path, count: 0
     assert_select 'a[href=?]', edit_property_path(@property), count: 0
     assert_select 'a[href=?]', property_path(@property), count: 0
