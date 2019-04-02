@@ -3,16 +3,17 @@ class PropertiesController < ApplicationController
   before_action :get_property,           only:   [:edit, :update, :destroy,
                                                   :interested_users,
                                                   :mark_as_sold]
-  before_action :get_property_for_admin, only:   [:edit, :update, :destroy]
+  before_action :get_property_for_admin, only:   [:edit, :update, :destroy,
+                                                  :approve]
   before_action :correct_user,           only:   [:edit, :update, :destroy,
                                                   :interested_users,
                                                   :mark_as_sold]
+  before_action :admin_user,             only:   [:unapproved, :sold, :approve]
   before_action :approved_property,      only:   [:interested_users,
                                                   :mark_as_sold]
   before_action :sold_property,          only:   [:edit, :update, :destroy,
                                                   :interested_users,
                                                   :mark_as_sold]
-  before_action :admin_user,             only:   [:sold, :unapproved]
 
   def index
     @properties = Property.where(approved: true)
@@ -96,6 +97,12 @@ class PropertiesController < ApplicationController
                           .paginate(page: params[:page], per_page: 12)
     @title = "Sold properties"
     @properties_grid_col = "col-md-6 col-lg-3"
+  end
+
+  def approve
+    @property.approve(current_user)
+    flash[:success] = "Property approved!"
+    redirect_to @property
   end
 
   def interested_users

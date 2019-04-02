@@ -62,6 +62,8 @@ class PropertiesShowTest < ActionDispatch::IntegrationTest
     assert_select 'h3',
                   text: "Comments (#{@unapproved_property.comments.count})",
                   count: 0
+    assert_select 'a[href=?]', approve_property_path(@unapproved_property),
+                  count: 0
     assert_select 'a[href=?]',
                   interested_users_property_path(@unapproved_property),
                   count: 0
@@ -108,6 +110,7 @@ class PropertiesShowTest < ActionDispatch::IntegrationTest
     assert_select 'h3',
                   text: "Comments (#{@unapproved_property.comments.count})",
                   count: 0
+    assert_select 'a[href=?]', approve_property_path(@unapproved_property)
     assert_select 'a[href=?]',
                   edit_property_path(@unapproved_property), count: 1
     assert_select 'a[href=?]', property_path(@unapproved_property), count: 1

@@ -20,17 +20,18 @@ Rails.application.routes.draw do
   resources :password_resets,     only: [:new, :create, :edit, :update]
   
   resources :properties do
-    member do
-      get   :interested_users
-      patch :mark_as_sold
-    end
-
     collection do
       get :unapproved
       get :sold
     end
+    
+    member do
+      patch :approve
+      get   :interested_users
+      patch :mark_as_sold
+    end
   end
 
-  resources :wishlists,           only: [:create, :destroy]
-  resources :comments,            only: [:create, :destroy]
+  resources :wishlists, only: [:create, :destroy]
+  resources :comments,  only: [:create, :destroy]
 end

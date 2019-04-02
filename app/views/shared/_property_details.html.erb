@@ -70,6 +70,12 @@
         </small>
       </p>
     <% end %>
+    <% if !@property.approved? && current_user.admin? %>
+      <%= link_to "Approve property details", approve_property_path(@property),
+                  method: :patch,
+                  data: { confirm: "You sure?" },
+                  class: "btn btn-block btn-outline-warning rounded-pill" %>
+    <% end %>
     <% if @property.approved? %>
       <% if current_user?(user) && !@property.sold? %>
         <%= link_to "Interested users (#{@property.interested_users.count})",
@@ -78,7 +84,7 @@
         <%= link_to "Mark as sold", mark_as_sold_property_path(@property),
                     method: :patch,
                     data: { confirm: "You sure?" },
-                    class: "btn btn-block btn-outline-success rounded-pill" %>
+                    class: "btn btn-block btn-outline-warning rounded-pill" %>
       <% else %>
         <%= render 'shared/wishlist_form' %>
       <% end %>

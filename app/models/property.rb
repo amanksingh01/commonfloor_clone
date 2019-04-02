@@ -86,6 +86,13 @@ class Property < ApplicationRecord
     update_columns(approved: false, approved_at: nil, approved_by_id: nil)
   end
 
+  # Approves a property.
+  def approve(approved_by)
+    update_columns(approved:       true,
+                   approved_at:    Time.zone.now,
+                   approved_by_id: approved_by.id)
+  end
+
   # Marks a property as sold.
   def mark_as_sold
     update_columns(sold: true, sold_at: Time.zone.now)

@@ -101,14 +101,8 @@ class PropertiesControllerTest < ActionDispatch::IntegrationTest
     assert_not flash.empty?
   end
 
-  test "should redirect interested_users when not logged in" do
-    get interested_users_property_path(@property)
-    assert_redirected_to login_url
-    assert_not flash.empty?
-  end
-
-  test "should redirect mark_as_sold when not logged in" do
-    patch mark_as_sold_property_path(@property)
+  test "should redirect unapproved when not logged in" do
+    get unapproved_properties_path
     assert_redirected_to login_url
     assert_not flash.empty?
   end
@@ -119,8 +113,24 @@ class PropertiesControllerTest < ActionDispatch::IntegrationTest
     assert_not flash.empty?
   end
 
-  test "should redirect unapproved when not logged in" do
-    get unapproved_properties_path
+  test "should redirect approve when not logged in" do
+    assert_not @unapproved_property.approved?
+    patch approve_property_path(@unapproved_property)
+    assert_not @unapproved_property.approved?
+    assert_redirected_to login_url
+    assert_not flash.empty?
+  end
+
+  test "should redirect interested_users when not logged in" do
+    get interested_users_property_path(@property)
+    assert_redirected_to login_url
+    assert_not flash.empty?
+  end
+
+  test "should redirect mark_as_sold when not logged in" do
+    assert_not @property.sold?
+    patch mark_as_sold_property_path(@property)
+    assert_not @property.sold?
     assert_redirected_to login_url
     assert_not flash.empty?
   end
@@ -161,16 +171,9 @@ class PropertiesControllerTest < ActionDispatch::IntegrationTest
     assert flash.empty?
   end
 
-  test "should redirect interested_users when logged in as wrong user" do
+  test "should redirect unapproved when logged in as a non-admin" do
     log_in_as(@other_user)
-    get interested_users_property_path(@property)
-    assert_redirected_to root_url
-    assert flash.empty?
-  end
-
-  test "should redirect mark_as_sold when logged in as wrong user" do
-    log_in_as(@other_user)
-    patch mark_as_sold_property_path(@property)
+    get unapproved_properties_path
     assert_redirected_to root_url
     assert flash.empty?
   end
@@ -182,9 +185,27 @@ class PropertiesControllerTest < ActionDispatch::IntegrationTest
     assert flash.empty?
   end
 
-  test "should redirect unapproved when logged in as a non-admin" do
+  test "should redirect approve when logged in as a non-admin" do
     log_in_as(@other_user)
-    get unapproved_properties_path
+    assert_not @unapproved_property.approved?
+    patch approve_property_path(@unapproved_property)
+    assert_not @unapproved_property.approved?
+    assert_redirected_to root_url
+    assert flash.empty?
+  end
+
+  test "should redirect interested_users when logged in as wrong user" do
+    log_in_as(@other_user)
+    get interested_users_property_path(@property)
+    assert_redirected_to root_url
+    assert flash.empty?
+  end
+
+  test "should redirect mark_as_sold when logged in as wrong user" do
+    log_in_as(@other_user)
+    assert_not @property.sold?
+    patch mark_as_sold_property_path(@property)
+    assert_not @property.sold?
     assert_redirected_to root_url
     assert flash.empty?
   end
