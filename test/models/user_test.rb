@@ -118,6 +118,25 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
+  test "associated approved properties should be nullified" do
+    admin = users(:aman)
+    property = properties(:unapproved)
+
+    assert_not property.approved?
+    assert_nil property.approved_at
+    assert_nil property.approved_by
+    
+    property.approve(admin)
+    assert property.approved?
+    assert_not_nil property.approved_at
+    assert_equal admin, property.approved_by
+
+    admin.destroy
+    assert property.reload.approved?
+    assert_not_nil property.approved_at
+    assert_nil property.approved_by
+  end
+
   test "associated wishlists should be destroyed" do
     @user.save
     @user.add_to_favorites(properties(:new_town))
