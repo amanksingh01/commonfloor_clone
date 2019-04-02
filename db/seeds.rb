@@ -40,7 +40,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    city:            "kolkata",
                                    state:           "west bengal",
                                    pincode:         "700074",
-                                   country:         "india")
+                                   country:         "india",
+                                   approved:        true,
+                                   approved_at:     Time.zone.now,
+                                   approved_by:     user)
 property.picture = Rails.root.join("app/assets/images/apartment-01.jpg").open
 property.save!
 
@@ -55,7 +58,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    city:            "kolkata",
                                    state:           "west bengal",
                                    pincode:         "700064",
-                                   country:         "india")
+                                   country:         "india",
+                                   approved:        true,
+                                   approved_at:     Time.zone.now,
+                                   approved_by:     user)
 property.picture = Rails.root.join("app/assets/images/apartment-02.jpg").open
 property.save!
 
@@ -70,7 +76,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    city:            "new delhi",
                                    state:           "delhi",
                                    pincode:         "110005",
-                                   country:         "india")
+                                   country:         "india",
+                                   approved:        true,
+                                   approved_at:     Time.zone.now,
+                                   approved_by:     user)
 property.picture = Rails.root.join("app/assets/images/apartment-03.jpg").open
 property.save!
 
@@ -85,7 +94,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    city:            "kolkata",
                                    state:           "west bengal",
                                    pincode:         "700067",
-                                   country:         "india")
+                                   country:         "india",
+                                   approved:        true,
+                                   approved_at:     Time.zone.now,
+                                   approved_by:     user)
 property.picture = Rails.root.join("app/assets/images/apartment-04.jpg").open
 property.save!
 
@@ -100,7 +112,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    city:            "new delhi",
                                    state:           "delhi",
                                    pincode:         "110075",
-                                   country:         "india")
+                                   country:         "india",
+                                   approved:        true,
+                                   approved_at:     Time.zone.now,
+                                   approved_by:     user)
 property.picture = Rails.root.join("app/assets/images/apartment-05.jpg").open
 property.save!
 
@@ -115,7 +130,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    city:            "kolkata",
                                    state:           "west bengal",
                                    pincode:         "700074",
-                                   country:         "india")
+                                   country:         "india",
+                                   approved:        true,
+                                   approved_at:     Time.zone.now,
+                                   approved_by:     user)
 property.picture = Rails.root.join("app/assets/images/apartment-06.jpg").open
 property.save!
 
@@ -130,7 +148,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    city:            "kolkata",
                                    state:           "west bengal",
                                    pincode:         "700064",
-                                   country:         "india")
+                                   country:         "india",
+                                   approved:        true,
+                                   approved_at:     Time.zone.now,
+                                   approved_by:     user)
 property.picture = Rails.root.join("app/assets/images/apartment-07.jpg").open
 property.save!
 
@@ -162,7 +183,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    pincode:         "700067",
                                    country:         "india",
                                    sold:            true,
-                                   sold_at:         Time.zone.now)
+                                   sold_at:         Time.zone.now,
+                                   approved:        true,
+                                   approved_at:     Time.zone.now,
+                                   approved_by:     user)
 property.picture = Rails.root.join("app/assets/images/apartment-09.jpg").open
 property.save!
 
@@ -179,7 +203,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    pincode:         "700013",
                                    country:         "india",
                                    sold:            true,
-                                   sold_at:         Time.zone.now)
+                                   sold_at:         Time.zone.now,
+                                   approved:        true,
+                                   approved_at:     Time.zone.now,
+                                   approved_by:     user)
 property.picture = Rails.root.join("app/assets/images/apartment-10.jpg").open
 property.save!
 
@@ -196,7 +223,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    city:            "kolkata",
                                    state:           "west bengal",
                                    pincode:         "700074",
-                                   country:         "india")
+                                   country:         "india",
+                                   approved:        true,
+                                   approved_at:     Time.zone.now,
+                                   approved_by:     user)
 property.picture = Rails.root.join("app/assets/images/house-01.jpg").open
 property.save!
 
@@ -211,7 +241,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    city:            "kolkata",
                                    state:           "west bengal",
                                    pincode:         "700064",
-                                   country:         "india")
+                                   country:         "india",
+                                   approved:        true,
+                                   approved_at:     Time.zone.now,
+                                   approved_by:     user)
 property.picture = Rails.root.join("app/assets/images/house-02.jpg").open
 property.save!
 
@@ -226,7 +259,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    city:            "kolkata",
                                    state:           "west bengal",
                                    pincode:         "700089",
-                                   country:         "india")
+                                   country:         "india",
+                                   approved:        true,
+                                   approved_at:     Time.zone.now,
+                                   approved_by:     user)
 property.picture = Rails.root.join("app/assets/images/house-03.jpg").open
 property.save!
 
@@ -241,7 +277,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    city:            "kolkata",
                                    state:           "west bengal",
                                    pincode:         "700067",
-                                   country:         "india")
+                                   country:         "india",
+                                   approved:        true,
+                                   approved_at:     Time.zone.now,
+                                   approved_by:     user)
 property.picture = Rails.root.join("app/assets/images/house-04.jpg").open
 property.save!
 
@@ -256,7 +295,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    city:            "kolkata",
                                    state:           "west bengal",
                                    pincode:         "700013",
-                                   country:         "india")
+                                   country:         "india",
+                                   approved:        true,
+                                   approved_at:     Time.zone.now,
+                                   approved_by:     user)
 property.picture = Rails.root.join("app/assets/images/house-05.jpg").open
 property.save!
 
@@ -271,7 +313,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    city:            "kolkata",
                                    state:           "west bengal",
                                    pincode:         "700074",
-                                   country:         "india")
+                                   country:         "india",
+                                   approved:        true,
+                                   approved_at:     Time.zone.now,
+                                   approved_by:     user)
 property.picture = Rails.root.join("app/assets/images/house-06.jpg").open
 property.save!
 
@@ -286,7 +331,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    city:            "kolkata",
                                    state:           "west bengal",
                                    pincode:         "700064",
-                                   country:         "india")
+                                   country:         "india",
+                                   approved:        true,
+                                   approved_at:     Time.zone.now,
+                                   approved_by:     user)
 property.picture = Rails.root.join("app/assets/images/house-07.jpg").open
 property.save!
 
@@ -318,7 +366,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    pincode:         "700067",
                                    country:         "india",
                                    sold:            true,
-                                   sold_at:         Time.zone.now)
+                                   sold_at:         Time.zone.now,
+                                   approved:        true,
+                                   approved_at:     Time.zone.now,
+                                   approved_by:     user)
 property.picture = Rails.root.join("app/assets/images/house-09.jpg").open
 property.save!
 
@@ -335,7 +386,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    pincode:         "700013",
                                    country:         "india",
                                    sold:            true,
-                                   sold_at:         Time.zone.now)
+                                   sold_at:         Time.zone.now,
+                                   approved:        true,
+                                   approved_at:     Time.zone.now,
+                                   approved_by:     user)
 property.picture = Rails.root.join("app/assets/images/house-10.jpg").open
 property.save!
 
@@ -352,7 +406,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    city:            "kolkata",
                                    state:           "west bengal",
                                    pincode:         "700074",
-                                   country:         "india")
+                                   country:         "india",
+                                   approved:        true,
+                                   approved_at:     Time.zone.now,
+                                   approved_by:     user)
 property.picture = Rails.root.join("app/assets/images/plot-01.jpg").open
 property.save!
 
@@ -367,7 +424,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    city:            "kolkata",
                                    state:           "west bengal",
                                    pincode:         "700064",
-                                   country:         "india")
+                                   country:         "india",
+                                   approved:        true,
+                                   approved_at:     Time.zone.now,
+                                   approved_by:     user)
 property.picture = Rails.root.join("app/assets/images/plot-02.jpg").open
 property.save!
 
@@ -382,7 +442,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    city:            "kolkata",
                                    state:           "west bengal",
                                    pincode:         "700089",
-                                   country:         "india")
+                                   country:         "india",
+                                   approved:        true,
+                                   approved_at:     Time.zone.now,
+                                   approved_by:     user)
 property.picture = Rails.root.join("app/assets/images/plot-03.jpg").open
 property.save!
 
@@ -414,13 +477,16 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    pincode:         "700013",
                                    country:         "india",
                                    sold:            true,
-                                   sold_at:         Time.zone.now)
+                                   sold_at:         Time.zone.now,
+                                   approved:        true,
+                                   approved_at:     Time.zone.now,
+                                   approved_by:     user)
 property.picture = Rails.root.join("app/assets/images/plot-05.jpg").open
 property.save!
 
 # Property wishlists
-interested_users    = User.all[1..25]
-favorite_properties = Property.first(15)
+interested_users    = User.first(26)[1..25]
+favorite_properties = Property.where(approved: true).first(15)
 
 favorite_properties.each do |property|
   interested_users.each { |user| user.add_to_favorites(property) }
@@ -428,7 +494,7 @@ end
 
 # Property comments
 users      = User.first(15)
-properties = Property.first(15)
+properties = Property.where(approved: true).first(15)
 
 users.each do |user|
   properties.each do |property|

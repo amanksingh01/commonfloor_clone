@@ -11,16 +11,26 @@ Rails.application.routes.draw do
   get    '/search',  to: 'properties#search'
   get    '/admin',   to: 'users#admin'
   get    '/sellers', to: 'users#sellers'
+  
   resources :users do
     get :favorites, on: :member
   end
+
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
+  
   resources :properties do
-    get  :interested_users, on: :member
-    post :mark_as_sold,     on: :member
-    get  :sold,             on: :collection
+    member do
+      get   :interested_users
+      patch :mark_as_sold
+    end
+
+    collection do
+      get :unapproved
+      get :sold
+    end
   end
+
   resources :wishlists,           only: [:create, :destroy]
   resources :comments,            only: [:create, :destroy]
 end

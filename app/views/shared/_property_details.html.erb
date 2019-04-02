@@ -1,6 +1,13 @@
 <div class="card border-success mb-3">
   <%= image_tag(@property.picture.url, class: "card-img-top",
                                        alt:   "Property image") %>
+  <% unless @property.approved? %>
+    <div class="position-absolute w-100">
+      <h5 class="unapproved-tag text-center text-uppercase bg-warning">
+        Pending approval
+      </h5>
+    </div>
+  <% end %>
   <% if @property.sold? %>
     <div class="position-absolute w-100">
       <h2 class="sold-tag text-center text-uppercase text-light bg-secondary">
@@ -63,16 +70,18 @@
         </small>
       </p>
     <% end %>
-    <% if current_user?(user) && !@property.sold? %>
-      <%= link_to "Interested users (#{@property.interested_users.count})",
-                  interested_users_property_path(@property),
-                  class: "btn btn-block btn-outline-success rounded-pill" %>
-      <%= link_to "Mark as sold", mark_as_sold_property_path(@property),
-                  method: :post,
-                  data: { confirm: "You sure? You won't be able to undo this" },
-                  class: "btn btn-block btn-outline-success rounded-pill" %>
-    <% else %>
-      <%= render 'shared/wishlist_form' %>
+    <% if @property.approved? %>
+      <% if current_user?(user) && !@property.sold? %>
+        <%= link_to "Interested users (#{@property.interested_users.count})",
+                    interested_users_property_path(@property),
+                    class: "btn btn-block btn-outline-success rounded-pill" %>
+        <%= link_to "Mark as sold", mark_as_sold_property_path(@property),
+                    method: :patch,
+                    data: { confirm: "You sure?" },
+                    class: "btn btn-block btn-outline-success rounded-pill" %>
+      <% else %>
+        <%= render 'shared/wishlist_form' %>
+      <% end %>
     <% end %>
     <% if (current_user?(user) || current_user.admin?) && !@property.sold? %>
       <%= link_to "Modify property details", edit_property_path(@property),

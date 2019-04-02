@@ -8,7 +8,7 @@ class PropertiesSoldTest < ActionDispatch::IntegrationTest
     get property_path(property)
     assert_template 'properties/show'
     assert_not property.sold?
-    post mark_as_sold_property_path(property)
+    patch mark_as_sold_property_path(property)
     assert property.reload.sold?
     assert_not flash.empty?
     assert_redirected_to property

@@ -10,10 +10,11 @@ class PropertiesController < ApplicationController
   before_action :sold_property,          only:   [:edit, :update, :destroy,
                                                   :interested_users,
                                                   :mark_as_sold]
-  before_action :admin_user,             only:   :sold
+  before_action :admin_user,             only:   [:sold, :unapproved]
 
   def index
-    @properties = Property.include_sold(params[:include_sold])
+    @properties = Property.where(approved: true)
+                          .include_sold(params[:include_sold])
                           .paginate(page: params[:page], per_page: 12)
     filtering_params.each do |key, value|
       @properties = @properties.send(key, value) if value.present?
@@ -23,6 +24,10 @@ class PropertiesController < ApplicationController
 
   def show
     @property = Property.find(params[:id])
+    unless @property.approved? || current_user?(@property.user) ||
+           current_user.admin?
+      redirect_to root_url and return
+    end
     @comments = @property.comments.paginate(page: params[:page], per_page: 12)
     @comment  = current_user.comments.build
   end
@@ -35,7 +40,8 @@ class PropertiesController < ApplicationController
     @property = current_user.properties.build(property_params)
     if @property.save
       current_user.update_attribute(:seller, true) unless current_user.seller?
-      flash[:success] = "Property posted!"
+      flash[:success] = "Property posted! It will be live once we verify and " +
+                        "approve the details."
       redirect_to @property
     else
       render 'new'
@@ -47,7 +53,9 @@ class PropertiesController < ApplicationController
 
   def update
     if @property.update_attributes(property_params)
-      flash[:success] = "Property details updated"
+      @property.disapprove if @property.approved?
+      flash[:success] = "Property details updated! It will be live once we " +
+                        "verify and approve the details."
       redirect_to @property
     else
       render 'edit'
@@ -56,20 +64,13 @@ class PropertiesController < ApplicationController
 
   def destroy
     @property.destroy
-    flash[:success] = "Property deleted"
+    flash[:success] = "Property deleted!"
     redirect_to @property.user
   end
 
-  def interested_users
-    @users = @property.interested_users
-                      .order('wishlists.created_at ASC')
-                      .paginate(page: params[:page], per_page: 24)
-    @title = "Interested users"
-    render 'shared/users'
-  end
-
   def search
-    @properties = Property.include_sold(params[:include_sold])
+    @properties = Property.where(approved: true)
+                          .include_sold(params[:include_sold])
                           .paginate(page: params[:page], per_page: 12)
     @properties = @properties.search(params[:q]) if params[:q].present?
     filtering_params.each do |key, value|
@@ -78,10 +79,13 @@ class PropertiesController < ApplicationController
     @title = "Search results"
   end
 
-  def mark_as_sold
-    @property.mark_as_sold
-    flash[:success] = "Property marked as sold!"
-    redirect_to @property
+  def unapproved
+    @properties = Property.where(approved: false)
+                          .paginate(page: params[:page], per_page: 12)
+    filtering_params.each do |key, value|
+      @properties = @properties.send(key, value) if value.present?
+    end
+    @title = "Unapproved properties"
   end
 
   def sold
@@ -90,6 +94,22 @@ class PropertiesController < ApplicationController
                           .paginate(page: params[:page], per_page: 12)
     @title = "Sold properties"
     @properties_grid_col = "col-md-6 col-lg-3"
+  end
+
+  def interested_users
+    redirect_to root_url and return unless @property.approved?
+    @users = @property.interested_users
+                      .order('wishlists.created_at ASC')
+                      .paginate(page: params[:page], per_page: 24)
+    @title = "Interested users"
+    render 'shared/users'
+  end
+
+  def mark_as_sold
+    redirect_to root_url and return unless @property.approved?
+    @property.mark_as_sold
+    flash[:success] = "Property marked as sold!"
+    redirect_to @property
   end
 
   private

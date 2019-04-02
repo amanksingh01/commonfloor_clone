@@ -13,18 +13,21 @@ class AdminPageTest < ActionDispatch::IntegrationTest
     assert_select 'h2', text: 'Admin panel'
 
     assert_select 'h5.card-header', text: 'Users actions'
-    assert_select 'a[href=?]', users_path,
-                  text: "List all users (#{User.where(activated: true).count})"
-    assert_select 'a[href=?]', sellers_path,
-                  text: "List all sellers (#{User.where(seller: true).count})"
+    count = User.where(activated: true).count
+    assert_select 'a[href=?]', users_path, text: "List all users (#{count})"
+    count = User.where(seller: true).count
+    assert_select 'a[href=?]', sellers_path, text: "List all sellers (#{count})"
 
     assert_select 'h5.card-header', text: 'Properties actions'
+    count = Property.where(approved: true).count
     assert_select 'a[href=?]', properties_path,
-                  text: "List all properties (#{Property.count})"
+                  text: "List all properties (#{count})"
+    count = Property.where(sold: true).count
     assert_select 'a[href=?]', sold_properties_path,
-      text: "List all sold properties (#{Property.where(sold: true).count})"
-    assert_select 'a[href=?]', '#',
-                  text: 'List all unapproved properties'
+                  text: "List all sold properties (#{count})"
+    count = Property.where(approved: false).count
+    assert_select 'a[href=?]', unapproved_properties_path,
+                  text: "List all unapproved properties (#{count})"
 
     assert_select 'h5.card-header', text: 'Comments actions'
     assert_select 'a[href=?]', '#',

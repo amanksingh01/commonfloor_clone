@@ -13,6 +13,9 @@ dum_dum:
   country: "india"
   created_at: <%= 10.days.ago %>
   user: aman
+  approved: true
+  approved_at: <%= Time.zone.now %>
+  approved_by: aman
 
 new_town:
   owner_name: <%= Faker::Name.name %>
@@ -29,6 +32,9 @@ new_town:
   country: "india"
   created_at: <%= 2.months.ago %>
   user: barry
+  approved: true
+  approved_at: <%= Time.zone.now %>
+  approved_by: aman
 
 salt_lake:
   owner_name: <%= Faker::Name.name %>
@@ -45,6 +51,9 @@ salt_lake:
   country: "india"
   created_at: <%= 20.days.ago %>
   user: barry
+  approved: true
+  approved_at: <%= Time.zone.now %>
+  approved_by: aman
 
 karol_bagh:
   owner_name: <%= Faker::Name.name %>
@@ -61,6 +70,9 @@ karol_bagh:
   country: "india"
   created_at: <%= 25.days.ago %>
   user: aman
+  approved: true
+  approved_at: <%= Time.zone.now %>
+  approved_by: aman
 
 lake_town:
   owner_name: <%= Faker::Name.name %>
@@ -77,6 +89,9 @@ lake_town:
   country: "india"
   created_at: <%= 1.month.ago %>
   user: oliver
+  approved: true
+  approved_at: <%= Time.zone.now %>
+  approved_by: aman
 
 dwarka:
   owner_name: <%= Faker::Name.name %>
@@ -93,6 +108,9 @@ dwarka:
   country: "india"
   created_at: <%= 15.days.ago %>
   user: aman
+  approved: true
+  approved_at: <%= Time.zone.now %>
+  approved_by: aman
 
 most_recent:
   owner_name: <%= Faker::Name.name %>
@@ -109,6 +127,9 @@ most_recent:
   country: "india"
   created_at: <%= Time.zone.now %>
   user: aman
+  approved: true
+  approved_at: <%= Time.zone.now %>
+  approved_by: aman
 
 oldest:
   owner_name: <%= Faker::Name.name %>
@@ -125,6 +146,9 @@ oldest:
   country: "india"
   created_at: <%= 1.year.ago %>
   user: aman
+  approved: true
+  approved_at: <%= Time.zone.now %>
+  approved_by: aman
 
 sold:
   owner_name: <%= Faker::Name.name %>
@@ -143,6 +167,9 @@ sold:
   sold: true
   sold_at: <%= Time.zone.now %>
   user: barry
+  approved: true
+  approved_at: <%= Time.zone.now %>
+  approved_by: aman
 
 sold_oldest:
   owner_name: <%= Faker::Name.name %>
@@ -161,6 +188,25 @@ sold_oldest:
   sold: true
   sold_at: <%= 4.days.ago %>
   user: aman
+  approved: true
+  approved_at: <%= 5.days.ago %>
+  approved_by: aman
+
+unapproved:
+  owner_name: <%= Faker::Name.name %>
+  property_type: "apartment"
+  property_status: "sell"
+  bed_rooms: "2bhk"
+  area: 1000
+  price: 2500000
+  street_address: "123, kolkata road"
+  locality: "kolkata"
+  city: "kolkata"
+  state: "west bengal"
+  pincode: "700123"
+  country: "india"
+  created_at: <%= 5.days.ago %>
+  user: barry
 
 <% 5.times do |n| %>
 house_<%= n %>:
@@ -178,6 +224,9 @@ house_<%= n %>:
   country: "india"
   created_at: <%= 45.days.ago %>
   user: aman
+  approved: true
+  approved_at: <%= Time.zone.now %>
+  approved_by: aman
 <% end %>
 
 <% 5.times do |n| %>
@@ -196,4 +245,7 @@ plot_<%= n %>:
   country: "india"
   created_at: <%= 50.days.ago %>
   user: aman
+  approved: true
+  approved_at: <%= Time.zone.now %>
+  approved_by: aman
 <% end %>

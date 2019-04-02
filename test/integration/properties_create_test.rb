@@ -55,12 +55,15 @@ class PropertiesCreateTest < ActionDispatch::IntegrationTest
                                         country:         "india",
                                         picture:         picture } }
     end
-    assert_not flash.empty?
     assert @user.reload.seller?
     property = assigns(:property)
     assert_equal @user, property.user
     assert property.picture?
+    assert_not property.approved?
+    assert_nil property.approved_at
+    assert_nil property.approved_by
     assert_redirected_to property_path(property)
+    assert_not flash.empty?
     follow_redirect!
     assert_template 'properties/show'
   end

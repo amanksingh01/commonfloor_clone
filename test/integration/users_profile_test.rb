@@ -4,7 +4,9 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
   include ApplicationHelper
 
   def setup
-    @user = users(:aman)
+    @user      = users(:barry)
+    @admin     = users(:aman)
+    @non_admin = users(:oliver)
   end
 
   test "profile display" do
@@ -21,13 +23,15 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
     assert_template 'shared/_properties'
     assert_template 'shared/_filters'
     assert_select 'aside.filters form[action=?]', user_path(@user)
-    assert_select 'nav.pagination', count: 1
     properties = assigns(:properties)
     assert_not properties.empty?
     properties.each do |property|
       assert_not property.sold?
       assert_equal @user, property.user
     end
+
+    # Unapproved property
+    assert_select 'h5.unapproved-tag', text: 'Pending approval'
     
     # Apply filters
     get user_path(@user, property_type: "apartment", include_sold:  "yes")
@@ -37,5 +41,23 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
       assert_equal "apartment", property.property_type
     end
     assert_select 'h2.sold-tag', text: 'Sold'
+  end
+
+  test "profile display by an admin user" do
+    log_in_as(@admin)
+    get user_path(@user)
+    assert_template 'users/show'
+
+    # Unapproved property
+    assert_select 'h5.unapproved-tag', text: 'Pending approval'
+  end
+
+  test "profile display by a non-admin user" do
+    log_in_as(@non_admin)
+    get user_path(@user)
+    assert_template 'users/show'
+
+    # Unapproved property
+    assert_select 'h5.unapproved-tag', text: 'Pending approval', count: 0
   end
 end

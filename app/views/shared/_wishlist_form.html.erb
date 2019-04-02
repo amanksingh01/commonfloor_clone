@@ -1,5 +1,5 @@
 <% if current_user.favorite?(@property) %>
   <%= render 'shared/remove_from_wishlist' %>
-<% else %>
-  <%= render 'shared/add_to_wishlist' unless @property.sold? %>
+<% elsif !@property.sold? %>
+  <%= render 'shared/add_to_wishlist'%>
 <% end %>

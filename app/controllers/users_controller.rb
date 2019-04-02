@@ -20,6 +20,9 @@ class UsersController < ApplicationController
     end
     @properties = @user.properties.include_sold(params[:include_sold])
                                   .paginate(page: params[:page], per_page: 12)
+    unless current_user?(@user) || current_user.admin?
+      @properties = @properties.where(approved: true)
+    end
     filtering_params.each do |key, value|
       @properties = @properties.send(key, value) if value.present?
     end
@@ -59,15 +62,6 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
 
-  def favorites
-    @properties = @user.favorites.include_sold(params[:include_sold])
-                                 .paginate(page: params[:page], per_page: 12)
-    filtering_params.each do |key, value|
-      @properties = @properties.send(key, value) if value.present?
-    end
-    @title = "Wishlist"
-  end
-
   def admin
   end
 
@@ -77,6 +71,15 @@ class UsersController < ApplicationController
                  .paginate(page: params[:page], per_page: 24)
     @title = "Sellers"
     render 'shared/users'
+  end
+
+  def favorites
+    @properties = @user.favorites.include_sold(params[:include_sold])
+                                 .paginate(page: params[:page], per_page: 12)
+    filtering_params.each do |key, value|
+      @properties = @properties.send(key, value) if value.present?
+    end
+    @title = "Wishlist"
   end
 
   private

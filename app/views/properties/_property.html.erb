@@ -1,6 +1,13 @@
 <div class="<%= @properties_grid_col.nil? ? "col-md-6 col-lg-4" :
                                             @properties_grid_col %>">
   <div class="card border-success mb-3" id="property-<%= property.id %>">
+    <% unless property.approved? %>
+      <div class="position-absolute w-100">
+        <h5 class="unapproved-tag text-center text-uppercase bg-warning">
+          Pending approval
+        </h5>
+      </div>
+    <% end %>
     <% if property.sold? %>
       <div class="position-absolute w-100">
         <h2 class="sold-tag text-center text-uppercase text-light bg-secondary">

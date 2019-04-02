@@ -12,6 +12,7 @@ class PropertiesIndexTest < ActionDispatch::IntegrationTest
     first_page_of_properties = assigns(:properties)
     assert_not first_page_of_properties.empty?
     first_page_of_properties.each do |property|
+      assert property.approved?
       assert_not property.sold?
       assert_match  (property.bed_rooms == 'na' ? property.area.to_s :
                                                   property.bed_rooms.upcase),

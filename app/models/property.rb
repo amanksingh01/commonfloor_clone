@@ -1,5 +1,6 @@
 class Property < ApplicationRecord
   belongs_to :user
+  belongs_to :approved_by, class_name: 'User', optional: true
 
   has_many :wishlists,        dependent: :destroy
   has_many :interested_users, through:   :wishlists, source: :user
@@ -78,6 +79,11 @@ class Property < ApplicationRecord
   # Sends interested user email.
   def send_interested_user_email(user)
     PropertyMailer.interested_user(self, user).deliver_now
+  end
+
+  # Disapproves a property.
+  def disapprove
+    update_columns(approved: false, approved_at: nil, approved_by_id: nil)
   end
 
   # Marks a property as sold.

@@ -4,11 +4,12 @@ class PropertiesShowTest < ActionDispatch::IntegrationTest
   include ActionView::Helpers::DateHelper
   
   def setup
-    @property      = properties(:salt_lake)
-    @seller        = @property.user
-    @admin         = users(:aman)
-    @non_admin     = users(:oliver)
-    @sold_property = properties(:sold)
+    @property            = properties(:salt_lake)
+    @seller              = users(:barry)
+    @admin               = users(:aman)
+    @non_admin           = users(:oliver)
+    @sold_property       = properties(:sold)
+    @unapproved_property = properties(:unapproved)
   end
 
   test "property display with comments and correct links for it's seller" do
@@ -47,7 +48,7 @@ class PropertiesShowTest < ActionDispatch::IntegrationTest
     assert_template 'shared/_new_comment'
     assert_template 'shared/_comment_form'
     assert_template 'comments/_comment'
-    assert_match @property.comments.count.to_s, response.body
+    assert_select 'h3', text: "Comments (#{@property.comments.count})"
     assigns(:comments).each do |comment|
       assert_select 'h5>img.gravatar'
       assert_match comment.user.name, response.body
@@ -55,6 +56,20 @@ class PropertiesShowTest < ActionDispatch::IntegrationTest
       assert_match time_ago_in_words(comment.created_at), response.body
     end
     assert_select 'nav.pagination'
+
+    # Correct links for unapproved property
+    get property_path(@unapproved_property)
+    assert_select 'h3',
+                  text: "Comments (#{@unapproved_property.comments.count})",
+                  count: 0
+    assert_select 'a[href=?]',
+                  interested_users_property_path(@unapproved_property),
+                  count: 0
+    assert_select 'a[href=?]',
+                  mark_as_sold_property_path(@unapproved_property), count: 0
+    assert_select 'a[href=?]',
+                  edit_property_path(@unapproved_property), count: 1
+    assert_select 'a[href=?]', property_path(@unapproved_property), count: 1
 
     # Correct links for sold property
     get property_path(@sold_property)
@@ -87,6 +102,15 @@ class PropertiesShowTest < ActionDispatch::IntegrationTest
     assigns(:comments).each do |comment|
       assert_select 'a[href=?]', comment_path(comment), text: 'Delete'
     end
+
+    # Correct links for unapproved property
+    get property_path(@unapproved_property)
+    assert_select 'h3',
+                  text: "Comments (#{@unapproved_property.comments.count})",
+                  count: 0
+    assert_select 'a[href=?]',
+                  edit_property_path(@unapproved_property), count: 1
+    assert_select 'a[href=?]', property_path(@unapproved_property), count: 1
 
     # Correct links for sold property
     get property_path(@sold_property)

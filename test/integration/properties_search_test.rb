@@ -11,6 +11,7 @@ class PropertiesSearchTest < ActionDispatch::IntegrationTest
     properties = assigns(:properties)
     assert_not properties.empty?
     properties.each do |property|
+      assert property.approved?
       assert_not property.sold?
       assert_equal "new delhi", property.city
     end

@@ -36,6 +36,9 @@ class PropertiesEditTest < ActionDispatch::IntegrationTest
     assert_not_nil session[:forwarding_url]
     log_in_as(@user)
     assert_redirected_to edit_property_path(@property)
+    assert @property.approved?
+    assert_not_nil @property.approved_at
+    assert_not_nil @property.approved_by
     price = 4000000
     patch property_path(@property), 
           params: { property: { owner_name:      @property.owner_name,
@@ -50,11 +53,14 @@ class PropertiesEditTest < ActionDispatch::IntegrationTest
                                 state:           @property.state,
                                 pincode:         @property.pincode,
                                 country:         @property.country } }
-    assert_not flash.empty?
+    
+    assert_equal price, @property.reload.price
+    assert_not @property.approved?
+    assert_nil @property.approved_at
+    assert_nil @property.approved_by
     assert_redirected_to @property
+    assert_not flash.empty?
     assert_nil session[:forwarding_url]
-    @property.reload
-    assert_equal price, @property.price
   end
 
   test "successful edit by admin with friendly forwarding" do
@@ -62,6 +68,9 @@ class PropertiesEditTest < ActionDispatch::IntegrationTest
     assert_not_nil session[:forwarding_url]
     log_in_as(@admin)
     assert_redirected_to edit_property_path(@property)
+    assert @property.approved?
+    assert_not_nil @property.approved_at
+    assert_not_nil @property.approved_by
     price = 4000000
     patch property_path(@property), 
           params: { property: { owner_name:      @property.owner_name,
@@ -76,10 +85,13 @@ class PropertiesEditTest < ActionDispatch::IntegrationTest
                                 state:           @property.state,
                                 pincode:         @property.pincode,
                                 country:         @property.country } }
-    assert_not flash.empty?
+    
+    assert_equal price, @property.reload.price
+    assert_not @property.approved?
+    assert_nil @property.approved_at
+    assert_nil @property.approved_by
     assert_redirected_to @property
+    assert_not flash.empty?
     assert_nil session[:forwarding_url]
-    @property.reload
-    assert_equal price, @property.price
   end
 end
