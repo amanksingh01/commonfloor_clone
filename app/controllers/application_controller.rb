@@ -9,6 +9,8 @@ class ApplicationController < ActionController::Base
                     :price, :order_by)
     end
 
+    # Before filters
+
     # Confirms a logged-in user.
     def logged_in_user
       unless logged_in?
@@ -21,5 +23,15 @@ class ApplicationController < ActionController::Base
     # Confirms an admin user.
     def admin_user
       redirect_to(root_url) unless current_user.admin?
+    end
+
+    # Redirects for an unapproved property.
+    def approved_property
+      redirect_to root_url unless @property.approved?
+    end
+
+    # Prevents user from modifying property details for sold property.
+    def sold_property
+      redirect_to root_url if @property.sold?
     end
 end

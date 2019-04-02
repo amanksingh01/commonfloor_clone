@@ -74,7 +74,8 @@ class UsersController < ApplicationController
   end
 
   def favorites
-    @properties = @user.favorites.include_sold(params[:include_sold])
+    @properties = @user.favorites.where(approved: true)
+                                 .include_sold(params[:include_sold])
                                  .paginate(page: params[:page], per_page: 12)
     filtering_params.each do |key, value|
       @properties = @properties.send(key, value) if value.present?

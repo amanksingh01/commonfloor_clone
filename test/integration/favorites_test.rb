@@ -17,6 +17,7 @@ class FavoritesTest < ActionDispatch::IntegrationTest
     favorites = assigns(:properties)
     assert_not favorites.empty?
     favorites.each do |property|
+      assert property.approved?
       assert_not property.sold?
       assert_select "a[href=?]", property_path(property), text: "View details"
     end

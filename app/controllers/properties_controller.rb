@@ -7,6 +7,8 @@ class PropertiesController < ApplicationController
   before_action :correct_user,           only:   [:edit, :update, :destroy,
                                                   :interested_users,
                                                   :mark_as_sold]
+  before_action :approved_property,      only:   [:interested_users,
+                                                  :mark_as_sold]
   before_action :sold_property,          only:   [:edit, :update, :destroy,
                                                   :interested_users,
                                                   :mark_as_sold]
@@ -97,7 +99,6 @@ class PropertiesController < ApplicationController
   end
 
   def interested_users
-    redirect_to root_url and return unless @property.approved?
     @users = @property.interested_users
                       .order('wishlists.created_at ASC')
                       .paginate(page: params[:page], per_page: 24)
@@ -106,7 +107,6 @@ class PropertiesController < ApplicationController
   end
 
   def mark_as_sold
-    redirect_to root_url and return unless @property.approved?
     @property.mark_as_sold
     flash[:success] = "Property marked as sold!"
     redirect_to @property
@@ -139,10 +139,5 @@ class PropertiesController < ApplicationController
     # Checks whether the user has permission to modify property details.
     def correct_user
       redirect_to root_url if @property.nil?
-    end
-
-    # Prevents user from modifying property details for sold property.
-    def sold_property
-      redirect_to root_url if @property.sold?
     end
 end
