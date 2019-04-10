@@ -32,6 +32,7 @@ class PropertiesController < ApplicationController
       redirect_to root_url and return
     end
     @comments = @property.comments.paginate(page: params[:page], per_page: 12)
+    @comments = @comments.where(approved: true) unless current_user.admin?
     @comment  = current_user.comments.build
   end
 

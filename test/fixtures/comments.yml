@@ -3,18 +3,33 @@ one:
   comment: <%= Faker::Lorem.paragraph(2) %>
   user: barry
   created_at: <%= 20.days.ago %>
+  approved: true
+  approved_at: <%= Time.zone.now %>
+  approved_by: aman
 
 two:
   property: salt_lake
   comment: <%= Faker::Lorem.paragraph(2) %>
   user: oliver
   created_at: <%= 1.month.ago %>
+  approved: true
+  approved_at: <%= Time.zone.now %>
+  approved_by: aman
 
 most_recent:
   property: salt_lake
   comment: <%= Faker::Lorem.paragraph(2) %>
   user: aman
   created_at: <%= Time.zone.now %>
+  approved: true
+  approved_at: <%= Time.zone.now %>
+  approved_by: aman
+
+unapproved:
+  property: salt_lake
+  comment: <%= Faker::Lorem.paragraph(2) %>
+  user: barry
+  created_at: <%= 1.day.ago %>
 
 <% 15.times do |n| %>
 comment_<%= n %>:
@@ -22,4 +37,7 @@ comment_<%= n %>:
   comment: <%= Faker::Lorem.paragraph(2) %>
   user: aman
   created_at: <%= 40.days.ago %>
+  approved: true
+  approved_at: <%= Time.zone.now %>
+  approved_by: aman
 <% end %>

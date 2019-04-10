@@ -574,6 +574,16 @@ properties = Property.where(approved: true).first(15)
 users.each do |user|
   properties.each do |property|
     comment = Faker::Lorem.paragraph(2)
-    user.comments.create!(property: property, comment: comment)
+    user.comments.create!(property:    property,
+                          comment:     comment,
+                          approved:    true,
+                          approved_at: Time.zone.now,
+                          approved_by: user)
   end
+end
+
+# Unapproved comments
+properties[0..4].each do |property|
+  comment = Faker::Lorem.paragraph(2)
+  user.comments.create!(property: property, comment: comment)
 end

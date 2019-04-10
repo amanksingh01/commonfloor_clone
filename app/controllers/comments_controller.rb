@@ -8,7 +8,8 @@ class CommentsController < ApplicationController
     @comment  = current_user.comments.build(property: @property,
                                             comment: params[:comment][:comment])
     if @comment.save
-      flash[:success] = "Comment created!"
+      flash[:success] = "Comment created! It will be visible to all users" +
+                        "once we verify and approve the details."
       redirect_to @property
     else
       @comments = []
@@ -18,7 +19,7 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment.destroy
-    flash[:success] = "Comment deleted"
+    flash[:success] = "Comment deleted!"
     redirect_to @comment.property
   end
 

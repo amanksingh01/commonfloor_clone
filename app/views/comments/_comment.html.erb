@@ -1,8 +1,12 @@
-<div class="card border-success mb-3" id="comment-<%= comment.id %>">
-  <h5 class="card-header border-success">
+<% border_color = comment.approved? ? "border-success" : "border-warning" %>
+<div class="card <%= border_color %> mb-3" id="comment-<%= comment.id %>">
+  <h5 class="card-header <%= border_color %>">
     <% user = comment.user %>
     <%= gravatar_for user, size: 30 %>
     <%= user.name %>
+    <% unless comment.approved? %>
+      <small class="unapproved-comment text-muted">(unapproved_comment)</small>
+    <% end %>
   </h5>
   <div class="card-body">
     <p class="card-text"><%= comment.comment %><p>
@@ -11,6 +15,10 @@
         <%= time_ago_in_words(comment.created_at) %> ago.
       </small>
     </p>
+    <% if !comment.approved? && current_user.admin? %>
+      <%= link_to "Approve", "#",
+                  class:  "btn btn-outline-warning rounded-pill" %>
+    <% end %>
     <% if current_user?(user) || current_user.admin? %>
       <%= link_to "Delete", comment,
                   method: :delete,

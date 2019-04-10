@@ -49,11 +49,19 @@ class PropertiesShowTest < ActionDispatch::IntegrationTest
     assert_template 'shared/_comment_form'
     assert_template 'comments/_comment'
     assert_select 'h3', text: "Comments (#{@property.comments.count})"
+    assert_select "div#comment-#{comments(:unapproved).id}", count: 0
     assigns(:comments).each do |comment|
+      assert comment.approved?
       assert_select 'h5>img.gravatar'
       assert_match comment.user.name, response.body
       assert_match comment.comment,   response.body
       assert_match time_ago_in_words(comment.created_at), response.body
+      if comment.user == @seller
+        assert_select 'a[href=?]', comment_path(comment), text: 'Delete'
+      else
+        assert_select 'a[href=?]', comment_path(comment),
+                      text: 'Delete', count: 0
+      end
     end
     assert_select 'nav.pagination'
 
@@ -101,6 +109,10 @@ class PropertiesShowTest < ActionDispatch::IntegrationTest
                   text: 'Modify property details'
     assert_select 'a[href=?]', property_path(@property), text: 'Delete property'
     
+    # Property comments
+    assert_select "div#comment-#{comments(:unapproved).id}"
+    assert_select 'small.unapproved-comment.text-muted',
+                   text: '(unapproved_comment)', count: 1
     assigns(:comments).each do |comment|
       assert_select 'a[href=?]', comment_path(comment), text: 'Delete'
     end

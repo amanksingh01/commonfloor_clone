@@ -1,11 +1,15 @@
 class User < ApplicationRecord
-  has_many :properties, dependent: :destroy
+  has_many :properties,          dependent:   :destroy
   has_many :approved_properties, class_name:  'Property',
                                  foreign_key: 'approved_by_id',
                                  dependent:   :nullify
-  has_many :wishlists,  dependent: :destroy
-  has_many :favorites,  through:   :wishlists, source: :property
-  has_many :comments,   dependent: :destroy
+  has_many :wishlists,           dependent:   :destroy
+  has_many :favorites,           through:     :wishlists,
+                                 source:      :property
+  has_many :comments,            dependent:   :destroy
+  has_many :approved_comments,   class_name:  'Comment',
+                                 foreign_key: 'approved_by_id',
+                                 dependent:   :nullify
 
   attr_accessor :remember_token, :activation_token, :reset_token
   has_secure_password
