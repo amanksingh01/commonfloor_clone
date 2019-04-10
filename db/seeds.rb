@@ -44,7 +44,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    approved:        true,
                                    approved_at:     Time.zone.now,
                                    approved_by:     user)
-property.picture = Rails.root.join("app/assets/images/apartment-01.jpg").open
+property.image.attach(
+  io: File.open("app/assets/images/sample_properties/apartment-01.jpg"),
+  filename:     "apartment-01.jpg",
+  content_type: "image/jpeg")
 property.save!
 
 property = user.properties.create!(owner_name:      Faker::Name.name,
@@ -62,7 +65,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    approved:        true,
                                    approved_at:     Time.zone.now,
                                    approved_by:     user)
-property.picture = Rails.root.join("app/assets/images/apartment-02.jpg").open
+property.image.attach(
+  io: File.open("app/assets/images/sample_properties/apartment-02.jpg"),
+  filename:     "apartment-02.jpg",
+  content_type: "image/jpeg")
 property.save!
 
 property = user.properties.create!(owner_name:      Faker::Name.name,
@@ -80,7 +86,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    approved:        true,
                                    approved_at:     Time.zone.now,
                                    approved_by:     user)
-property.picture = Rails.root.join("app/assets/images/apartment-03.jpg").open
+property.image.attach(
+  io: File.open("app/assets/images/sample_properties/apartment-03.jpg"),
+  filename:     "apartment-03.jpg",
+  content_type: "image/jpeg")
 property.save!
 
 property = user.properties.create!(owner_name:      Faker::Name.name,
@@ -98,7 +107,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    approved:        true,
                                    approved_at:     Time.zone.now,
                                    approved_by:     user)
-property.picture = Rails.root.join("app/assets/images/apartment-04.jpg").open
+property.image.attach(
+  io: File.open("app/assets/images/sample_properties/apartment-04.jpg"),
+  filename:     "apartment-04.jpg",
+  content_type: "image/jpeg")
 property.save!
 
 property = user.properties.create!(owner_name:      Faker::Name.name,
@@ -116,7 +128,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    approved:        true,
                                    approved_at:     Time.zone.now,
                                    approved_by:     user)
-property.picture = Rails.root.join("app/assets/images/apartment-05.jpg").open
+property.image.attach(
+  io: File.open("app/assets/images/sample_properties/apartment-05.jpg"),
+  filename:     "apartment-05.jpg",
+  content_type: "image/jpeg")
 property.save!
 
 property = user.properties.create!(owner_name:      Faker::Name.name,
@@ -134,7 +149,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    approved:        true,
                                    approved_at:     Time.zone.now,
                                    approved_by:     user)
-property.picture = Rails.root.join("app/assets/images/apartment-06.jpg").open
+property.image.attach(
+  io: File.open("app/assets/images/sample_properties/apartment-06.jpg"),
+  filename:     "apartment-06.jpg",
+  content_type: "image/jpeg")
 property.save!
 
 property = user.properties.create!(owner_name:      Faker::Name.name,
@@ -152,7 +170,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    approved:        true,
                                    approved_at:     Time.zone.now,
                                    approved_by:     user)
-property.picture = Rails.root.join("app/assets/images/apartment-07.jpg").open
+property.image.attach(
+  io: File.open("app/assets/images/sample_properties/apartment-07.jpg"),
+  filename:     "apartment-07.jpg",
+  content_type: "image/jpeg")
 property.save!
 
 property = user.properties.create!(owner_name:      Faker::Name.name,
@@ -167,7 +188,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    state:           "west bengal",
                                    pincode:         "700089",
                                    country:         "india")
-property.picture = Rails.root.join("app/assets/images/apartment-08.jpg").open
+property.image.attach(
+  io: File.open("app/assets/images/sample_properties/apartment-08.jpg"),
+  filename:     "apartment-08.jpg",
+  content_type: "image/jpeg")
 property.save!
 
 property = user.properties.create!(owner_name:      Faker::Name.name,
@@ -187,7 +211,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    approved:        true,
                                    approved_at:     Time.zone.now,
                                    approved_by:     user)
-property.picture = Rails.root.join("app/assets/images/apartment-09.jpg").open
+property.image.attach(
+  io: File.open("app/assets/images/sample_properties/apartment-09.jpg"),
+  filename:     "apartment-09.jpg",
+  content_type: "image/jpeg")
 property.save!
 
 property = user.properties.create!(owner_name:      Faker::Name.name,
@@ -207,7 +234,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    approved:        true,
                                    approved_at:     Time.zone.now,
                                    approved_by:     user)
-property.picture = Rails.root.join("app/assets/images/apartment-10.jpg").open
+property.image.attach(
+  io: File.open("app/assets/images/sample_properties/apartment-10.jpg"),
+  filename:     "apartment-10.jpg",
+  content_type: "image/jpeg")
 property.save!
 
 # House
@@ -227,7 +257,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    approved:        true,
                                    approved_at:     Time.zone.now,
                                    approved_by:     user)
-property.picture = Rails.root.join("app/assets/images/house-01.jpg").open
+property.image.attach(
+  io: File.open("app/assets/images/sample_properties/house-01.jpg"),
+  filename:     "house-01.jpg",
+  content_type: "image/jpeg")
 property.save!
 
 property = user.properties.create!(owner_name:      Faker::Name.name,
@@ -245,7 +278,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    approved:        true,
                                    approved_at:     Time.zone.now,
                                    approved_by:     user)
-property.picture = Rails.root.join("app/assets/images/house-02.jpg").open
+property.image.attach(
+  io: File.open("app/assets/images/sample_properties/house-02.jpg"),
+  filename:     "house-02.jpg",
+  content_type: "image/jpeg")
 property.save!
 
 property = user.properties.create!(owner_name:      Faker::Name.name,
@@ -263,7 +299,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    approved:        true,
                                    approved_at:     Time.zone.now,
                                    approved_by:     user)
-property.picture = Rails.root.join("app/assets/images/house-03.jpg").open
+property.image.attach(
+  io: File.open("app/assets/images/sample_properties/house-03.jpg"),
+  filename:     "house-03.jpg",
+  content_type: "image/jpeg")
 property.save!
 
 property = user.properties.create!(owner_name:      Faker::Name.name,
@@ -281,7 +320,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    approved:        true,
                                    approved_at:     Time.zone.now,
                                    approved_by:     user)
-property.picture = Rails.root.join("app/assets/images/house-04.jpg").open
+property.image.attach(
+  io: File.open("app/assets/images/sample_properties/house-04.jpg"),
+  filename:     "house-04.jpg",
+  content_type: "image/jpeg")
 property.save!
 
 property = user.properties.create!(owner_name:      Faker::Name.name,
@@ -299,7 +341,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    approved:        true,
                                    approved_at:     Time.zone.now,
                                    approved_by:     user)
-property.picture = Rails.root.join("app/assets/images/house-05.jpg").open
+property.image.attach(
+  io: File.open("app/assets/images/sample_properties/house-05.jpg"),
+  filename:     "house-05.jpg",
+  content_type: "image/jpeg")
 property.save!
 
 property = user.properties.create!(owner_name:      Faker::Name.name,
@@ -317,7 +362,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    approved:        true,
                                    approved_at:     Time.zone.now,
                                    approved_by:     user)
-property.picture = Rails.root.join("app/assets/images/house-06.jpg").open
+property.image.attach(
+  io: File.open("app/assets/images/sample_properties/house-06.jpg"),
+  filename:     "house-06.jpg",
+  content_type: "image/jpeg")
 property.save!
 
 property = user.properties.create!(owner_name:      Faker::Name.name,
@@ -335,7 +383,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    approved:        true,
                                    approved_at:     Time.zone.now,
                                    approved_by:     user)
-property.picture = Rails.root.join("app/assets/images/house-07.jpg").open
+property.image.attach(
+  io: File.open("app/assets/images/sample_properties/house-07.jpg"),
+  filename:     "house-07.jpg",
+  content_type: "image/jpeg")
 property.save!
 
 property = user.properties.create!(owner_name:      Faker::Name.name,
@@ -350,7 +401,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    state:           "west bengal",
                                    pincode:         "700089",
                                    country:         "india")
-property.picture = Rails.root.join("app/assets/images/house-08.jpg").open
+property.image.attach(
+  io: File.open("app/assets/images/sample_properties/house-08.jpg"),
+  filename:     "house-08.jpg",
+  content_type: "image/jpeg")
 property.save!
 
 property = user.properties.create!(owner_name:      Faker::Name.name,
@@ -370,7 +424,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    approved:        true,
                                    approved_at:     Time.zone.now,
                                    approved_by:     user)
-property.picture = Rails.root.join("app/assets/images/house-09.jpg").open
+property.image.attach(
+  io: File.open("app/assets/images/sample_properties/house-09.jpg"),
+  filename:     "house-09.jpg",
+  content_type: "image/jpeg")
 property.save!
 
 property = user.properties.create!(owner_name:      Faker::Name.name,
@@ -390,7 +447,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    approved:        true,
                                    approved_at:     Time.zone.now,
                                    approved_by:     user)
-property.picture = Rails.root.join("app/assets/images/house-10.jpg").open
+property.image.attach(
+  io: File.open("app/assets/images/sample_properties/house-10.jpg"),
+  filename:     "house-10.jpg",
+  content_type: "image/jpeg")
 property.save!
 
 # Plots
@@ -410,7 +470,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    approved:        true,
                                    approved_at:     Time.zone.now,
                                    approved_by:     user)
-property.picture = Rails.root.join("app/assets/images/plot-01.jpg").open
+property.image.attach(
+  io: File.open("app/assets/images/sample_properties/plot-01.jpg"),
+  filename:     "plot-01.jpg",
+  content_type: "image/jpeg")
 property.save!
 
 property = user.properties.create!(owner_name:      Faker::Name.name,
@@ -428,7 +491,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    approved:        true,
                                    approved_at:     Time.zone.now,
                                    approved_by:     user)
-property.picture = Rails.root.join("app/assets/images/plot-02.jpg").open
+property.image.attach(
+  io: File.open("app/assets/images/sample_properties/plot-02.jpg"),
+  filename:     "plot-02.jpg",
+  content_type: "image/jpeg")
 property.save!
 
 property = user.properties.create!(owner_name:      Faker::Name.name,
@@ -446,7 +512,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    approved:        true,
                                    approved_at:     Time.zone.now,
                                    approved_by:     user)
-property.picture = Rails.root.join("app/assets/images/plot-03.jpg").open
+property.image.attach(
+  io: File.open("app/assets/images/sample_properties/plot-03.jpg"),
+  filename:     "plot-03.jpg",
+  content_type: "image/jpeg")
 property.save!
 
 property = user.properties.create!(owner_name:      Faker::Name.name,
@@ -461,7 +530,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    state:           "west bengal",
                                    pincode:         "700067",
                                    country:         "india")
-property.picture = Rails.root.join("app/assets/images/plot-04.jpg").open
+property.image.attach(
+  io: File.open("app/assets/images/sample_properties/plot-04.jpg"),
+  filename:     "plot-04.jpg",
+  content_type: "image/jpeg")
 property.save!
 
 property = user.properties.create!(owner_name:      Faker::Name.name,
@@ -481,7 +553,10 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    approved:        true,
                                    approved_at:     Time.zone.now,
                                    approved_by:     user)
-property.picture = Rails.root.join("app/assets/images/plot-05.jpg").open
+property.image.attach(
+  io: File.open("app/assets/images/sample_properties/plot-05.jpg"),
+  filename:     "plot-05.jpg",
+  content_type: "image/jpeg")
 property.save!
 
 # Property wishlists

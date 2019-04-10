@@ -126,7 +126,7 @@ class PropertiesController < ApplicationController
                                        :property_status, :bed_rooms, :area,
                                        :price, :street_address, :locality,
                                        :city, :state, :pincode, :country,
-                                       :picture)
+                                       :image)
     end
 
     # Before filters

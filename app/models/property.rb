@@ -6,9 +6,9 @@ class Property < ApplicationRecord
   has_many :interested_users, through:   :wishlists, source: :user
   has_many :comments,         dependent: :destroy
 
-  before_save :downcase_attributes
+  has_one_attached :image
 
-  mount_uploader :picture, PictureUploader
+  before_save :downcase_attributes
 
   validates :user_id,         presence: true
   validates :owner_name,      presence: true, length: { maximum: 50 }
@@ -31,7 +31,9 @@ class Property < ApplicationRecord
   validates :pincode,         presence: true, 
                               format: { with: VALID_PINCODE_REGEX }
   validates :country,         presence: true
-  validate  :picture_size
+  
+  validate  :image_type
+  validate  :image_size
 
   scope :area, -> (flag) do
     case flag
@@ -110,10 +112,20 @@ class Property < ApplicationRecord
       country.downcase!
     end
 
-    # Validates the size of an uploaded picture.
-    def picture_size
-      if picture.size > 5.megabytes
-        errors.add(:picture, "should be less than 5MB.")
+    # Validates the type of an uploaded image.
+    def image_type
+      valid_image_type = %w[image/jpeg image/png]
+      if image.attached? && !valid_image_type.include?(image.content_type)
+        errors.add(:image, "needs to be a jpeg or png.")
+        image.purge
+      end
+    end
+
+    # Validates the size of an uploaded image.
+    def image_size
+      if image.attached? && image.byte_size > 5.megabytes
+        errors.add(:image, "should be less than 5MB.")
+        image.purge
       end
     end
 end

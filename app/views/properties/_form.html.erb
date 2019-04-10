@@ -80,10 +80,10 @@
   </div>
 
   <div class="form-group">
-    <%= f.label      :picture, "Upload property image" %>
-    <%= f.file_field :picture, accept:   'image/jpeg,image/gif,image/png',
-                               onchange: "validateSize(this)",
-                               class:    "form-control-file" %>
+    <%= f.label      :image, "Upload property image" %>
+    <%= f.file_field :image, accept:   'image/jpeg,image/png',
+                             onchange: "validateSize(this)",
+                             class:    "form-control-file" %>
   </div>
 
   <%= f.submit yield(:button_text),

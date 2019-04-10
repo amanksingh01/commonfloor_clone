@@ -1,11 +1,12 @@
 source 'https://rubygems.org'
 
+gem 'aws-sdk-s3',              '~> 1.36',  require: false
 gem 'bcrypt',                  '~> 3.1.7'
 gem 'bootsnap',                '>= 1.1.0', require: false
 gem 'bootstrap',               '~> 4.3.1'
 gem 'bootstrap-will_paginate', '~> 1.0.0'
-gem 'carrierwave',             '~> 1.3.1'
 gem 'coffee-rails',            '~> 4.2'
+gem 'faker'
 gem 'jbuilder',                '~> 2.5'
 gem 'jquery-rails',            '~> 4.3.3'
 gem 'mini_magick',             '~> 4.8'
@@ -18,7 +19,6 @@ gem 'will_paginate',           '~> 3.1.7'
 
 group :development, :test do
   gem 'byebug', platform: [:mri, :mingw, :x64_mingw]
-  gem 'faker'
   gem 'sqlite3'
 end
 

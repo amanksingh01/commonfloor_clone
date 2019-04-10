@@ -1,6 +1,11 @@
 <div class="card border-success mb-3">
-  <%= image_tag(@property.picture.url, class: "card-img-top",
-                                       alt:   "Property image") %>
+  <% if @property.image.attached? %>
+    <%= image_tag(@property.image, class: "card-img-top",
+                                   alt:   "Property image") %>
+  <% else %>
+    <%= image_tag("fallback/default.jpg", class: "card-img-top",
+                                          alt:   "Property image") %>
+  <% end %>
   <% unless @property.approved? %>
     <div class="position-absolute w-100">
       <h5 class="unapproved-tag text-center text-uppercase bg-warning">

@@ -15,8 +15,13 @@
         </h2>
       </div>
     <% end %>
-    <%= image_tag(property.picture.url, class: "card-img-top",
-                                        alt:   "Property image") %>
+    <% if property.image.attached? %>
+      <%= image_tag(property.image, class: "card-img-top",
+                                    alt:   "Property image") %>
+    <% else %>
+      <%= image_tag("fallback/default.jpg", class: "card-img-top",
+                                            alt:   "Property image") %>
+    <% end %>
     <div class="card-body">
       <h5 class="card-title">
         <%= property_title(property) %>

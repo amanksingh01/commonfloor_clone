@@ -38,7 +38,7 @@ class PropertiesCreateTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     assert_redirected_to new_property_path
     assert_not @user.seller?
-    picture = fixture_file_upload('house-sample.jpg', 'image/jpg')
+    image = fixture_file_upload('house-sample.jpg', 'image/jpeg')
     assert_difference 'Property.count', 1 do
       post properties_path, params: { property: {
                                         owner_name:      "ajay sharma",
@@ -53,12 +53,12 @@ class PropertiesCreateTest < ActionDispatch::IntegrationTest
                                         state:           "west bengal",
                                         pincode:         "700074",
                                         country:         "india",
-                                        picture:         picture } }
+                                        image:           image } }
     end
     assert @user.reload.seller?
     property = assigns(:property)
     assert_equal @user, property.user
-    assert property.picture?
+    assert property.image.attached?
     assert_not property.approved?
     assert_nil property.approved_at
     assert_nil property.approved_by
