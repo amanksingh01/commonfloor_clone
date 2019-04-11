@@ -30,8 +30,10 @@ Rails.application.routes.draw do
       get   :interested_users
       patch :mark_as_sold
     end
+
+    resources :comments, only: :create
   end
 
   resources :wishlists, only: [:create, :destroy]
-  resources :comments,  only: [:create, :destroy]
+  resources :comments,  only: :destroy
 end

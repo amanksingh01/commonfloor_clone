@@ -15,16 +15,16 @@ class CommentsInterfaceTest < ActionDispatch::IntegrationTest
 
     # Invalid submission
     assert_no_difference 'Comment.count' do
-      post comments_path, params: { property_id: @property.id, 
-                                    comment: { comment: "" } }
+      post property_comments_path(@property), params: { 
+                                                comment: { comment: "" } }
     end
     assert_select 'div#error_explanation'
     
     # Valid submission
     comment = "This comment is literally unimportant!"
     assert_difference 'Comment.count', 1 do
-      post comments_path, params: { property_id: @property.id,
-                                    comment: { comment: comment } }
+      post property_comments_path(@property), params: { 
+                                               comment: { comment: comment } }
     end
     comment = assigns(:comment)
     assert_not comment.approved?

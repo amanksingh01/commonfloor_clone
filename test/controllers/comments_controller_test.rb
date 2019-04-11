@@ -2,13 +2,14 @@ require 'test_helper'
 
 class CommentsControllerTest < ActionDispatch::IntegrationTest
   def setup
-    @comment = comments(:two)
+    @comment  = comments(:two)
+    @property = @comment.property
   end
 
   test "should redirect create when not logged in" do
     assert_no_difference 'Comment.count' do
-      post comments_path, params: { comment: { comment: "Lorem ipsum", 
-                                               user:     users(:aman) } }
+      post property_comments_path(@property),
+           params: { comment: { comment: "Lorem ipsum", user: users(:aman) } }
     end
     assert_redirected_to login_url
   end
