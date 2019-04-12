@@ -1,11 +1,12 @@
 class CommentsController < ApplicationController
   before_action :logged_in_user
-  before_action :admin_user,     except: [:create, :destroy]
-  before_action :get_comment,    only:    :destroy
-  before_action :correct_user,   only:    :destroy
+  before_action :admin_user,            except: [:create, :destroy]
+  before_action :get_property,          only:   [:create, :unapproved]
+  before_action :get_comment,           only:    :destroy
+  before_action :get_comment_for_admin, only:   [:destroy, :approve]
+  before_action :correct_user,          only:    :destroy
 
   def create
-    @property = Property.find(params[:property_id])
     @comment  = current_user.comments.build(property: @property,
                                             comment: params[:comment][:comment])
     if @comment.save
@@ -34,20 +35,38 @@ class CommentsController < ApplicationController
   end
 
   def unapproved
-    @property = Property.find(params[:property_id])
     @comments = @property.comments.where(approved: false)
                                   .paginate(page: params[:page], per_page: 12)
   end
 
+  def approve
+    @comment.approve(current_user)
+    flash[:success] = "Comment approved!"
+    redirect_to unapproved_property_comments_path(@comment.property)
+  end
+
   private
 
+    # Before filters
+
+    # Retrieves the property from the database.
+    def get_property
+      @property = Property.find(params[:property_id])
+    end
+
+    # Retrieves the comment from the database.
     def get_comment
       @comment = current_user.comments.find_by(id: params[:id])
+    end
+
+    # Retrieves the comment for admin users.
+    def get_comment_for_admin
       if @comment.nil? && current_user.admin?
         @comment = Comment.find(params[:id])
       end
     end
 
+    # Checks whether the user has permission to modify comments.
     def correct_user
       redirect_to root_url if @comment.nil?
     end

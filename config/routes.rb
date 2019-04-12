@@ -39,5 +39,7 @@ Rails.application.routes.draw do
   end
 
   resources :wishlists, only: [:create, :destroy]
-  resources :comments,  only: :destroy
+  resources :comments,  only: :destroy do
+    patch :approve, on: :member
+  end
 end

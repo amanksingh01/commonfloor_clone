@@ -16,7 +16,9 @@
       </small>
     </p>
     <% if !comment.approved? && current_user.admin? %>
-      <%= link_to "Approve", "#",
+      <%= link_to "Approve", approve_comment_path(comment),
+                  method: :patch,
+                  data: { confirm: "You sure?" },
                   class:  "btn btn-outline-warning rounded-pill" %>
     <% end %>
     <% if current_user?(user) || current_user.admin? %>

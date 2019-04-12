@@ -2,9 +2,10 @@ require 'test_helper'
 
 class CommentsControllerTest < ActionDispatch::IntegrationTest
   def setup
-    @comment   = comments(:two)
-    @property  = @comment.property
-    @non_admin = users(:barry)
+    @comment            = comments(:two)
+    @property           = @comment.property
+    @unapproved_comment = comments(:unapproved)
+    @non_admin          = users(:barry)
   end
 
   test "should redirect create when not logged in" do
@@ -52,6 +53,23 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
   test "should redirect unapproved when logged in as a non-admin" do
     log_in_as(@non_admin)
     get unapproved_property_comments_path(@property)
+    assert_redirected_to root_url
+    assert flash.empty?
+  end
+
+  test "should redirect approve when not logged in" do
+    assert_not @unapproved_comment.approved?
+    patch approve_comment_path(@unapproved_comment)
+    assert_not @unapproved_comment.reload.approved?
+    assert_redirected_to login_url
+    assert_not flash.empty?
+  end
+
+  test "should redirect approve when logged in as a non-admin" do
+    log_in_as(@non_admin)
+    assert_not @unapproved_comment.approved?
+    patch approve_comment_path(@unapproved_comment)
+    assert_not @unapproved_comment.reload.approved?
     assert_redirected_to root_url
     assert flash.empty?
   end

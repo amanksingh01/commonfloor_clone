@@ -116,7 +116,7 @@ class PropertiesControllerTest < ActionDispatch::IntegrationTest
   test "should redirect approve when not logged in" do
     assert_not @unapproved_property.approved?
     patch approve_property_path(@unapproved_property)
-    assert_not @unapproved_property.approved?
+    assert_not @unapproved_property.reload.approved?
     assert_redirected_to login_url
     assert_not flash.empty?
   end
@@ -189,7 +189,7 @@ class PropertiesControllerTest < ActionDispatch::IntegrationTest
     log_in_as(@other_user)
     assert_not @unapproved_property.approved?
     patch approve_property_path(@unapproved_property)
-    assert_not @unapproved_property.approved?
+    assert_not @unapproved_property.reload.approved?
     assert_redirected_to root_url
     assert flash.empty?
   end

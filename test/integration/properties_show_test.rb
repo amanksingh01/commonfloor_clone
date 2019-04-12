@@ -57,6 +57,7 @@ class PropertiesShowTest < ActionDispatch::IntegrationTest
       assert_match comment.user.name, response.body
       assert_match comment.comment,   response.body
       assert_match time_ago_in_words(comment.created_at), response.body
+      assert_select 'a[href=?]', approve_comment_path(comment), count = 0
       if comment.user == @seller
         assert_select 'a[href=?]', comment_path(comment), text: 'Delete'
       else
@@ -117,6 +118,12 @@ class PropertiesShowTest < ActionDispatch::IntegrationTest
     assert_select 'small.unapproved-comment.text-muted',
                    text: '(unapproved_comment)', count: 1
     assigns(:comments).each do |comment|
+      if comment.approved?
+        assert_select 'a[href=?]', approve_comment_path(comment), count = 0
+      else
+        assert_select 'a[href=?]', approve_comment_path(comment),
+                      text: 'Approve'
+      end
       assert_select 'a[href=?]', comment_path(comment), text: 'Delete'
     end
 
