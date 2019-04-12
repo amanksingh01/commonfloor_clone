@@ -9,7 +9,7 @@
   <div class="row comments">
     <div class="col-md-8 col-lg-6 offset-md-2 offset-lg-3">
       <h3 class="text-center mb-3">
-        Comments (<%= @property.comments.count %>)
+        Comments (<%= @comments.count %>)
       </h3>
       <%= render 'shared/new_comment' %>
       <% if @comments.any? %>

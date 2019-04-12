@@ -30,7 +30,11 @@ class AdminPageTest < ActionDispatch::IntegrationTest
                   text: "List all unapproved properties (#{count})"
 
     assert_select 'h5.card-header', text: 'Comments actions'
-    assert_select 'a[href=?]', '#',
-                  text: 'List all unapproved comments'
+    count = Property.joins(:comments)
+                    .where(comments: { approved: false })
+                    .distinct
+                    .count
+    assert_select 'a[href=?]', properties_with_unapproved_comments_path,
+                  text: "List all unapproved comments (#{count})"
   end
 end

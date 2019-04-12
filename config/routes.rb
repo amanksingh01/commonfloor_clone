@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   get    '/search',  to: 'properties#search'
   get    '/admin',   to: 'users#admin'
   get    '/sellers', to: 'users#sellers'
+  get    '/properties_with_unapproved_comments',
+         to: 'comments#properties_with_unapproved_comments'
   
   resources :users do
     get :favorites, on: :member
@@ -31,7 +33,9 @@ Rails.application.routes.draw do
       patch :mark_as_sold
     end
 
-    resources :comments, only: :create
+    resources :comments, only: :create do
+      get :unapproved, on: :collection
+    end
   end
 
   resources :wishlists, only: [:create, :destroy]

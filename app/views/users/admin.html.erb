@@ -40,7 +40,12 @@
     <div class="card border-success">
       <h5 class="card-header border-success text-center">Comments actions</h5>
       <div class="card-body">
-        <%= link_to "List all unapproved comments", "#",
+        <% count = Property.joins(:comments)
+                           .where(comments: { approved: false })
+                           .distinct
+                           .count %>
+        <%= link_to "List all unapproved comments (#{count})",
+                    properties_with_unapproved_comments_path,
                     class: "btn btn-block btn-outline-success rounded-pill" %>
       </div>
     </div>

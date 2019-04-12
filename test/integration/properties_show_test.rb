@@ -48,7 +48,8 @@ class PropertiesShowTest < ActionDispatch::IntegrationTest
     assert_template 'shared/_new_comment'
     assert_template 'shared/_comment_form'
     assert_template 'comments/_comment'
-    assert_select 'h3', text: "Comments (#{@property.comments.count})"
+    count = @property.comments.where(approved: true).count
+    assert_select 'h3', text: "Comments (#{count})"
     assert_select "div#comment-#{comments(:unapproved).id}", count: 0
     assigns(:comments).each do |comment|
       assert comment.approved?
@@ -110,6 +111,8 @@ class PropertiesShowTest < ActionDispatch::IntegrationTest
     assert_select 'a[href=?]', property_path(@property), text: 'Delete property'
     
     # Property comments
+    count = @property.comments.count
+    assert_select 'h3', text: "Comments (#{count})"
     assert_select "div#comment-#{comments(:unapproved).id}"
     assert_select 'small.unapproved-comment.text-muted',
                    text: '(unapproved_comment)', count: 1

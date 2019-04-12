@@ -1,0 +1,19 @@
+<% provide(:title, @title) %>
+<section>
+  <h2 class="text-center mb-3"><%= @title %></h2>
+  <% if @properties.any? %>
+    <div class="row">
+      <% @properties.each do |property| %>
+        <% count = property.comments.where(approved: false).count %>
+        <%= render property,
+                   button_text: "View unapproved comments (#{count})",
+                   button_link: unapproved_property_comments_path(property) %>
+      <% end %>
+    </div>
+    <%= will_paginate(
+          @properties,
+          renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer) %>
+  <% else %>
+    <p>No properties found!</p>
+  <% end %>
+</section>

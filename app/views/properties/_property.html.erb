@@ -32,7 +32,9 @@
           Posted <%= time_ago_in_words(property.created_at) %> ago.
         </small>
       </p>
-      <%= link_to "View details", property,
+      <% button_text = "View details" if button_text.nil? %>
+      <% button_link = property       if button_link.nil? %>
+      <%= link_to button_text, button_link,
                   class: "btn btn-outline-success rounded-pill" %>
     </div>
   </div>

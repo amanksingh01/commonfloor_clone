@@ -1,0 +1,15 @@
+<% provide(:title, 'Unapproved comments') %>
+<div class="row">
+  <div class="col-md-8 col-lg-6 offset-md-2 offset-lg-3">
+    <h2 class="text-center">Unapproved comments</h2>
+    <p class="text-center">
+      <%= link_to "View property details", @property,
+                  class: "btn btn-outline-success rounded-pill" %>
+    </p>
+    <% if @comments.any? %>
+      <%= render @comments %>
+    <% else %>
+      <p class="text-center">No unapproved comments found!</p>
+    <% end %>
+  </div>
+</div>
