@@ -58,6 +58,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    redirect_to root_url and return if @user.admin?
     @user.destroy
     flash[:success] = "User deleted"
     redirect_to users_url

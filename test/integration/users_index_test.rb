@@ -27,7 +27,7 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
       assert_match mobile_number, response.body
       assert_select "a[href=?]", "tel:#{mobile_number}"
       assert_select 'a[href=?]', user_path(user), text: 'View profile'
-      if user == @admin
+      if user.admin?
         assert_select 'a[href=?]', user_path(user), text: 'Delete', count: 0
       else
         assert_select 'a[href=?]', user_path(user), text: 'Delete'

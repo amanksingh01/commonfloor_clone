@@ -9,7 +9,7 @@
       <% elsif current_user.admin? %>
         <%= link_to "View profile", user,
                     class: "btn btn-outline-success rounded-pill" %>
-        <% unless current_user?(user) %>
+        <% unless user.admin? %>
           <%= link_to "Delete", user,
                       method: :delete,
                       data: { confirm: "You sure?" },
