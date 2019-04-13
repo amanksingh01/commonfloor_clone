@@ -164,12 +164,13 @@ sold:
   pincode: "700123"
   country: "india"
   created_at: <%= 5.days.ago %>
-  sold: true
-  sold_at: <%= Time.zone.now %>
   user: barry
   approved: true
   approved_at: <%= Time.zone.now %>
   approved_by: aman
+  sold: true
+  sold_at: <%= Time.zone.now %>
+  buyer: oliver
 
 sold_oldest:
   owner_name: <%= Faker::Name.name %>
@@ -185,12 +186,13 @@ sold_oldest:
   pincode: "700123"
   country: "india"
   created_at: <%= 5.days.ago %>
-  sold: true
-  sold_at: <%= 4.days.ago %>
   user: aman
   approved: true
   approved_at: <%= 5.days.ago %>
   approved_by: aman
+  sold: true
+  sold_at: <%= 4.days.ago %>
+  buyer: oliver
 
 unapproved:
   owner_name: <%= Faker::Name.name %>

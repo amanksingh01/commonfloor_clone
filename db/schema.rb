@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_10_140144) do
+ActiveRecord::Schema.define(version: 2019_04_12_143043) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -64,14 +64,16 @@ ActiveRecord::Schema.define(version: 2019_04_10_140144) do
     t.string "country"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "sold", default: false
-    t.datetime "sold_at"
     t.boolean "approved", default: false
     t.datetime "approved_at"
     t.integer "approved_by_id"
+    t.boolean "sold", default: false
+    t.datetime "sold_at"
+    t.integer "buyer_id"
     t.index ["approved_by_id"], name: "index_properties_on_approved_by_id"
     t.index ["area"], name: "index_properties_on_area"
     t.index ["bed_rooms"], name: "index_properties_on_bed_rooms"
+    t.index ["buyer_id"], name: "index_properties_on_buyer_id"
     t.index ["city"], name: "index_properties_on_city"
     t.index ["created_at"], name: "index_properties_on_created_at"
     t.index ["locality"], name: "index_properties_on_locality"

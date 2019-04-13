@@ -59,16 +59,25 @@
     </p>
   </div>
   <div class="card-footer bg-transparent border-success">
-    <% user = @property.user %>
+    <% seller = @property.user %>
     <p class="card-text d-flex justify-content-between">
-      Posted by: <span><%= link_to "#{user.name}", user %></span>
+      Posted by: <span><%= link_to "#{seller.name}", seller %></span>
     </p>
     <p class="card-text">
       <small class="text-muted">
         Posted <%= time_ago_in_words(@property.created_at) %> ago.
       </small>
     </p>
-    <% if @property.sold? && (current_user?(user) || current_user.admin?) %>
+    <% if @property.sold? && (current_user?(seller) || current_user.admin?) %>
+      <% buyer = @property.buyer %>
+      <p class="card-text d-flex justify-content-between">
+        Sold to:
+        <% if current_user.admin? %>
+          <span><%= link_to "#{buyer.name}", buyer %></span>
+        <% else %>
+          <span><%= buyer.name %></span>
+        <% end %>
+      </p>
       <p class="card-text">
         <small class="text-muted">
           Sold <%= time_ago_in_words(@property.sold_at) %> ago.
@@ -82,19 +91,15 @@
                   class: "btn btn-block btn-outline-warning rounded-pill" %>
     <% end %>
     <% if @property.approved? %>
-      <% if current_user?(user) && !@property.sold? %>
+      <% if current_user?(seller) && !@property.sold? %>
         <%= link_to "Interested users (#{@property.interested_users.count})",
                     interested_users_property_path(@property),
                     class: "btn btn-block btn-outline-success rounded-pill" %>
-        <%= link_to "Mark as sold", mark_as_sold_property_path(@property),
-                    method: :patch,
-                    data: { confirm: "You sure?" },
-                    class: "btn btn-block btn-outline-warning rounded-pill" %>
       <% else %>
         <%= render 'shared/wishlist_form' %>
       <% end %>
     <% end %>
-    <% if (current_user?(user) || current_user.admin?) && !@property.sold? %>
+    <% if (current_user?(seller) || current_user.admin?) && !@property.sold? %>
       <%= link_to "Modify property details", edit_property_path(@property),
                   class: "btn btn-block btn-outline-success rounded-pill" %>
       <%= link_to "Delete property", @property,

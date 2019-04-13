@@ -38,8 +38,6 @@ class PropertiesShowTest < ActionDispatch::IntegrationTest
                   response.body
     assert_select 'a[href=?]', interested_users_property_path(@property),
                   text: "Interested users (#{@property.interested_users.count})"
-    assert_select 'a[href=?]', mark_as_sold_property_path(@property),
-                  text: "Mark as sold"
     assert_select 'a[href=?]', edit_property_path(@property),
                   text: 'Modify property details'
     assert_select 'a[href=?]', property_path(@property), text: 'Delete property'
@@ -78,19 +76,17 @@ class PropertiesShowTest < ActionDispatch::IntegrationTest
                   interested_users_property_path(@unapproved_property),
                   count: 0
     assert_select 'a[href=?]',
-                  mark_as_sold_property_path(@unapproved_property), count: 0
-    assert_select 'a[href=?]',
                   edit_property_path(@unapproved_property), count: 1
     assert_select 'a[href=?]', property_path(@unapproved_property), count: 1
 
     # Correct links for sold property
     get property_path(@sold_property)
     assert_select 'h2.sold-tag', text: 'Sold'
+    assert_select 'span', text: @non_admin.name
     assert_match  "Sold #{time_ago_in_words(@sold_property.sold_at)} ago",
                   response.body
     assert_select 'a[href=?]', interested_users_property_path(@property),
                   count: 0
-    assert_select 'a[href=?]', mark_as_sold_property_path(@property), count: 0
     assert_select 'a[href=?]', edit_property_path(@property), count: 0
     assert_select 'a[href=?]', property_path(@property), count: 0
   end
@@ -106,7 +102,6 @@ class PropertiesShowTest < ActionDispatch::IntegrationTest
                   wishlist_path(@admin.wishlists.find_by(property: @property))
     assert_select 'a[href=?]', interested_users_property_path(@property),
                   count: 0
-    assert_select 'a[href=?]', mark_as_sold_property_path(@property), count: 0
     assert_select 'a[href=?]', edit_property_path(@property),
                   text: 'Modify property details'
     assert_select 'a[href=?]', property_path(@property), text: 'Delete property'
@@ -139,6 +134,7 @@ class PropertiesShowTest < ActionDispatch::IntegrationTest
 
     # Correct links for sold property
     get property_path(@sold_property)
+    assert_select 'a[href=?]', user_path(@non_admin), text: @non_admin.name
     assert_match "Sold #{time_ago_in_words(@sold_property.sold_at)} ago",
                  response.body
     assert_select 'form[action=?]',
@@ -157,12 +153,13 @@ class PropertiesShowTest < ActionDispatch::IntegrationTest
     assert_select 'form[action=?]', wishlists_path
     assert_select 'a[href=?]', interested_users_property_path(@property),
                   count: 0
-    assert_select 'a[href=?]', mark_as_sold_property_path(@property), count: 0
     assert_select 'a[href=?]', edit_property_path(@property), count: 0
     assert_select 'a[href=?]', property_path(@property), count: 0
 
     # Correct links for sold property
     get property_path(@sold_property)
+    assert_select 'a[href=?]', user_path(@non_admin),
+                  text: @non_admin.name, count: 0
     assert_no_match "Sold #{time_ago_in_words(@sold_property.sold_at)} ago",
                     response.body
     assert_select 'form[action=?]', wishlists_path, count: 0

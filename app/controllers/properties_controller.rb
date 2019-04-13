@@ -1,19 +1,15 @@
 class PropertiesController < ApplicationController
   before_action :logged_in_user,         except: [:index, :search]
   before_action :get_property,           only:   [:edit, :update, :destroy,
-                                                  :interested_users,
-                                                  :mark_as_sold]
+                                                  :interested_users, :sell]
   before_action :get_property_for_admin, only:   [:edit, :update, :destroy,
                                                   :approve]
   before_action :correct_user,           only:   [:edit, :update, :destroy,
-                                                  :interested_users,
-                                                  :mark_as_sold]
+                                                  :interested_users, :sell]
   before_action :admin_user,             only:   [:unapproved, :sold, :approve]
-  before_action :approved_property,      only:   [:interested_users,
-                                                  :mark_as_sold]
+  before_action :approved_property,      only:   [:interested_users, :sell]
   before_action :sold_property,          only:   [:edit, :update, :destroy,
-                                                  :interested_users,
-                                                  :mark_as_sold]
+                                                  :interested_users, :sell]
 
   def index
     @properties = Property.where(approved: true)
@@ -114,9 +110,10 @@ class PropertiesController < ApplicationController
     render 'shared/users'
   end
 
-  def mark_as_sold
-    @property.mark_as_sold
-    flash[:success] = "Property marked as sold!"
+  def sell
+    buyer = User.find(params[:buyer_id])
+    @property.sell(buyer)
+    flash[:success] = "Property sold to #{buyer.name}!"
     redirect_to @property
   end
 

@@ -36,9 +36,13 @@ class FavoritesTest < ActionDispatch::IntegrationTest
     property = properties(:dum_dum)
     get interested_users_property_path(property)
     assert_template 'shared/users'
-    assert_not property.interested_users.empty?
-    property.interested_users.each do |user|
-      assert_select "a[href=?]", user_path(user), text: "View profile"
+    assert_template 'properties/_sell_form'
+    interested_users = property.interested_users
+    assert_select 'form[action=?]', sell_property_path(property),
+                  count: interested_users.count
+    assert_not interested_users.empty?
+    interested_users.each do |user|
+      assert_select 'input[type=submit][value=?]', "Sell to #{user.name}"
     end
   end
 

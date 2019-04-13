@@ -8,7 +8,7 @@
         </h5>
       </div>
     <% end %>
-    <% if property.sold? %>
+    <% if property.sold? && !(action_name == 'bought_properties') %>
       <div class="position-absolute w-100">
         <h2 class="sold-tag text-center text-uppercase text-light bg-secondary">
           Sold

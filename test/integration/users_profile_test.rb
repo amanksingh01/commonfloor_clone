@@ -19,7 +19,7 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
     assert_match assigns(:title), response.body
 
     assert @user.seller?
-    assert_select 'h2', text: 'Properties'
+    assert_select 'h2', text: 'Properties listed for sell'
     assert_template 'shared/_properties'
     assert_template 'shared/_filters'
     assert_select 'aside.filters form[action=?]', user_path(@user)

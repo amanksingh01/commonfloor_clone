@@ -1,6 +1,7 @@
 class Property < ApplicationRecord
   belongs_to :user
   belongs_to :approved_by, class_name: 'User', optional: true
+  belongs_to :buyer,       class_name: 'User', optional: true
 
   has_many :wishlists,        dependent: :destroy
   has_many :interested_users, through:   :wishlists, source: :user
@@ -95,9 +96,11 @@ class Property < ApplicationRecord
                    approved_by_id: approved_by.id)
   end
 
-  # Marks a property as sold.
-  def mark_as_sold
-    update_columns(sold: true, sold_at: Time.zone.now)
+  # Sells a property to user.
+  def sell(buyer)
+    update_columns(sold:     true,
+                   sold_at:  Time.zone.now,
+                   buyer_id: buyer.id)
   end
   
   private

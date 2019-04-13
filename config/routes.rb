@@ -15,7 +15,10 @@ Rails.application.routes.draw do
          to: 'comments#properties_with_unapproved_comments'
   
   resources :users do
-    get :favorites, on: :member
+    member do
+      get :favorites
+      get :bought_properties
+    end
   end
 
   resources :account_activations, only: [:edit]
@@ -30,7 +33,7 @@ Rails.application.routes.draw do
     member do
       patch :approve
       get   :interested_users
-      patch :mark_as_sold
+      patch :sell
     end
 
     resources :comments, only: :create do

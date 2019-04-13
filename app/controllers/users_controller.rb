@@ -2,7 +2,8 @@ class UsersController < ApplicationController
   before_action :logged_in_user, except: [:new, :create]
   before_action :get_user,       except: [:index, :new, :create, :admin,
                                           :sellers]
-  before_action :correct_user,   only:   [:edit, :update, :favorites]
+  before_action :correct_user,   only:   [:edit, :update, :favorites,
+                                          :bought_properties]
   before_action :admin_user,     only:   [:index, :destroy, :admin, :sellers]
   
   def index
@@ -26,7 +27,7 @@ class UsersController < ApplicationController
     filtering_params.each do |key, value|
       @properties = @properties.send(key, value) if value.present?
     end
-    @title = "Properties"
+    @title = "Properties listed for sell"
   end
   
   def new
@@ -81,6 +82,14 @@ class UsersController < ApplicationController
       @properties = @properties.send(key, value) if value.present?
     end
     @title = "Wishlist"
+  end
+
+  def bought_properties
+    @properties = @user.bought_properties
+                       .order(:sold_at)
+                       .paginate(page: params[:page], per_page: 12)
+    @title = "Bought properties"
+    @properties_grid_col = "col-md-6 col-lg-3"
   end
 
   private

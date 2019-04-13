@@ -27,8 +27,10 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
       assert_match mobile_number, response.body
       assert_select "a[href=?]", "tel:#{mobile_number}"
       assert_select 'a[href=?]', user_path(user), text: 'View profile'
-      unless user == @admin
-        assert_select 'a[href=?]', user_path(user), text: 'Delete user'
+      if user == @admin
+        assert_select 'a[href=?]', user_path(user), text: 'Delete', count: 0
+      else
+        assert_select 'a[href=?]', user_path(user), text: 'Delete'
       end
     end
     assert_difference 'User.count', -1 do
@@ -49,10 +51,15 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
     property = properties(:salt_lake)
     get interested_users_property_path(property)
     assert_template 'shared/users'
-    assert_not property.interested_users.empty?
-    property.interested_users.each do |user|
-      assert_select 'a[href=?]', user_path(user), text: 'View profile'
-      assert_select 'a[href=?]', user_path(user), text: 'Delete user', count: 0
+    assert_template 'properties/_sell_form'
+    interested_users = property.interested_users
+    assert_select 'form[action=?]', sell_property_path(property),
+                  count: interested_users.count
+    assert_not interested_users.empty?
+    interested_users.each do |user|
+      assert_select 'input[type=submit][value=?]', "Sell to #{user.name}"
+      assert_select 'a[href=?]', user_path(user), text: 'View profile', count: 0
+      assert_select 'a[href=?]', user_path(user), text: 'Delete', count: 0
     end
   end
 end

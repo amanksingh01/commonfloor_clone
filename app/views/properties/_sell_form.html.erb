@@ -1,0 +1,8 @@
+<div class="sell-form">
+  <%= form_for(@property, url: sell_property_path(@property)) do |f| %>
+    <div><%= hidden_field_tag :buyer_id, user.id %></div>
+    <%= f.submit "Sell to #{user.name}",
+          data: { confirm: "You sure?" },
+          class: "btn btn-outline-success rounded-pill text-wrap" %>
+  <% end %>
+</div>

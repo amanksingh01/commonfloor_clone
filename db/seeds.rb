@@ -4,12 +4,20 @@ User.create!(name:  "Aman Kumar Singh",
              mobile_number: 9876543210,
              password:              "foobar",
              password_confirmation: "foobar",
-             admin:     true,
-             activated: true,
+             admin:        true,
+             activated:    true,
              activated_at: Time.zone.now,
-             seller: true)
+             seller:       true)
 
-29.times do |n|
+User.create!(name:  "Barry Allen",
+             email: "theflash@example.gov",
+             mobile_number: 9876543211,
+             password:              "foobar",
+             password_confirmation: "foobar",
+             activated:    true,
+             activated_at: Time.zone.now)
+
+24.times do |n|
   name = Faker::Name.unique.name
   email = "example-#{n+1}@example.com"
   mobile_number = "9876543#{n+101}"
@@ -19,13 +27,14 @@ User.create!(name:  "Aman Kumar Singh",
                mobile_number: mobile_number,
                password:              password,
                password_confirmation: password,
-               activated: true,
+               activated:    true,
                activated_at: Time.zone.now)
 end
 
 # Properties
 
-user = User.find_by(email: "amanksingh01@gmail.com")
+user  = User.find_by(email: "amanksingh01@gmail.com")
+barry = User.find_by(email: "theflash@example.gov")
 
 # Apartments
 
@@ -206,11 +215,12 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    state:           "west bengal",
                                    pincode:         "700067",
                                    country:         "india",
-                                   sold:            true,
-                                   sold_at:         Time.zone.now,
                                    approved:        true,
                                    approved_at:     Time.zone.now,
-                                   approved_by:     user)
+                                   approved_by:     user,
+                                   sold:            true,
+                                   sold_at:         Time.zone.now,
+                                   buyer:           barry)
 property.image.attach(
   io: File.open("app/assets/images/sample_properties/apartment-09.jpg"),
   filename:     "apartment-09.jpg",
@@ -229,11 +239,12 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    state:           "west bengal",
                                    pincode:         "700013",
                                    country:         "india",
-                                   sold:            true,
-                                   sold_at:         Time.zone.now,
                                    approved:        true,
                                    approved_at:     Time.zone.now,
-                                   approved_by:     user)
+                                   approved_by:     user,
+                                   sold:            true,
+                                   sold_at:         Time.zone.now,
+                                   buyer:           barry)
 property.image.attach(
   io: File.open("app/assets/images/sample_properties/apartment-10.jpg"),
   filename:     "apartment-10.jpg",
@@ -419,11 +430,12 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    state:           "west bengal",
                                    pincode:         "700067",
                                    country:         "india",
-                                   sold:            true,
-                                   sold_at:         Time.zone.now,
                                    approved:        true,
                                    approved_at:     Time.zone.now,
-                                   approved_by:     user)
+                                   approved_by:     user,
+                                   sold:            true,
+                                   sold_at:         Time.zone.now,
+                                   buyer:           barry)
 property.image.attach(
   io: File.open("app/assets/images/sample_properties/house-09.jpg"),
   filename:     "house-09.jpg",
@@ -442,11 +454,12 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    state:           "west bengal",
                                    pincode:         "700013",
                                    country:         "india",
-                                   sold:            true,
-                                   sold_at:         Time.zone.now,
                                    approved:        true,
                                    approved_at:     Time.zone.now,
-                                   approved_by:     user)
+                                   approved_by:     user,
+                                   sold:            true,
+                                   sold_at:         Time.zone.now,
+                                   buyer:           barry)
 property.image.attach(
   io: File.open("app/assets/images/sample_properties/house-10.jpg"),
   filename:     "house-10.jpg",
@@ -548,14 +561,36 @@ property = user.properties.create!(owner_name:      Faker::Name.name,
                                    state:           "west bengal",
                                    pincode:         "700013",
                                    country:         "india",
+                                   approved:        true,
+                                   approved_at:     Time.zone.now,
+                                   approved_by:     user,
                                    sold:            true,
                                    sold_at:         Time.zone.now,
+                                   buyer:           barry)
+property.image.attach(
+  io: File.open("app/assets/images/sample_properties/plot-05.jpg"),
+  filename:     "plot-05.jpg",
+  content_type: "image/jpeg")
+property.save!
+
+property = user.properties.create!(owner_name:      Faker::Name.name,
+                                   property_type:   "plot",
+                                   property_status: "sell",
+                                   bed_rooms:       "na",
+                                   area:            3000,
+                                   price:           6000000,
+                                   street_address:  "146, new town road",
+                                   locality:        "new town",
+                                   city:            "kolkata",
+                                   state:           "west bengal",
+                                   pincode:         "700059",
+                                   country:         "india",
                                    approved:        true,
                                    approved_at:     Time.zone.now,
                                    approved_by:     user)
 property.image.attach(
-  io: File.open("app/assets/images/sample_properties/plot-05.jpg"),
-  filename:     "plot-05.jpg",
+  io: File.open("app/assets/images/sample_properties/plot-06.jpg"),
+  filename:     "plot-06.jpg",
   content_type: "image/jpeg")
 property.save!
 
@@ -585,5 +620,5 @@ end
 # Unapproved comments
 properties[0..4].each do |property|
   comment = Faker::Lorem.paragraph(2)
-  user.comments.create!(property: property, comment: comment)
+  barry.comments.create!(property: property, comment: comment)
 end

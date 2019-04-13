@@ -183,4 +183,23 @@ class UserTest < ActiveSupport::TestCase
     assert_not_nil comment.approved_at
     assert_nil     comment.approved_by
   end
+
+  test "associated bought properties should be nullified" do
+    buyer = users(:oliver)
+    property = properties(:new_town)
+
+    assert_not     property.sold?
+    assert_nil     property.sold_at
+    assert_nil     property.buyer
+    
+    property.sell(buyer)
+    assert         property.reload.sold?
+    assert_not_nil property.sold_at
+    assert_equal   buyer, property.buyer
+
+    buyer.destroy
+    assert         property.reload.sold?
+    assert_not_nil property.sold_at
+    assert_nil     property.buyer
+  end
 end

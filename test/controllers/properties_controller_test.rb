@@ -127,10 +127,10 @@ class PropertiesControllerTest < ActionDispatch::IntegrationTest
     assert_not flash.empty?
   end
 
-  test "should redirect mark_as_sold when not logged in" do
+  test "should redirect sell when not logged in" do
     assert_not @property.sold?
-    patch mark_as_sold_property_path(@property)
-    assert_not @property.sold?
+    patch sell_property_path(@property), params: { buyer_id: @other_user.id }
+    assert_not @property.reload.sold?
     assert_redirected_to login_url
     assert_not flash.empty?
   end
@@ -201,11 +201,11 @@ class PropertiesControllerTest < ActionDispatch::IntegrationTest
     assert flash.empty?
   end
 
-  test "should redirect mark_as_sold when logged in as wrong user" do
+  test "should redirect sell when logged in as wrong user" do
     log_in_as(@other_user)
     assert_not @property.sold?
-    patch mark_as_sold_property_path(@property)
-    assert_not @property.sold?
+    patch sell_property_path(@property), params: { buyer_id: @other_user.id }
+    assert_not @property.reload.sold?
     assert_redirected_to root_url
     assert flash.empty?
   end
@@ -259,16 +259,22 @@ class PropertiesControllerTest < ActionDispatch::IntegrationTest
     assert flash.empty?
   end
 
-  test "should redirect mark as sold for unapproved property" do
+  test "should redirect sell for unapproved property" do
     log_in_as(@user)
-    patch mark_as_sold_property_path(@unapproved_property)
+    assert_not @unapproved_property.sold?
+    patch sell_property_path(@unapproved_property), params: {
+                                                      buyer_id: @other_user.id }
+    assert_not @unapproved_property.reload.sold?
     assert_redirected_to root_url
     assert flash.empty?
   end
 
-  test "should redirect mark as sold for sold property" do
+  test "should redirect sell for sold property" do
     log_in_as(@user)
-    patch mark_as_sold_property_path(@sold_property)
+    assert_not @unapproved_property.sold?
+    patch sell_property_path(@sold_property), params: {
+                                                buyer_id: @other_user.id }
+    assert_not @unapproved_property.reload.sold?
     assert_redirected_to root_url
     assert flash.empty?
   end
