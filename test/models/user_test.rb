@@ -88,6 +88,14 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.authenticated?(:remember, '')
   end
 
+  test "associated identities should be destroyed" do
+    @user.save
+    @user.identities.create!(uid: 'uid', provider: 'provider')
+    assert_difference 'Identity.count', -1 do
+      @user.destroy
+    end
+  end
+
   test "associated properties should be destroyed" do
     @user.save
     @user.properties.create!(property_type:   "apartment",

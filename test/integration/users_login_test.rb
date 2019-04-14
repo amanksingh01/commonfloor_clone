@@ -9,9 +9,11 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
   test "login with invalid information" do
     get login_path
     assert_template 'sessions/new'
+    assert_template 'shared/_social_login'
     assert_select 'a[href=?]', login_path,  count: 1
     assert_select 'a[href=?]', signup_path, count: 2
     assert_select 'a[href=?]', new_password_reset_path
+    assert_select 'a[href=?]', '/auth/google_oauth2'
     post login_path, params: { session: { email: "", password: "" } }
     assert_template 'sessions/new'
     assert_not flash.empty?

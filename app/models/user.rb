@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :identities,          dependent: :destroy
+
   has_many :properties,          dependent:   :destroy
   
   has_many :approved_properties, class_name:  'Property',
@@ -32,21 +34,32 @@ class User < ApplicationRecord
                             format: { with: VALID_EMAIL_REGEX },
                             uniqueness: { case_sensitive: false }
   VALID_MOBILE_NUMBER_REGEX = /\A[6789][0-9]{9}\z/
-  validates :mobile_number, format: { with: VALID_MOBILE_NUMBER_REGEX }
+  validates :mobile_number, format: { with: VALID_MOBILE_NUMBER_REGEX },
+                            allow_nil: true
   validates :password,      presence: true, length: { minimum: 6 },
                             allow_nil: true
 
-  class << self
-    # Returns the hash digest of the given string
-    def digest(string)
-      cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
-                                                    BCrypt::Engine.cost
-      BCrypt::Password.create(string, cost: cost)
-    end
+  # Returns the hash digest of the given string
+  def self.digest(string)
+    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
+                                                  BCrypt::Engine.cost
+    BCrypt::Password.create(string, cost: cost)
+  end
 
-    # Returns a random token
-    def new_token
-      SecureRandom.urlsafe_base64
+  # Returns a random token
+  def self.new_token
+    SecureRandom.urlsafe_base64
+  end
+
+  def self.find_or_create_with_omniauth(auth)
+    where(email: auth.info.email).first_or_initialize do |user|
+      user.name            = auth.info.name
+      user.email           = auth.info.email
+      user.mobile_number   = auth.info.mobile_number
+      user.password_digest = digest(new_token)
+      user.activated       = true
+      user.activated_at    = Time.zone.now
+      user.save
     end
   end
 

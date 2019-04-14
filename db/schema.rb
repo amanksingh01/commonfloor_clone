@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_12_143043) do
+ActiveRecord::Schema.define(version: 2019_04_14_083922) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -46,6 +46,16 @@ ActiveRecord::Schema.define(version: 2019_04_12_143043) do
     t.index ["property_id", "created_at"], name: "index_comments_on_property_id_and_created_at"
     t.index ["property_id"], name: "index_comments_on_property_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "identities", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "uid"
+    t.string "provider"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["uid", "provider"], name: "index_identities_on_uid_and_provider", unique: true
+    t.index ["user_id"], name: "index_identities_on_user_id"
   end
 
   create_table "properties", force: :cascade do |t|
