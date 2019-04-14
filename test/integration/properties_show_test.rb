@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class PropertiesShowTest < ActionDispatch::IntegrationTest
+  include PropertiesHelper
   include ActionView::Helpers::DateHelper
   
   def setup
@@ -36,6 +37,18 @@ class PropertiesShowTest < ActionDispatch::IntegrationTest
     assert_select 'a[href=?]', user_path(@seller), text: @seller.name
     assert_match  "Posted #{time_ago_in_words(@property.created_at)} ago",
                   response.body
+    
+    # Share links
+    assert_template 'shared/_social_share'
+    share_link = "https://www.facebook.com/sharer/sharer.php?" +
+                 "u=#{property_url(@property)}"
+    assert_select 'a[href=?]', share_link
+    tweet_link = "https://www.twitter.com/intent/tweet?" +
+                  "text=#{CGI.escape(property_title(@property))}&" +
+                  "url=#{property_url(@property)}"
+    assert_select 'a[href=?]', tweet_link
+
+    # Other Links
     assert_select 'a[href=?]', interested_users_property_path(@property),
                   text: "Interested users (#{@property.interested_users.count})"
     assert_select 'a[href=?]', edit_property_path(@property),
@@ -70,6 +83,15 @@ class PropertiesShowTest < ActionDispatch::IntegrationTest
     assert_select 'h3',
                   text: "Comments (#{@unapproved_property.comments.count})",
                   count: 0
+    
+    share_link = "https://www.facebook.com/sharer/sharer.php?" +
+                 "u=#{property_url(@unapproved_property)}"
+    assert_select 'a[href=?]', share_link, count: 0
+    tweet_link = "https://www.twitter.com/intent/tweet?" +
+                  "text=#{CGI.escape(property_title(@unapproved_property))}&" +
+                  "url=#{property_url(@unapproved_property)}"
+    assert_select 'a[href=?]', tweet_link, count: 0
+    
     assert_select 'a[href=?]', approve_property_path(@unapproved_property),
                   count: 0
     assert_select 'a[href=?]',
@@ -85,6 +107,15 @@ class PropertiesShowTest < ActionDispatch::IntegrationTest
     assert_select 'span', text: @non_admin.name
     assert_match  "Sold #{time_ago_in_words(@sold_property.sold_at)} ago",
                   response.body
+    
+    share_link = "https://www.facebook.com/sharer/sharer.php?" +
+                 "u=#{property_url(@sold_property)}"
+    assert_select 'a[href=?]', share_link, count: 0
+    tweet_link = "https://www.twitter.com/intent/tweet?" +
+                  "text=#{CGI.escape(property_title(@sold_property))}&" +
+                  "url=#{property_url(@sold_property)}"
+    assert_select 'a[href=?]', tweet_link, count: 0
+    
     assert_select 'a[href=?]', interested_users_property_path(@property),
                   count: 0
     assert_select 'a[href=?]', edit_property_path(@property), count: 0

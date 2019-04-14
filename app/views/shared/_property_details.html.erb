@@ -89,6 +89,9 @@
         </small>
       </p>
     <% end %>
+    <% if @property.approved? && !@property.sold? %>
+      <%= render 'shared/social_share' %>
+    <% end %>
     <% if !@property.approved? && current_user.admin? %>
       <%= link_to "Approve property details", approve_property_path(@property),
                   method: :patch,

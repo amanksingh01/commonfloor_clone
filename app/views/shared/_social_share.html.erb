@@ -1,0 +1,19 @@
+<div class="mb-3">
+  <% share_link = "https://www.facebook.com/sharer/sharer.php?" +
+                  "u=#{property_url(@property)}" %>
+  <%= link_to share_link,
+              target: "_blank",
+              rel:    "nofollow",
+              class: "btn btn-outline-success rounded-pill" do %>
+    <%= icon 'fab', 'facebook-square', 'Share'%>
+  <% end %>
+  <% tweet_link = "https://www.twitter.com/intent/tweet?" +
+                  "text=#{CGI.escape(property_title(@property))}&" +
+                  "url=#{property_url(@property)}" %>
+  <%= link_to tweet_link,
+              target: "_blank",
+              rel:    "nofollow",
+              class: "btn btn-outline-success rounded-pill" do %>
+    <%= icon 'fab', 'twitter-square', 'Tweet'%>
+  <% end %>
+</div>
