@@ -14,6 +14,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert_select 'a[href=?]', signup_path, count: 2
     assert_select 'a[href=?]', new_password_reset_path
     assert_select 'a[href=?]', '/auth/google_oauth2'
+    assert_select 'a[href=?]', '/auth/facebook'
     post login_path, params: { session: { email: "", password: "" } }
     assert_template 'sessions/new'
     assert_not flash.empty?

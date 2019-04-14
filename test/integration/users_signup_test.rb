@@ -13,6 +13,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     assert_select 'a[href=?]', login_path,  count: 2
     assert_select 'a[href=?]', signup_path, count: 1
     assert_select 'a[href=?]', '/auth/google_oauth2'
+    assert_select 'a[href=?]', '/auth/facebook'
     assert_no_difference 'User.count' do
       post signup_path, params: { user: { name:  "",
                                           email: "user@invalid",
