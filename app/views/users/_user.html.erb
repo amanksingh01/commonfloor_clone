@@ -2,7 +2,9 @@
   <div class="card border-success mb-3">
     <div class="card-body">
       <h5 class="card-title"><%= user.name %></h5>
-      <p class="card-text"><%= mail_to user.email %></p>
+      <p class="card-text">
+        <%= mail_to user.email, user.email, class: "text-success" %>
+      </p>
       <% if user.mobile_number.present? %>
         <p class="card-text"><%= tel_to user.mobile_number %></p>
       <% end %>

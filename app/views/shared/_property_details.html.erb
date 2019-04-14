@@ -61,7 +61,10 @@
   <div class="card-footer bg-transparent border-success">
     <% seller = @property.user %>
     <p class="card-text d-flex justify-content-between">
-      Posted by: <span><%= link_to "#{seller.name}", seller %></span>
+      Posted by:
+      <span>
+        <%= link_to "#{seller.name}", seller, class: "text-success" %>
+      </span>
     </p>
     <p class="card-text">
       <small class="text-muted">
@@ -73,7 +76,9 @@
       <p class="card-text d-flex justify-content-between">
         Sold to:
         <% if current_user.admin? %>
-          <span><%= link_to "#{buyer.name}", buyer %></span>
+          <span>
+            <%= link_to "#{buyer.name}", buyer, class: "text-success" %>
+          </span>
         <% else %>
           <span><%= buyer.name %></span>
         <% end %>
