@@ -7,12 +7,14 @@ class HomePageTest < ActionDispatch::IntegrationTest
     assert_template 'static_pages/home'
     assert_template 'static_pages/_home_page_properties'
     assert_template 'properties/_property'
+
     assert_select 'a[href=?]', properties_path(property_type: "apartment",
                                                order_by:      "desc")
     assert_select 'a[href=?]', properties_path(property_type: "house",
                                                order_by:      "desc")
     assert_select 'a[href=?]', properties_path(property_type: "plot",
                                                order_by:      "desc")
+    
     apartments = Property.where(approved: true)
                          .where(sold: false)
                          .property_type("apartment")
@@ -28,8 +30,15 @@ class HomePageTest < ActionDispatch::IntegrationTest
                          .property_type("plot")
                          .order_by("desc")
                          .take(4)
+    
     assert_equal apartments, assigns(:apartments)
     assert_equal houses,     assigns(:houses)
     assert_equal plots,      assigns(:plots)
+
+    assert_select 'section.properties-stats h5', text: 'Properties Stats'
+    assert_select 'section.properties-stats p',
+      text: "Properties listed: #{Property.where(approved: true).count}"
+    assert_select 'section.properties-stats p',
+      text: "Properties sold: #{Property.where(sold: true).count}"
   end
 end
