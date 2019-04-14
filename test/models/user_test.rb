@@ -22,11 +22,6 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
   end
 
-  test "mobile number should be present" do
-    @user.mobile_number = "     "
-    assert_not @user.valid?
-  end
-
   test "name should not be too long" do
     @user.name = "a" * 51
     assert_not @user.valid?
@@ -68,12 +63,6 @@ class UserTest < ActiveSupport::TestCase
   test "email addresses should be unique" do
     duplicate_user = @user.dup
     duplicate_user.email = @user.email.upcase
-    @user.save
-    assert_not duplicate_user.valid?
-  end
-
-  test "mobile number should be unique" do
-    duplicate_user = @user.dup
     @user.save
     assert_not duplicate_user.valid?
   end

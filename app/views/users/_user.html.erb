@@ -3,7 +3,9 @@
     <div class="card-body">
       <h5 class="card-title"><%= user.name %></h5>
       <p class="card-text"><%= mail_to user.email %></p>
-      <p class="card-text"><%= tel_to user.mobile_number %></p>
+      <% if user.mobile_number.present? %>
+        <p class="card-text"><%= tel_to user.mobile_number %></p>
+      <% end %>
       <% if action_name == 'interested_users' && !@property.sold? %>
           <%= render 'sell_form', user: user %>
       <% elsif current_user.admin? %>

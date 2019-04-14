@@ -32,9 +32,7 @@ class User < ApplicationRecord
                             format: { with: VALID_EMAIL_REGEX },
                             uniqueness: { case_sensitive: false }
   VALID_MOBILE_NUMBER_REGEX = /\A[6789][0-9]{9}\z/
-  validates :mobile_number, presence: true,
-                            format: { with: VALID_MOBILE_NUMBER_REGEX },
-                            uniqueness: true
+  validates :mobile_number, format: { with: VALID_MOBILE_NUMBER_REGEX }
   validates :password,      presence: true, length: { minimum: 6 },
                             allow_nil: true
 

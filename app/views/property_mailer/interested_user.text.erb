@@ -5,7 +5,9 @@ Hi <%= @seller.name %>,
 The contact details of <%= @user.name %> are as follows:
 
 Email: <%= @user.email %>
+<% if @user.mobile_number.present? %>
 Mobile Number: +91 <%= @user.mobile_number %>
+<% end %>
 
 You can also view the list of all the users interested in this property by navigating to the link below:
 

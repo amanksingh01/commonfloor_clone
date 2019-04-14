@@ -99,7 +99,6 @@ ActiveRecord::Schema.define(version: 2019_04_12_143043) do
     t.datetime "reset_sent_at"
     t.boolean "seller", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["mobile_number"], name: "index_users_on_mobile_number", unique: true
   end
 
   create_table "wishlists", force: :cascade do |t|
