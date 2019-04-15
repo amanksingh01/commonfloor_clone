@@ -18,9 +18,11 @@ Rails.application.configure do
   if Rails.root.join('tmp', 'caching-dev.txt').exist?
     config.action_controller.perform_caching = true
 
-    config.cache_store = :memory_store
-    config.public_file_server.headers = {
-      'Cache-Control' => "public, max-age=#{2.days.to_i}"
+    redis_server = "redis://127.0.0.1:6379/0"
+    config.cache_store = :redis_cache_store, {
+      driver:    :hiredis,
+      url:       redis_server,
+      namespace: 'commonfloor_clone'
     }
   else
     config.action_controller.perform_caching = false

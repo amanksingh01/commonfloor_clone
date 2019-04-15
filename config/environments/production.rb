@@ -62,7 +62,11 @@ Rails.application.configure do
   config.log_tags = [ :request_id ]
 
   # Use a different cache store in production.
-  # config.cache_store = :mem_cache_store
+  config.cache_store = :redis_cache_store, { 
+    driver:    :hiredis,
+    url:       ENV['REDIS_URL'],
+    namespace: 'commonfloor_clone'
+  }
 
   # Use a real queuing backend for Active Job (and separate queues per
   # environment)

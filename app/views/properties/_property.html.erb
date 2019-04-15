@@ -1,41 +1,43 @@
-<div class="<%= @properties_grid_col.nil? ? "col-md-6 col-lg-4" :
-                                            @properties_grid_col %>">
-  <div class="card border-success mb-3" id="property-<%= property.id %>">
-    <% unless property.approved? %>
-      <div class="position-absolute w-100">
-        <h5 class="unapproved-tag text-center text-uppercase bg-warning">
-          Pending approval
+<% cache property do %>
+  <div class="<%= @properties_grid_col.nil? ? "col-md-6 col-lg-4" :
+                                              @properties_grid_col %>">
+    <div class="card border-success mb-3" id="property-<%= property.id %>">
+      <% unless property.approved? %>
+        <div class="position-absolute w-100">
+          <h5 class="unapproved-tag text-center text-uppercase bg-warning">
+            Pending approval
+          </h5>
+        </div>
+      <% end %>
+      <% if property.sold? && !(action_name == 'bought_properties') %>
+        <div class="position-absolute w-100">
+          <h2 class="sold-tag text-center text-uppercase text-light bg-secondary">
+            Sold
+          </h2>
+        </div>
+      <% end %>
+      <% if property.image.attached? %>
+        <%= image_tag(property.image, class: "card-img-top",
+                                      alt:   "Property image") %>
+      <% else %>
+        <%= image_tag("fallback/default.jpg", class: "card-img-top",
+                                              alt:   "Property image") %>
+      <% end %>
+      <div class="card-body">
+        <h5 class="card-title">
+          <%= property_title(property) %>
         </h5>
+        <p class="card-text">&#x20b9 <%= property.price %></p>
+        <p class="card-text">
+          <small class="text-muted">
+            Posted <%= time_ago_in_words(property.created_at) %> ago.
+          </small>
+        </p>
+        <% button_text = "View details" if button_text.nil? %>
+        <% button_link = property       if button_link.nil? %>
+        <%= link_to button_text, button_link,
+                    class: "btn btn-outline-success rounded-pill" %>
       </div>
-    <% end %>
-    <% if property.sold? && !(action_name == 'bought_properties') %>
-      <div class="position-absolute w-100">
-        <h2 class="sold-tag text-center text-uppercase text-light bg-secondary">
-          Sold
-        </h2>
-      </div>
-    <% end %>
-    <% if property.image.attached? %>
-      <%= image_tag(property.image, class: "card-img-top",
-                                    alt:   "Property image") %>
-    <% else %>
-      <%= image_tag("fallback/default.jpg", class: "card-img-top",
-                                            alt:   "Property image") %>
-    <% end %>
-    <div class="card-body">
-      <h5 class="card-title">
-        <%= property_title(property) %>
-      </h5>
-      <p class="card-text">&#x20b9 <%= property.price %></p>
-      <p class="card-text">
-        <small class="text-muted">
-          Posted <%= time_ago_in_words(property.created_at) %> ago.
-        </small>
-      </p>
-      <% button_text = "View details" if button_text.nil? %>
-      <% button_link = property       if button_link.nil? %>
-      <%= link_to button_text, button_link,
-                  class: "btn btn-outline-success rounded-pill" %>
     </div>
   </div>
-</div>
+<% end %>
