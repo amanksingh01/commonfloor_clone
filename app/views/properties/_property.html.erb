@@ -1,4 +1,4 @@
-<% cache property do %>
+<% cache_if action_name == 'favorites', property do %>
   <div class="<%= @properties_grid_col.nil? ? "col-md-6 col-lg-4" :
                                               @properties_grid_col %>">
     <div class="card border-success mb-3" id="property-<%= property.id %>">
