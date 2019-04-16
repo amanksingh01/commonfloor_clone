@@ -40,5 +40,7 @@ class HomePageTest < ActionDispatch::IntegrationTest
       text: "Properties listed: #{Property.where(approved: true).count}"
     assert_select 'section.properties-stats p',
       text: "Properties sold: #{Property.where(sold: true).count}"
+    assert_select 'section.visitors-stats p',
+      text: "Visitors count: #{Visitor.visitors_count}"
   end
 end

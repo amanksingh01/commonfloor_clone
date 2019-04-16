@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_14_083922) do
+ActiveRecord::Schema.define(version: 2019_04_16_083607) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -109,6 +109,13 @@ ActiveRecord::Schema.define(version: 2019_04_14_083922) do
     t.datetime "reset_sent_at"
     t.boolean "seller", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
+  end
+
+  create_table "visitors", force: :cascade do |t|
+    t.string "remote_ip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["remote_ip"], name: "index_visitors_on_remote_ip", unique: true
   end
 
   create_table "wishlists", force: :cascade do |t|

@@ -1,18 +1,6 @@
 <footer class="text-center mt-auto">
   <% if action_name == 'home' %>
-    <div class="container py-3">
-      <section class="properties-stats card bg-light">
-        <div class="card-body">
-          <h5 class="card-title">Properties Stats</h5>
-          <p class="card-text">
-            Properties listed: <%= Property.where(approved: true).count %>
-          </p>
-          <p class="card-text">
-            Properties sold: <%= Property.where(sold: true).count %>
-          </p>
-        </div>
-      </section>
-    </div>
+    <%= render 'home_page_stats' %>
   <% end %>
   <nav class="navbar navbar-expand flex-column flex-lg-row justify-content-lg-between navbar-dark bg-dark">
     <ul class="navbar-nav">

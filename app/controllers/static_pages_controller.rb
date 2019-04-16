@@ -1,5 +1,13 @@
 class StaticPagesController < ApplicationController
   def home
+    visitor = Visitor.find_or_initialize_by(remote_ip: request.remote_ip)
+    if visitor.new_record?
+      visitor.save
+      if Rails.cache.fetch('visitors_count')
+        Rails.cache.write('visitors_count',
+                          Rails.cache.read('visitors_count') + 1)
+      end
+    end
     @apartments = Property.where(approved: true)
                           .where(sold: false)
                           .property_type("apartment")
