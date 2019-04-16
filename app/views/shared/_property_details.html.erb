@@ -1,4 +1,13 @@
-<div class="card border-success mb-3">
+<% if @property.approved? %>
+  <% if @property.sold? %>
+    <% border_color = "border-secondary" %>
+  <% else %>
+    <% border_color = "border-success" %>
+  <% end %>
+<% else %>
+  <% border_color = "border-warning" %>
+<% end %>
+<div class="card <%= border_color %> mb-3">
   <% if @property.image.attached? %>
     <%= image_tag(@property.image, class: "card-img-top",
                                    alt:   "Property image") %>
@@ -58,7 +67,7 @@
       Country: <span><%= @property.country.titleize %></span>
     </p>
   </div>
-  <div class="card-footer bg-transparent border-success">
+  <div class="card-footer bg-transparent <%= border_color %>">
     <% seller = @property.user %>
     <p class="card-text d-flex justify-content-between">
       Posted by:

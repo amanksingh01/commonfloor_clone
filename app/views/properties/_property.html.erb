@@ -1,7 +1,19 @@
+<% if property.approved? %>
+  <% if property.sold? %>
+    <% border_color = "border-secondary" %>
+    <% button_color = "btn-outline-secondary" %>
+  <% else %>
+    <% border_color = "border-success" %>
+    <% button_color = "btn-outline-success" %>
+  <% end %>
+<% else %>
+  <% border_color = "border-warning" %>
+  <% button_color = "btn-outline-warning" %>
+<% end %>
 <% cache_if action_name == 'favorites', property do %>
   <div class="<%= @properties_grid_col.nil? ? "col-md-6 col-lg-4" :
                                               @properties_grid_col %>">
-    <div class="card border-success mb-3" id="property-<%= property.id %>">
+    <div class="card <%= border_color %> mb-3" id="property-<%= property.id %>">
       <% unless property.approved? %>
         <div class="position-absolute w-100">
           <h5 class="unapproved-tag text-center text-uppercase bg-warning">
@@ -36,7 +48,7 @@
         <% button_text = "View details" if button_text.nil? %>
         <% button_link = property       if button_link.nil? %>
         <%= link_to button_text, button_link,
-                    class: "btn btn-outline-success rounded-pill" %>
+                    class: "btn #{button_color} rounded-pill" %>
       </div>
     </div>
   </div>
