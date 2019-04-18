@@ -10,6 +10,13 @@ class ApplicationController < ActionController::Base
 
     # Before filters
 
+    def already_logged_in
+      if logged_in?
+        flash[:warning] = "You are already logged in!"
+        redirect_to root_url
+      end
+    end
+
     # Confirms a logged-in user.
     def logged_in_user
       unless logged_in?

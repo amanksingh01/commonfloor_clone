@@ -56,6 +56,26 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_not @other_user.reload.admin?
   end
 
+  test "should redirect new if the user is already logged in" do
+    log_in_as(users(:aman))
+    get signup_path
+    assert_redirected_to root_url
+    assert_not flash.empty?
+  end
+
+  test "should redirect create if the user is already logged in" do
+    log_in_as(users(:aman))
+    assert_no_difference 'User.count', 1 do
+      post signup_path, params: { user: { name:  "Example User",
+                                          email: "user@example.com",
+                                          mobile_number: "9876543210",
+                                          password:              "password",
+                                          password_confirmation: "password" } }
+    end
+    assert_redirected_to root_url
+    assert_not flash.empty?
+  end
+
   test "should redirect edit when logged in as wrong user" do
     log_in_as(@other_user)
     get edit_user_path(@user)

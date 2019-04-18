@@ -1,10 +1,11 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, except: [:new, :create]
-  before_action :get_user,       except: [:index, :new, :create, :admin,
-                                          :sellers]
-  before_action :correct_user,   only:   [:edit, :update, :favorites,
-                                          :bought_properties]
-  before_action :admin_user,     only:   [:index, :destroy, :admin, :sellers]
+  before_action :already_logged_in, only:   [:new, :create]
+  before_action :logged_in_user,    except: [:new, :create]
+  before_action :get_user,          except: [:index, :new, :create, :admin,
+                                             :sellers]
+  before_action :correct_user,      only:   [:edit, :update, :favorites,
+                                             :bought_properties]
+  before_action :admin_user,        only:   [:index, :destroy, :admin, :sellers]
   
   def index
     @users = User.where(activated: true)

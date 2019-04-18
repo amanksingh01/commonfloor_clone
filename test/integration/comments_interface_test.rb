@@ -33,6 +33,7 @@ class CommentsInterfaceTest < ActionDispatch::IntegrationTest
     assert_redirected_to @property
     follow_redirect!
     assert_select "div#comment-#{comment.id}", count: 0
+    delete logout_path
     log_in_as(@admin)
     get property_path(@property)
     assert_select "div#comment-#{comment.id}"
@@ -56,6 +57,7 @@ class CommentsInterfaceTest < ActionDispatch::IntegrationTest
     end
 
     # Login with a different user (no delete links)
+    delete logout_path
     log_in_as(@other_user)
     get property_path(@property)
     assert_select 'a', text: 'Delete', count: 0
